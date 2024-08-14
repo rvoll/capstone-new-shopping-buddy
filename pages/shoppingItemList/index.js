@@ -22,7 +22,7 @@ export default function Volumes() {
       <ul>
         {shoppingItems.map((shoppingItem) => (
           <li key={shoppingItem.slug}>
-            {shoppingItem.quantity} {shoppingItem.name},{shoppingItem.category}
+            {shoppingItem.quantity} {shoppingItem.name}, {shoppingItem.category}
             <Link href={`/shoppingItems/${shoppingItem.slug}`}>Details</Link>
           </li>
         ))}

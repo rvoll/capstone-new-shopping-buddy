@@ -1,0 +1,12 @@
+[
+  { "categoryId": 1, "category": "Dairy" },
+  { "categoryId": 2, "category": "Bakery" },
+  { "categoryId": 3, "category": "Fruits" },
+  { "categoryId": 4, "category": "Vegetables" },
+  { "categoryId": 5, "category": "Meat" },
+  { "categoryId": 6, "category": "Beverages" },
+  { "categoryId": 7, "category": "Snacks" },
+  { "categoryId": 8, "category": "Household" },
+  { "categoryId": 9, "category": "Personal Care" },
+  { "categoryId": 10, "category": "Other" }
+]
