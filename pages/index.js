@@ -1,5 +1,5 @@
 import Link from "next/link";
-// import styles from "@/styles/Home.module.css";
+import styles from "@/styles/Home.module.css";
 // import { Mada } from "next/font/google";
 // import { Bilbo_Swash_Caps } from "next/font/google";
 
@@ -15,9 +15,22 @@ import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <main>
-      <h1>Link to the Shopping List:</h1>
-      <Link href="/shoppingItemList">Click here!</Link>
+    <main className={`${styles.main}`}>
+      <h1 className={`${styles.heading}`}>
+        Here´s your current Shopping List:
+      </h1>
+      <Link className={styles.link} href="/shoppingItemList">
+        Click here!
+      </Link>
     </main>
   );
+}
+
+{
+  /* <main className={`${styles.main}`}>
+  <h1 className={`${styles.heading}`}>Link to the volume overview:</h1>
+  <Link className={styles.link} href="/volumes">
+    Click here!
+  </Link>
+</main>; */
 }
