@@ -72,31 +72,32 @@ export const shoppingItems = [
     category: "Snacks",
     comment: "Salted, large bag, prefer brand C",
   },
-  // {
-  //   "id": "8",
-  //   "name": "Dish Soap",
-  //   "imageUrl": "",
-  //   "quantity": 1,
-  //   "category": "Household",
-  //   "comment": "Lemon scented, 500ml, eco-friendly"
-  // },
-  // {
-  //   "id": "9",
-  //   "name": "Shampoo",
-  //   "imageUrl": "",
-  //   "quantity": 1,
-  //   "category": "Personal Care",
-  //   "comment": "For dry hair, 250ml, prefer brand D"
-  // },
-  // {
-  //   "id": "10",
-  //   "name": "Paper Towels",
-  //   "imageUrl": "",
-  //   "quantity": 2,
-  //   "category": "Household",
-  //   "comment": "Extra absorbent, 6 rolls each pack, prefer brand E"
-  // }
 ];
+// {
+//   "id": "8",
+//   "name": "Dish Soap",
+//   "imageUrl": "",
+//   "quantity": 1,
+//   "category": "Household",
+//   "comment": "Lemon scented, 500ml, eco-friendly"
+// },
+// {
+//   "id": "9",
+//   "name": "Shampoo",
+//   "imageUrl": "",
+//   "quantity": 1,
+//   "category": "Personal Care",
+//   "comment": "For dry hair, 250ml, prefer brand D"
+// },
+// {
+//   "id": "10",
+//   "name": "Paper Towels",
+//   "imageUrl": "",
+//   "quantity": 2,
+//   "category": "Household",
+//   "comment": "Extra absorbent, 6 rolls each pack, prefer brand E"
+// }
+// ];
 
 // export const introduction =
 //   "The Lord of the Rings is an epic high-fantasy novel by English author and scholar J. R. R. Tolkien. Set in Middle-earth, intended to be Earth at some time in the distant past, the story began as a sequel to Tolkien's 1937 children's book The Hobbit, but eventually developed into a much larger work. Written in stages between 1937 and 1949, The Lord of the Rings is one of the best-selling books ever written, with over 150 million copies sold.";
