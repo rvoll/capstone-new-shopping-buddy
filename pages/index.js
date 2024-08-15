@@ -1,24 +1,21 @@
+import { shoppingItems } from "../lib/categoriesData.js/index.js";
 import Link from "next/link";
-import styles from "@/styles/Home.module.css";
+import { useRouter } from "next/router";
 
-export default function HomePage() {
+export default function ShoppingItemsList() {
+  const router = useRouter();
+
   return (
-    <main className={`${styles.main}`}>
-      <h1 className={`${styles.heading}`}>
-        Here´s your current Shopping List:
-      </h1>
-      <Link className={styles.link} href="/shoppingItemsList">
-        Take a look!
-      </Link>
+    <main>
+      <h1>Shopping Items</h1>
+      <ul>
+        {shoppingItems.map((shoppingItem) => (
+          <li key={shoppingItem.slug}>
+            {shoppingItem.quantity} {shoppingItem.name}, {shoppingItem.category}
+            <Link href={`/shoppingItems/${shoppingItem.slug}`}>Details</Link>
+          </li>
+        ))}
+      </ul>
     </main>
   );
-}
-
-{
-  /* <main className={`${styles.main}`}>
-  <h1 className={`${styles.heading}`}>Link to the volume overview:</h1>
-  <Link className={styles.link} href="/volumes">
-    Click here!
-  </Link>
-</main>; */
 }
