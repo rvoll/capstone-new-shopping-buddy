@@ -1,13 +1,10 @@
-import { shoppingItems } from "./lib/shoppingItemsData.js";
+import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
-export default function ShoppingItemsList() {
-  const router = useRouter();
-
+export default function ShoppingItem() {
   return (
     <main>
-      <h1> Shopping Items ({shoppingItems.length}) </h1>
+      <h1>Shopping Items</h1>
       <ul>
         {shoppingItems.map((shoppingItem) => (
           <li key={shoppingItem.slug}>
