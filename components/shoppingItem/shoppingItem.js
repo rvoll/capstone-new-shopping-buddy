@@ -1,18 +1,17 @@
 import React from "react";
 import Link from "next/link";
 
-export default function ShoppingItem({ id, name }) {
+export default function ShoppingItem({ id, name, quantity, category }) {
   return (
-    <main>
-      <h1>Shopping Items</h1>
-      <ul>
-        {shoppingItems.map((shoppingItem) => (
-          <li key={shoppingItem.id}>
-            {shoppingItem.quantity} {shoppingItem.name}, {shoppingItem.category}
-            <Link href={`/shoppingItems/${shoppingItem.slug}`}>Details</Link>
-          </li>
-        ))}
-      </ul>
-    </main>
+    <>
+      <h1>
+        {shoppingItem.quantity} {shoppingItem.name}
+      </h1>
+      <p> {shoppingItem.category}</p>
+    </>
   );
+}
+
+{
+  /* <Link href={`/shoppingItems/${shoppingItem.slug}`}>Details</Link> */
 }
