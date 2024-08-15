@@ -1,4 +1,4 @@
-import { shoppingItems } from "../lib/data.js";
+import { shoppingItems } from "../lib/categoriesData.js/index.js";
 // import { categories } from "@/lib/data";
 import Link from "next/link";
 import { useRouter } from "next/router";
