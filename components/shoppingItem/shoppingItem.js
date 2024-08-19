@@ -1,13 +1,16 @@
 import React from "react";
+
+// import { isStyledComponent } from "styled-components";
 // import Link from "next/link";
-import styled from "styled-components";
-
-
-export default function ShoppingItem({ id, name, quantity, category }) {
+// import { categories } from "@/lib/categoriesData";
+x;
+export default function ShoppingItem() {
+// { id, name, quantity, category }
   return (
     <>
       <h1>
-        {shoppingItem.quantity} {shoppingItem.name}
+        6 oranges
+        {/* {shoppingItem.quantity} {shoppingItem.name} */}
       </h1>
       <p> {shoppingItem.category}</p>
     </>
@@ -17,24 +20,3 @@ export default function ShoppingItem({ id, name, quantity, category }) {
 {
   /* <Link href={`/shoppingItems/${shoppingItem.slug}`}>Details</Link> */
 }
-
-//components/List.js
-import styled from "styled-components";
-
-export default function List() {
-  return (
-    <StyledList>
-      <ListItem>Item 1</ListItem>
-      <ListItem>Item 2</ListItem>
-      <ListItem>Item 3</ListItem>
-    </StyledList>
-  );
-}
-
-const ListItem = styled.li`
-  background-color: crimson;
-`;
-
-const StyledList = styled.ul`
-  list-style-type: none;
-`;
