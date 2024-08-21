@@ -28,10 +28,12 @@ export default function ShoppingItemsList() {
 
 const StyledH1 = styled.h1`
   padding: 20px;
+  text-align: center;
 `;
 
 const StyledList = styled.ul`
   list-style-type: none;
+  padding: 0;
 `;
 
 const CategoryBox = styled.span`
@@ -51,5 +53,7 @@ const ListItem = styled.li`
   background-color: ${(props) => props.$backgroundColor};
   padding: 10px;
   margin-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
   border-radius: 5px;
 `;
