@@ -1,12 +1,9 @@
 import { shoppingItems } from "../lib/shoppingItemsData.js";
 import { categories } from "../lib/categoriesData.js";
 
-import Link from "next/link";
-import { useRouter } from "next/router";
 import styled from "styled-components";
 
 export default function ShoppingItemsList() {
-  const router = useRouter();
   return (
     <main>
       <StyledH1> {shoppingItems.length} Shopping Items </StyledH1>
@@ -18,10 +15,9 @@ export default function ShoppingItemsList() {
           const backgroundColor = category ? category.color : "white";
 
           return (
-            <ListItem key={shoppingItem.id} backgroundColor={backgroundColor}>
+            <ListItem key={shoppingItem.id} $backgroundColor={backgroundColor}>
               {shoppingItem.quantity} {shoppingItem.name}
               <CategoryBox>{shoppingItem.category}</CategoryBox>
-              {/* <Link href={`/shoppingItems/${shoppingItem.slug}`}>Details</Link> */}
             </ListItem>
           );
         })}
@@ -52,7 +48,7 @@ const CategoryBox = styled.span`
 
 const ListItem = styled.li`
   position: relative;
-  background-color: ${(props) => props.backgroundColor};
+  background-color: ${(props) => props.$backgroundColor};
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
