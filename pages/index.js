@@ -62,8 +62,8 @@ const CategoryBox = styled.span`
 
 const ListItem = styled.li`
   display: flex;
-  justify-content: space-between; /* Space between the item content and the category box */
-  align-items: center; /* Center content vertically */
+  justify-content: space-between;
+  align-items: center;
   background-color: ${(props) => props.$backgroundColor};
   padding: 10px;
   border-radius: 5px;
