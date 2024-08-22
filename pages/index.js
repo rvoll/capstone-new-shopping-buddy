@@ -4,7 +4,7 @@ import { categories } from "../lib/categoriesData.js";
 import styled from "styled-components";
 
 export default function ShoppingItemsList() {
-  const categoryColorShoppingItems = shoppingItems.map((shoppingItem) => {
+  const shoppingItemsWithCategoryColor = shoppingItems.map((shoppingItem) => {
     const category = categories.find(
       (category) => category.name === shoppingItem.category
     );
@@ -19,7 +19,7 @@ export default function ShoppingItemsList() {
     <main>
       <StyledH1> {shoppingItems.length} Shopping Items </StyledH1>
       <StyledList>
-        {categoryColorShoppingItems.map((shoppingItem) => (
+        {shoppingItemsWithCategoryColor.map((shoppingItem) => (
           <ListItem
             key={shoppingItem.id}
             $backgroundColor={shoppingItem.backgroundColor}
@@ -39,11 +39,16 @@ const StyledH1 = styled.h1`
 `;
 
 const StyledList = styled.ul`
-  list-style-type: none;
+  display: flex;
+  flex-direction: column;
   padding: 0;
+  gap: 12px;
+  align-content: start;
+  list-style-type: none;
 `;
 
 const CategoryBox = styled.span`
+  display: flex;
   position: absolute;
   top: 5px;
   right: 5px;
@@ -56,11 +61,11 @@ const CategoryBox = styled.span`
 `;
 
 const ListItem = styled.li`
-  position: relative;
+  display: flex;
+  justify-content: space-between; /* Space between the item content and the category box */
+  align-items: center; /* Center content vertically */
   background-color: ${(props) => props.$backgroundColor};
   padding: 10px;
-  margin-bottom: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
   border-radius: 5px;
+  position: relative;
 `;
