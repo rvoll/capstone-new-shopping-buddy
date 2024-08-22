@@ -3,6 +3,22 @@ import Link from "next/link";
 import styled from "styled-components";
 // import { categories } from "@/lib/categoriesData";
 
+// in s-e-list (index.js):
+
+// import in s-e-list (index.js)
+// import UseRouter in s-e-list (index.js)
+// insert link to s-e-details page in s-e-list (index.js)
+
+// in S-I component:
+
+// create export default function ShoppingItem
+// pass down props from s-e-list (index.js)
+// create structure for rendering shopping item details in S-I component
+// insert link to return to s-e-list (index.js)
+// later style this link
+// also add picture
+// (> re-use list structure from index.js)
+
 // import Link;
 // > to be styled later
 // insert link to return to Shopping List;
