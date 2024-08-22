@@ -1,7 +1,71 @@
-export default function HomePage() {
+import { shoppingItems } from "../lib/shoppingItemsData.js";
+import { categories } from "../lib/categoriesData.js";
+
+import styled from "styled-components";
+
+export default function ShoppingItemsList() {
+  const shoppingItemsWithCategoryColor = shoppingItems.map((shoppingItem) => {
+    const category = categories.find(
+      (category) => category.name === shoppingItem.category
+    );
+    const backgroundColor = category ? category.color : "white";
+    return {
+      ...shoppingItem,
+      backgroundColor,
+    };
+  });
+
   return (
-    <div>
-      <h1>Shopping List</h1>
-    </div>
+    <main>
+      <StyledH1> {shoppingItems.length} Shopping Items </StyledH1>
+      <StyledList>
+        {shoppingItemsWithCategoryColor.map((shoppingItem) => (
+          <ListItem
+            key={shoppingItem.id}
+            $backgroundColor={shoppingItem.backgroundColor}
+          >
+            {shoppingItem.quantity} {shoppingItem.name}
+            <CategoryBox>{shoppingItem.category}</CategoryBox>
+          </ListItem>
+        ))}
+      </StyledList>
+    </main>
   );
 }
+
+const StyledH1 = styled.h1`
+  padding: 20px;
+  text-align: center;
+`;
+
+const StyledList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  gap: 12px;
+  align-content: start;
+  list-style-type: none;
+`;
+
+const CategoryBox = styled.span`
+  display: flex;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 2px 5px;
+  background-color: #eee;
+  color: #333;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: normal;
+`;
+
+const ListItem = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${(props) => props.$backgroundColor};
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+`;
