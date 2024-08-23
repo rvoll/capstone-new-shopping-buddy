@@ -46,7 +46,7 @@ export default function ShoppingItem({
             {quantity} {name}
           </StyledH1>
 
-          <Link href={`/shoppingItems/`}>Back to Shopping List</Link>
+          <Link href={`../pages/index.js`}>Back to Shopping List</Link>
         </header>
         <body>
           <>
