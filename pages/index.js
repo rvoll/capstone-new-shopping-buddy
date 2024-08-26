@@ -1,8 +1,6 @@
 import { shoppingItems } from "../lib/shoppingItemsData.js";
 import { categories } from "../lib/categoriesData.js";
-// import { shoppingItem } from "../../components/shoppingItem.js";
 import Link from "next/link";
-
 import styled from "styled-components";
 
 export default function ShoppingItemsList() {
@@ -20,7 +18,6 @@ export default function ShoppingItemsList() {
   return (
     <main>
       <StyledH1> {shoppingItems.length} Shopping Items </StyledH1>
-      <Link href="/shoppingItems/beer">Go this way!</Link>
       <StyledList>
         {shoppingItemsWithCategoryColor.map((shoppingItem) => (
           <ListItem
@@ -30,8 +27,16 @@ export default function ShoppingItemsList() {
             {shoppingItem.quantity} {shoppingItem.name}
             <CategoryBox>{shoppingItem.category}</CategoryBox>
             <p>
-              <Link href={`/shoppingItems/${shoppingItem.id}`}>
-                Go here for items!
+              <Link
+                href={{
+                  pathname: `/shoppingItems/${shoppingItem.id}`,
+                  query: {
+                    backgroundColor: shoppingItem.backgroundColor,
+                    imageURL: shoppingItem.imageUrl,
+                  },
+                }}
+              >
+                Details
               </Link>
             </p>
           </ListItem>
@@ -56,6 +61,8 @@ const StyledList = styled.ul`
   list-style-type: none;
 `;
 
+// used in index.js and ShoppingItems/[id].js;
+// eventually move to global styles
 const CategoryBox = styled.span`
   display: flex;
   position: absolute;
