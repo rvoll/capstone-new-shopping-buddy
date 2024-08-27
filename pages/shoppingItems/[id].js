@@ -34,11 +34,7 @@ export default function ShoppingItemDetails({
                 <h3>number: {currentShoppingItem.quantity}</h3>
 
                 <Image
-                  src={
-                    currentShoppingItem.imageUrl
-                      ? `/images/${currentShoppingItem.imageUrl}`
-                      : "/images/samplePicture.png"
-                  }
+                  src={`/images/${currentShoppingItem.imageUrl}`}
                   alt={currentShoppingItem.name}
                   style={{ objectFit: "contain" }}
                   width={200}
