@@ -19,40 +19,42 @@ export default function ShoppingItemDetails({
   }
 
   return (
-    <div>
-      {currentShoppingItem ? (
-        <>
-          <ShoppingItemDetailsContainer
-            $backgroundColor={currentShoppingItem.backgroundColor}
-          >
-            <article>
-              <h2>{currentShoppingItem.name}</h2>
-              <CategoryBoxDetails>
-                {currentShoppingItem.category}
-              </CategoryBoxDetails>
-              <h3>number: {currentShoppingItem.quantity}</h3>
+    <main>
+      <div>
+        {currentShoppingItem ? (
+          <>
+            <ShoppingItemDetailsContainer
+              $backgroundColor={currentShoppingItem.backgroundColor}
+            >
+              <article>
+                <h2>{currentShoppingItem.name}</h2>
+                <CategoryBoxDetails>
+                  {currentShoppingItem.category}
+                </CategoryBoxDetails>
+                <h3>number: {currentShoppingItem.quantity}</h3>
 
-              <Image
-                src={
-                  currentShoppingItem.imageUrl
-                    ? `/images/${currentShoppingItem.imageUrl}`
-                    : "/images/samplePicture.png"
-                }
-                alt={currentShoppingItem.name}
-                style={{ objectFit: "contain" }}
-                width={200}
-                height={200}
-              />
-              <h3>comments: </h3>
-              <p>{currentShoppingItem.comment}</p>
-              <StyledLink href={`\..`}>Back to shopping list</StyledLink>
-            </article>
-          </ShoppingItemDetailsContainer>
-        </>
-      ) : (
-        <p>Shopping item not found</p>
-      )}
-    </div>
+                <Image
+                  src={
+                    currentShoppingItem.imageUrl
+                      ? `/images/${currentShoppingItem.imageUrl}`
+                      : "/images/samplePicture.png"
+                  }
+                  alt={currentShoppingItem.name}
+                  style={{ objectFit: "contain" }}
+                  width={200}
+                  height={200}
+                />
+                <h3>comments: </h3>
+                <p>{currentShoppingItem.comment}</p>
+                <StyledLink href={`\..`}>Back to shopping list</StyledLink>
+              </article>
+            </ShoppingItemDetailsContainer>
+          </>
+        ) : (
+          <p>Shopping item not found</p>
+        )}
+      </div>
+    </main>
   );
 }
 
