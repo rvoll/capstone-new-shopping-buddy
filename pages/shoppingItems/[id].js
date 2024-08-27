@@ -4,24 +4,27 @@ import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ShoppingItemDetails({ shoppingItem }) {
+export default function ShoppingItemDetails({
+  shoppingItemsWithCategoryColor,
+}) {
   const router = useRouter();
-  const { id, backgroundColor, imageURL } = router.query;
+  const { id } = router.query;
 
-  console.log(router.query);
-  console.log("Image URL: ", imageURL);
-  console.log(
-    "Full Image Path: ",
-    imageURL ? `/images/${imageURL}` : "/images/samplePicture.png"
+  const currentShoppingItem = shoppingItemsWithCategoryColor.find(
+    (item) => item.id === id
   );
 
-  const currentShoppingItem = shoppingItems.find((item) => item.id === id);
+  if (!currentShoppingItem) {
+    return <p>Shopping item not found</p>;
+  }
 
   return (
     <div>
       {currentShoppingItem ? (
         <>
-          <ShoppingItemDetailsContainer $backgroundColor={backgroundColor}>
+          <ShoppingItemDetailsContainer
+            $backgroundColor={currentShoppingItem.backgroundColor}
+          >
             <article>
               <h2>{currentShoppingItem.name}</h2>
               <CategoryBoxDetails>
@@ -31,21 +34,18 @@ export default function ShoppingItemDetails({ shoppingItem }) {
 
               <Image
                 src={
-                  imageURL ? `/images/${imageURL}` : "/images/samplePicture.png"
+                  currentShoppingItem.imageUrl
+                    ? `/images/${currentShoppingItem.imageUrl}`
+                    : "/images/samplePicture.png"
                 }
-                priority={true}
                 alt={currentShoppingItem.name}
-                label={currentShoppingItem.name}
-                caption={currentShoppingItem.name}
-                layout="responsive"
-                width={150}
-                height={120}
+                style={{ objectFit: "contain" }}
+                width={200}
+                height={200}
               />
               <h3>comments: </h3>
               <p>{currentShoppingItem.comment}</p>
-              <p>
-                <Link href={`\..`}>Back to shopping list</Link>
-              </p>
+              <StyledLink href={`\..`}>Back to shopping list</StyledLink>
             </article>
           </ShoppingItemDetailsContainer>
         </>
@@ -82,4 +82,13 @@ const ShoppingItemDetailsContainer = styled.article`
   background-color: ${(props) => props.$backgroundColor || "#c8c5ba"};
   padding: 20px 40px;
   border-radius: 8px;
+`;
+
+const StyledLink = styled(Link)`
+  display: block;
+  margin-top: 20px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `;

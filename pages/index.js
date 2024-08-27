@@ -1,48 +1,35 @@
-import { shoppingItems } from "../lib/shoppingItemsData.js";
-import { categories } from "../lib/categoriesData.js";
 import Link from "next/link";
 import styled from "styled-components";
 
-export default function ShoppingItemsList() {
-  const shoppingItemsWithCategoryColor = shoppingItems.map((shoppingItem) => {
-    const category = categories.find(
-      (category) => category.name === shoppingItem.category
-    );
-    const backgroundColor = category ? category.color : "white";
-    return {
-      ...shoppingItem,
-      backgroundColor,
-    };
-  });
-
+export default function ShoppingItemsList({ shoppingItemsWithCategoryColor }) {
+  console.log(
+    "shoppingItemsWithCategoryColor: ",
+    shoppingItemsWithCategoryColor
+  );
   return (
     <main>
-      <StyledH1> {shoppingItems.length} Shopping Items </StyledH1>
+      <StyledH1>
+        {" "}
+        {shoppingItemsWithCategoryColor.length} Shopping Items{" "}
+      </StyledH1>
       <StyledList>
-        {shoppingItemsWithCategoryColor.map((shoppingItem) => (
-          <ListItem
-            key={shoppingItem.id}
-            $backgroundColor={shoppingItem.backgroundColor}
-          >
-            {shoppingItem.quantity} {shoppingItem.name}
-            <CategoryBox>{shoppingItem.category}</CategoryBox>
-            <p>
-              <Link
-                href={{
-                  pathname: `/shoppingItems/${shoppingItem.id}`,
-                  query: {
-                    backgroundColor: shoppingItem.backgroundColor,
-                    imageURL: shoppingItem.imageUrl,
-                  },
-                }}
+        {shoppingItemsWithCategoryColor.map((shoppingItem) => {
+          return (
+            <>
+              <ListItem
+                key={shoppingItem.id}
+                $backgroundColor={shoppingItem.backgroundColor}
               >
-                Details
-              </Link>
-            </p>
-          </ListItem>
-        ))}
+                {shoppingItem.quantity} {shoppingItem.name}
+                <CategoryBox>{shoppingItem.category}</CategoryBox>
+                <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
+                  Details
+                </StyledLink>
+              </ListItem>
+            </>
+          );
+        })}
       </StyledList>
-      {/* <Link>...</Link> */}
     </main>
   );
 }
@@ -84,4 +71,13 @@ const ListItem = styled.li`
   padding: 10px;
   border-radius: 5px;
   position: relative;
+`;
+
+const StyledLink = styled(Link)`
+  display: block;
+  margin-top: 20px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
