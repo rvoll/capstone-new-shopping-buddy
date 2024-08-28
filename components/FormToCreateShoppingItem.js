@@ -17,23 +17,25 @@ export default function FormToCreateShoppingItem() {
         <form>
           <StyledFieldset>
             <label>
-              new shopping item:
-              <input data-js="name" type="string" label="name" />
+              <span aria-label="required">*</span>shopping item name:
+              <input data-js="name" type="string" defaultValue="e.g., salt" />
             </label>
             <label>
-              number:
+              <span aria-label="required">*</span>number:
               <input data-js="quantity" type="number"></input>
             </label>
             <label>
-              category:
+              <span aria-label="required">*</span>category:
               <input data-js="category" type="string"></input>
             </label>
+            <button type="dropdown">Submit</button>
+
             <label>
               comment:
               <input data-js="comment" type="string"></input>
             </label>
+            <button type="submit">Submit</button>
           </StyledFieldset>
-          <button type="submit">Submit</button>
         </form>
         <p>
           Required fields are followed by <span aria-label="required">*</span>.
