@@ -1,17 +1,19 @@
 import Link from "next/link";
 import styled from "styled-components";
+import FormToCreateShoppingItem from "@/components/FormToCreateShoppingItem.js";
 
 export default function ShoppingItemsList({ shoppingItemsWithCategoryColor }) {
-  console.log(
-    "shoppingItemsWithCategoryColor: ",
-    shoppingItemsWithCategoryColor
-  );
+  // console.log(
+  //   "shoppingItemsWithCategoryColor: ",
+  //   shoppingItemsWithCategoryColor
+  // );
   return (
     <main>
       <StyledH1>
         {" "}
         {shoppingItemsWithCategoryColor.length} Shopping Items{" "}
       </StyledH1>
+      <FormToCreateShoppingItem />
       <StyledList>
         {shoppingItemsWithCategoryColor.map((shoppingItem) => {
           return (
