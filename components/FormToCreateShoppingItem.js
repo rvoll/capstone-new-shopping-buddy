@@ -1,14 +1,14 @@
 import styled from "styled-components";
-import { useState } from "react";
+// import { useState } from "react";
 
-export default function FormToCreateShoppingItem() {
+export default function FormToCreateShoppingItem({ categories }) {
   // const form = document.querySelector('[data-js="form"]');
 
   // form.addEventListener("submit", (event) => {
   //   event.preventDefault();
   // });
 
-  // const [name, setName] = useState("e.g. salt");
+  // NOW: implement state for form input
 
   return (
     <article>
@@ -24,28 +24,34 @@ export default function FormToCreateShoppingItem() {
               <span aria-label="required">*</span>number:
               <input data-js="quantity" type="number"></input>
             </label>
+            {/* dropdown menu for categories, suboptimal formatting change later */}
             <label>
               <span aria-label="required">*</span>category:
-              <input data-js="category" type="string"></input>
+              <select data-js="category">
+                <option value="default">Choose category</option>
+                <option value="Bakery">Bakery</option>
+                <option value="Fruit">Fruit</option>
+              </select>
             </label>
-            <button type="dropdown">Submit</button>
-
             <label>
               comment:
               <input data-js="comment" type="string"></input>
             </label>
+            <StyledNote>
+              Required fields are followed by{" "}
+              <span aria-label="required">*</span>.
+            </StyledNote>
             <button type="submit">Submit</button>
           </StyledFieldset>
         </form>
-        <p>
-          Required fields are followed by <span aria-label="required">*</span>.
-          <br></br>
-          all but "comment" mandatory:
-        </p>
       </container>
     </article>
   );
 }
+
+const StyledNote = styled.p`
+  font-size: 0.5rem;
+`;
 
 const StyledFieldset = styled.fieldset`
   display: flex;
