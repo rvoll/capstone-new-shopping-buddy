@@ -8,6 +8,7 @@ export default function FormToCreateShoppingItem({ onAddItem, categories }) {
     const formData = new FormData(event.target);
     const newItem = Object.fromEntries(formData);
     newItem.quantity = Number(newItem.quantity);
+    newItem.imageUrl = "placeholder_1.png";
 
     onAddItem(newItem);
     event.target.reset();
