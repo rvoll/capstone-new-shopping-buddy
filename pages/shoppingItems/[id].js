@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-// import { shoppingItems } from "../../lib/shoppingItemsData.js";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";

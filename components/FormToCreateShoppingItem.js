@@ -1,47 +1,67 @@
 import styled from "styled-components";
-// import { useState } from "react";
 
-export default function FormToCreateShoppingItem({ categories }) {
-  // const form = document.querySelector('[data-js="form"]');
+export default function FormToCreateShoppingItem({ onAddItem, categories }) {
+  console.log("Categories: ", categories);
 
-  // form.addEventListener("submit", (event) => {
-  //   event.preventDefault();
-  // });
+  function handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const newItem = Object.fromEntries(formData);
+    newItem.quantity = Number(newItem.quantity);
 
-  // NOW: implement state for form input
+    onAddItem(newItem);
+    event.target.reset();
+  }
 
   return (
     <article>
       <container>
         <h1>Add an item to the list:</h1>
-        <form>
+        <form onSubmit={handleSubmit} data-js="form">
           <StyledFieldset>
-            <label>
-              <span aria-label="required">*</span>shopping item name:
-              <input data-js="name" type="string" defaultValue="e.g., salt" />
-            </label>
-            <label>
-              <span aria-label="required">*</span>number:
-              <input data-js="quantity" type="number"></input>
-            </label>
-            {/* dropdown menu for categories, suboptimal formatting change later */}
-            <label>
-              <span aria-label="required">*</span>category:
-              <select data-js="category">
-                <option value="default">Choose category</option>
-                <option value="Bakery">Bakery</option>
-                <option value="Fruit">Fruit</option>
+            <StyledLabel>
+              new shopping item*:
+              <StyledInput
+                name="name"
+                type="text"
+                required
+                placeholder="e.g., salt"
+              />
+            </StyledLabel>
+            <StyledLabel>
+              number*:
+              <StyledInput name="quantity" type="number" required />
+            </StyledLabel>
+            <StyledLabel>
+              category*:
+              <select
+                key="category"
+                name="category"
+                data-js="category"
+                required
+              >
+                <option value="">please select a category</option>
+                {categories.map((category) => (
+                  <option key={category.name} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+                ;
               </select>
-            </label>
-            <label>
+            </StyledLabel>
+            <StyledLabel>
               comment:
-              <input data-js="comment" type="string"></input>
-            </label>
+              <StyledInput
+                name="comment"
+                type="text"
+                placeholder="Enter comments here..."
+              />
+            </StyledLabel>
             <StyledNote>
               Required fields are followed by{" "}
               <span aria-label="required">*</span>.
             </StyledNote>
-            <button type="submit">Submit</button>
+            <StyledButton type="submit">Submit</StyledButton>
           </StyledFieldset>
         </form>
       </container>
@@ -49,42 +69,39 @@ export default function FormToCreateShoppingItem({ categories }) {
   );
 }
 
+const StyledButton = styled.button`
+  border: none;
+  border-radius: 4px;
+  background-color: lightgreen;
+`;
+
+const StyledInput = styled.input`
+  border: none;
+  border-radius: 4px;
+`;
+
 const StyledNote = styled.p`
   font-size: 0.5rem;
+`;
+
+const StyledLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+`;
+
+const RequiredStar = styled.span`
+  font-size: 0.8rem;
 `;
 
 const StyledFieldset = styled.fieldset`
   display: flex;
   flex-direction: column;
   padding: 16px;
-  gap: 12px;
+  border-radius: 5px;
+  background-color: lightgrey;
+  border: none;
+  gap: 6px;
   align-content: start;
   list-style-type: none;
 `;
-
-// StyledForm = styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   padding: 0;
-//   align-content: start;
-// `;
-
-// const StyledFormContainer = styled.container`
-//   display: flex;
-//   flex-direction: column;
-//   padding: 0;
-//   align-content: start;
-// `;
-
-// <p>Required fields are followed by <span aria-label="required">*</span>.</p>
-//   <form>
-//     <input data-js="" type="">
-//       Item 1
-//     </input>
-//     <input data-js="" type="">
-//       Item 2
-//     </input>
-//     <input data-js="" type="">
-//       Item 3
-//     </input>
-//   </form>

@@ -1,8 +1,25 @@
 import GlobalStyle from "../styles";
-import { shoppingItems } from "../lib/shoppingItemsData.js";
+import { shoppingItems as initialShoppingItems } from "../lib/shoppingItemsData.js";
 import { categories } from "../lib/categoriesData.js";
+import { useState } from "react";
+import { nanoid } from "nanoid";
 
 export default function App({ Component, pageProps }) {
+  const [shoppingItems, setShoppingItems] = useState(initialShoppingItems);
+
+  console.log("shoppingItems: ", shoppingItems);
+
+  function handleAddItem(newItem) {
+    console.log("handlerFunction _app.js is working ");
+    setShoppingItems([
+      {
+        id: nanoid(),
+        ...newItem,
+      },
+      ...shoppingItems,
+    ]);
+  }
+
   const shoppingItemsWithCategoryColor = shoppingItems.map((shoppingItem) => {
     const category = categories.find(
       (category) => category.name === shoppingItem.category
@@ -20,6 +37,8 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
+        onAddItem={handleAddItem}
+        categories={categories}
       />
     </>
   );

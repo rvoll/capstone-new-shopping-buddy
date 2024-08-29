@@ -1,19 +1,19 @@
 import Link from "next/link";
 import styled from "styled-components";
 import FormToCreateShoppingItem from "@/components/FormToCreateShoppingItem.js";
+import { categories } from "@/lib/categoriesData";
 
-export default function ShoppingItemsList({ shoppingItemsWithCategoryColor }) {
-  // console.log(
-  //   "shoppingItemsWithCategoryColor: ",
-  //   shoppingItemsWithCategoryColor
-  // );
+export default function ShoppingItemsList({
+  shoppingItemsWithCategoryColor,
+  onAddItem,
+}) {
   return (
     <main>
       <StyledH1>
-        {" "}
         {shoppingItemsWithCategoryColor.length} Shopping Items{" "}
       </StyledH1>
-      <FormToCreateShoppingItem />
+
+      <FormToCreateShoppingItem onAddItem={onAddItem} categories={categories} />
       <StyledList>
         {shoppingItemsWithCategoryColor.map((shoppingItem) => {
           return (
@@ -50,8 +50,6 @@ const StyledList = styled.ul`
   list-style-type: none;
 `;
 
-// used in index.js and ShoppingItems/[id].js;
-// eventually move to global styles
 const CategoryBox = styled.span`
   display: flex;
   position: absolute;
