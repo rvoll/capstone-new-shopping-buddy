@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { shoppingItems } from "../../lib/shoppingItemsData.js";
 import styled from "styled-components";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,36 +19,32 @@ export default function ShoppingItemDetails({
 
   return (
     <main>
-      <div>
-        {currentShoppingItem ? (
-          <>
-            <ShoppingItemDetailsContainer
-              $backgroundColor={currentShoppingItem.backgroundColor}
-            >
-              <article>
-                <h2>{currentShoppingItem.name}</h2>
-                <CategoryBoxDetails>
-                  {currentShoppingItem.category}
-                </CategoryBoxDetails>
-                <h3>number: {currentShoppingItem.quantity}</h3>
+      {currentShoppingItem ? (
+        <ShoppingItemDetailsContainer
+          $backgroundColor={currentShoppingItem.backgroundColor}
+        >
+          <article>
+            <h2>{currentShoppingItem.name}</h2>
+            <CategoryBoxDetails>
+              {currentShoppingItem.category}
+            </CategoryBoxDetails>
+            <h3>number: {currentShoppingItem.quantity}</h3>
 
-                <Image
-                  src={`/images/${currentShoppingItem.imageUrl}`}
-                  alt={currentShoppingItem.name}
-                  style={{ objectFit: "contain" }}
-                  width={200}
-                  height={200}
-                />
-                <h3>comments: </h3>
-                <p>{currentShoppingItem.comment}</p>
-                <StyledLink href={`\..`}>Back to shopping list</StyledLink>
-              </article>
-            </ShoppingItemDetailsContainer>
-          </>
-        ) : (
-          <p>Shopping item not found</p>
-        )}
-      </div>
+            <Image
+              src={`/images/${currentShoppingItem.imageUrl}`}
+              alt={currentShoppingItem.name}
+              style={{ objectFit: "contain" }}
+              width={200}
+              height={200}
+            />
+            <h3>comments: </h3>
+            <p>{currentShoppingItem.comment}</p>
+            <StyledLink href={`\..`}>Back to shopping list</StyledLink>
+          </article>
+        </ShoppingItemDetailsContainer>
+      ) : (
+        <p>Shopping item not found</p>
+      )}
     </main>
   );
 }
@@ -62,7 +57,7 @@ const StyledImage = styled.image`
 const CategoryBoxDetails = styled.span`
   display: flex;
   position: absolute;
-  top: 40px;
+  top: 16%;
   right: 20px;
   padding: 8px 16px;
   background-color: #c8c5ba;
