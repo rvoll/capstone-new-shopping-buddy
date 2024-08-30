@@ -1,11 +1,13 @@
 import Link from "next/link";
 import styled from "styled-components";
 import FormToCreateShoppingItem from "@/components/FormToCreateShoppingItem.js";
+
 import { categories } from "@/lib/categoriesData";
 
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
   onAddItem,
+  onDeleteItem,
 }) {
   return (
     <main>
@@ -17,18 +19,24 @@ export default function ShoppingItemsList({
       <StyledList>
         {shoppingItemsWithCategoryColor.map((shoppingItem) => {
           return (
-            <>
-              <ListItem
-                key={shoppingItem.id}
-                $backgroundColor={shoppingItem.backgroundColor}
+            <ListItem
+              key={shoppingItem.id}
+              $backgroundColor={shoppingItem.backgroundColor}
+            >
+              {shoppingItem.quantity} {shoppingItem.name}
+              <CategoryBox>{shoppingItem.category}</CategoryBox>
+              <button
+                onClick={() => {
+                  onDeleteItem(shoppingItem.id);
+                }}
+                data-js="deleteButton"
               >
-                {shoppingItem.quantity} {shoppingItem.name}
-                <CategoryBox>{shoppingItem.category}</CategoryBox>
-                <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
-                  Details
-                </StyledLink>
-              </ListItem>
-            </>
+                Delete item
+              </button>
+              <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
+                Details
+              </StyledLink>
+            </ListItem>
           );
         })}
       </StyledList>
