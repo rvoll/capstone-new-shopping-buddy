@@ -57,7 +57,7 @@ const StyledImage = styled.image`
 const CategoryBoxDetails = styled.span`
   display: flex;
   position: absolute;
-  top: 40px;
+  top: 16%;
   right: 20px;
   padding: 8px 16px;
   background-color: #c8c5ba;
