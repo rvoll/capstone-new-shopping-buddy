@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export default function FormToCreateShoppingItem({ onAddItem, categories }) {
-  console.log("Categories: ", categories);
-
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -16,56 +14,49 @@ export default function FormToCreateShoppingItem({ onAddItem, categories }) {
 
   return (
     <article>
-      <container>
-        <h1>Add an item to the list:</h1>
-        <form onSubmit={handleSubmit} data-js="form">
-          <StyledFieldset>
-            <StyledLabel>
-              new shopping item*:
-              <StyledInput
-                name="name"
-                type="text"
-                required
-                placeholder="e.g., salt"
-              />
-            </StyledLabel>
-            <StyledLabel>
-              number*:
-              <StyledInput name="quantity" type="number" required />
-            </StyledLabel>
-            <StyledLabel>
-              category*:
-              <select
-                key="category"
-                name="category"
-                data-js="category"
-                required
-              >
-                <option value="">please select a category</option>
-                {categories.map((category) => (
-                  <option key={category.name} value={category.name}>
-                    {category.name}
-                  </option>
-                ))}
-                ;
-              </select>
-            </StyledLabel>
-            <StyledLabel>
-              comment:
-              <StyledInput
-                name="comment"
-                type="text"
-                placeholder="Enter comments here..."
-              />
-            </StyledLabel>
-            <StyledNote>
-              Required fields are followed by{" "}
-              <span aria-label="required">*</span>.
-            </StyledNote>
-            <StyledButton type="submit">Submit</StyledButton>
-          </StyledFieldset>
-        </form>
-      </container>
+      <form onSubmit={handleSubmit} data-js="form">
+        <StyledFieldset>
+          <h2>Add an item to the list:</h2>
+          <StyledLabel>
+            new shopping item*:
+            <StyledInput
+              name="name"
+              type="text"
+              required
+              placeholder="e.g., salt"
+            />
+          </StyledLabel>
+          <StyledLabel>
+            number*:
+            <StyledInput name="quantity" type="number" required />
+          </StyledLabel>
+          <StyledLabel>
+            category*:
+            <select key="category" name="category" data-js="category" required>
+              <option value="">please select a category</option>
+              {categories.map((category) => (
+                <option key={category.name} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+              ;
+            </select>
+          </StyledLabel>
+          <StyledLabel>
+            comment:
+            <StyledInput
+              name="comment"
+              type="text"
+              placeholder="Enter comments here..."
+            />
+          </StyledLabel>
+          <StyledNote>
+            Required fields are followed by <span aria-label="required">*</span>
+            .
+          </StyledNote>
+          <StyledButton>Submit</StyledButton>
+        </StyledFieldset>
+      </form>
     </article>
   );
 }
@@ -106,3 +97,15 @@ const StyledFieldset = styled.fieldset`
   align-content: start;
   list-style-type: none;
 `;
+
+// const StyledForm = styled.form`
+//   display: flex;
+//   flex-direction: column;
+//   padding: 16px;
+//   border-radius: 5px;
+//   background-color: lightgrey;
+//   border: none;
+//   gap: 6px;
+//   align-content: start;
+//   list-style-type: none;
+// `;

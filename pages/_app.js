@@ -7,10 +7,7 @@ import { nanoid } from "nanoid";
 export default function App({ Component, pageProps }) {
   const [shoppingItems, setShoppingItems] = useState(initialShoppingItems);
 
-  console.log("shoppingItems: ", shoppingItems);
-
   function handleAddItem(newItem) {
-    console.log("handlerFunction _app.js is working ");
     setShoppingItems([
       {
         id: nanoid(),
