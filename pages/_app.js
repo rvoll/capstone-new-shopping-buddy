@@ -8,36 +8,14 @@ export default function App({ Component, pageProps }) {
   const [shoppingItems, setShoppingItems] = useState(initialShoppingItems);
 
   function handleAddItem(newItem) {
-    // Where do you get the new item?
-    // const ... in Create form
     setShoppingItems([
       {
         id: nanoid(),
         ...newItem,
       },
       ...shoppingItems,
-      // Why here shoppingItems and above initialShoppingItems?
     ]);
   }
-
-  // CRUD: delete
-  // Reactstate 3: removing an object
-  // mit map, damit wir eine Kopie bekommen und nicht das ursprgl. array mutieren
-  // create a new object / array
-  // use the setter function with the recently created / updated copy in order to cause a re-render
-
-  // Woher bekomme ich das itemToBeRemoved?
-  // in Delete Item component:
-  // const newItem = Object.fromEntries(formData);
-  // ???
-  //
-  // handleSelectItemToDelete() {
-  //   setShoppingItems(
-  //     shoppingItems.find(
-  //       (shoppingItem) => shoppingItem === currentShoppingItem)
-  //     // or shoppingItem !== itemToBeRemoved ??
-  //   );
-  // }
 
   function handleDeleteItem(id) {
     setShoppingItems(
@@ -64,6 +42,8 @@ export default function App({ Component, pageProps }) {
         shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}
         onDeleteItem={handleDeleteItem}
+        // neu:
+        // toggleIsToBeDeleted={toggleIsToBeDeleted}
         categories={categories}
       />
     </>
