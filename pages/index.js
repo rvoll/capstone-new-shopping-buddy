@@ -1,10 +1,8 @@
-import Link from "next/link";
 import styled from "styled-components";
 import FormToCreateShoppingItem from "@/components/FormToCreateShoppingItem/FormToCreateShoppingItem.js";
 import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
 
 import { categories } from "@/lib/categoriesData";
-// neu
 import { useState } from "react";
 
 export default function ShoppingItemsList({

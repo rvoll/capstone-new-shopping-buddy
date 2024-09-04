@@ -42,8 +42,6 @@ export default function App({ Component, pageProps }) {
         shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}
         onDeleteItem={handleDeleteItem}
-        // neu:
-        // toggleIsToBeDeleted={toggleIsToBeDeleted}
         categories={categories}
       />
     </>

@@ -19,14 +19,14 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
           {shoppingItem.quantity} {shoppingItem.name}
           <CategoryBox>{shoppingItem.category}</CategoryBox>
           <div>
-            <button
+            <StyledButton
               onClick={() => {
                 toggleIsToBeDeleted(shoppingItem.id);
               }}
               data-js="toggleIsToBeDeletedButton"
             >
               Delete this item{" "}
-            </button>
+            </StyledButton>
           </div>
           <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
             Details
@@ -44,7 +44,6 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
               Details
             </StyledLink>
           </ListItem>
-
           <div>
             <p>Do you really want to delete the {shoppingItem.name}?</p>
             <button
@@ -69,6 +68,22 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
     </>
   );
 }
+
+const DeletionConfirmation = styled.article`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${(props) => props.$backgroundColor};
+  padding: 10px;
+  margin-left: 6rem;
+  border-radius: 5px;
+  position: absolute;
+`;
+
+const StyledButton = styled.button`
+  border: none;
+  border-radius: 4px;
+`;
 
 const ListItem = styled.li`
   display: flex;
