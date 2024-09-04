@@ -11,41 +11,30 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
 
   return (
     <>
-      {!isToBeDeleted ? (
-        <ListItem
-          key={shoppingItem.id}
-          $backgroundColor={shoppingItem.backgroundColor}
-        >
-          {shoppingItem.quantity} {shoppingItem.name}
-          <CategoryBox>{shoppingItem.category}</CategoryBox>
-          <div>
-            <StyledButton
+      <ListItem
+        key={shoppingItem.id}
+        $backgroundColor={shoppingItem.backgroundColor}
+      >
+        <CategoryBox>{shoppingItem.category}</CategoryBox>
+
+        {!isToBeDeleted ? (
+          <>
+            {shoppingItem.quantity} {shoppingItem.name}
+            <button
               onClick={() => {
                 toggleIsToBeDeleted(shoppingItem.id);
               }}
               data-js="toggleIsToBeDeletedButton"
             >
               Delete this item{" "}
-            </StyledButton>
-          </div>
-          <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
-            Details
-          </StyledLink>
-        </ListItem>
-      ) : (
-        <>
-          <ListItem
-            key={shoppingItem.id}
-            $backgroundColor={shoppingItem.backgroundColor}
-          >
-            {shoppingItem.quantity} {shoppingItem.name}
-            <CategoryBox>{shoppingItem.category}</CategoryBox>
+            </button>
             <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
               Details
             </StyledLink>
-          </ListItem>
+          </>
+        ) : (
           <div>
-            <p>Do you really want to delete the {shoppingItem.name}?</p>
+            <p>Really delete the {shoppingItem.name}?</p>
             <button
               onClick={() => {
                 toggleIsToBeDeleted(shoppingItem.id);
@@ -63,8 +52,8 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
               Delete
             </button>
           </div>
-        </>
-      )}
+        )}
+      </ListItem>
     </>
   );
 }
@@ -78,11 +67,6 @@ const DeletionConfirmation = styled.article`
   margin-left: 6rem;
   border-radius: 5px;
   position: absolute;
-`;
-
-const StyledButton = styled.button`
-  border: none;
-  border-radius: 4px;
 `;
 
 const ListItem = styled.li`

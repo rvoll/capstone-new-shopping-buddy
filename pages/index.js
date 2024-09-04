@@ -3,19 +3,12 @@ import FormToCreateShoppingItem from "@/components/FormToCreateShoppingItem/Form
 import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
 
 import { categories } from "@/lib/categoriesData";
-import { useState } from "react";
 
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
   onAddItem,
   onDeleteItem,
 }) {
-  const [isToBeDeleted, setIsToBeDeleted] = useState(false);
-
-  function toggleIsToBeDeleted() {
-    setIsToBeDeleted(!isToBeDeleted);
-  }
-
   return (
     <main>
       <StyledH1>
@@ -34,7 +27,6 @@ export default function ShoppingItemsList({
           return (
             <ShoppingItem
               key={shoppingItem.id}
-              toggleIsToBeDeleted={toggleIsToBeDeleted}
               shoppingItem={shoppingItem}
               onDeleteItem={onDeleteItem}
             />
@@ -58,9 +50,9 @@ const StyledList = styled.ul`
   align-content: start;
   list-style-type: none;
 `;
+
 const StyledEmptyMessage = styled.p`
   display: flex;
-  /* justify-content: space-between; */
   align-items: start;
   background-color: yellow;
   padding: 10px;
