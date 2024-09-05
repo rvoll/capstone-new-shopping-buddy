@@ -1,34 +1,35 @@
-import Link from "next/link";
 import styled from "styled-components";
-import FormToCreateShoppingItem from "@/components/FormToCreateShoppingItem.js";
+import FormToCreateShoppingItem from "@/components/FormToCreateShoppingItem/FormToCreateShoppingItem.js";
+import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
+
 import { categories } from "@/lib/categoriesData";
 
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
   onAddItem,
+  onDeleteItem,
 }) {
   return (
     <main>
       <StyledH1>
-        {shoppingItemsWithCategoryColor.length} Shopping Items{" "}
+        {shoppingItemsWithCategoryColor.length} Shopping Items
       </StyledH1>
+      {shoppingItemsWithCategoryColor.length === 0 && (
+        <StyledNoItemsMessage>
+          There are no items on your shopping list. Add items using the form
+          below.
+        </StyledNoItemsMessage>
+      )}
 
       <FormToCreateShoppingItem onAddItem={onAddItem} categories={categories} />
       <StyledList>
         {shoppingItemsWithCategoryColor.map((shoppingItem) => {
           return (
-            <>
-              <ListItem
-                key={shoppingItem.id}
-                $backgroundColor={shoppingItem.backgroundColor}
-              >
-                {shoppingItem.quantity} {shoppingItem.name}
-                <CategoryBox>{shoppingItem.category}</CategoryBox>
-                <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
-                  Details
-                </StyledLink>
-              </ListItem>
-            </>
+            <ShoppingItem
+              key={shoppingItem.id}
+              shoppingItem={shoppingItem}
+              onDeleteItem={onDeleteItem}
+            />
           );
         })}
       </StyledList>
@@ -50,34 +51,11 @@ const StyledList = styled.ul`
   list-style-type: none;
 `;
 
-const CategoryBox = styled.span`
+const StyledNoItemsMessage = styled.p`
   display: flex;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  padding: 2px 5px;
-  background-color: #eee;
-  color: #333;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: normal;
-`;
-
-const ListItem = styled.li`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: ${(props) => props.$backgroundColor};
+  align-items: start;
+  background-color: yellow;
   padding: 10px;
   border-radius: 5px;
   position: relative;
-`;
-
-const StyledLink = styled(Link)`
-  display: block;
-  margin-top: 20px;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
 `;

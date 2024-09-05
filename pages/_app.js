@@ -17,6 +17,12 @@ export default function App({ Component, pageProps }) {
     ]);
   }
 
+  function handleDeleteItem(id) {
+    setShoppingItems(
+      shoppingItems.filter((shoppingItem) => shoppingItem.id !== id)
+    );
+  }
+
   const shoppingItemsWithCategoryColor = shoppingItems.map((shoppingItem) => {
     const category = categories.find(
       (category) => category.name === shoppingItem.category
@@ -35,6 +41,7 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}
+        onDeleteItem={handleDeleteItem}
         categories={categories}
       />
     </>
