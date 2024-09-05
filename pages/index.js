@@ -12,13 +12,13 @@ export default function ShoppingItemsList({
   return (
     <main>
       <StyledH1>
-        {shoppingItemsWithCategoryColor.length} Shopping Items{" "}
+        {shoppingItemsWithCategoryColor.length} Shopping Items
       </StyledH1>
       {shoppingItemsWithCategoryColor.length === 0 && (
-        <StyledEmptyMessage>
+        <StyledNoItemsMessage>
           There are no items on your shopping list. Add items using the form
           below.
-        </StyledEmptyMessage>
+        </StyledNoItemsMessage>
       )}
 
       <FormToCreateShoppingItem onAddItem={onAddItem} categories={categories} />
@@ -51,7 +51,7 @@ const StyledList = styled.ul`
   list-style-type: none;
 `;
 
-const StyledEmptyMessage = styled.p`
+const StyledNoItemsMessage = styled.p`
   display: flex;
   align-items: start;
   background-color: yellow;

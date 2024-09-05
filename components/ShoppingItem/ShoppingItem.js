@@ -10,53 +10,64 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
   }
 
   return (
-    <>
-      <ListItem
-        key={shoppingItem.id}
-        $backgroundColor={shoppingItem.backgroundColor}
-      >
-        <CategoryBox>{shoppingItem.category}</CategoryBox>
+    <ListItem
+      key={shoppingItem.id}
+      $backgroundColor={shoppingItem.backgroundColor}
+    >
+      <CategoryBox>{shoppingItem.category}</CategoryBox>
 
-        {!isToBeDeleted ? (
-          <>
-            {shoppingItem.quantity} {shoppingItem.name}
-            <button
-              onClick={() => {
-                toggleIsToBeDeleted(shoppingItem.id);
-              }}
-              data-js="toggleIsToBeDeletedButton"
-            >
-              Delete this item{" "}
-            </button>
-            <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
-              Details
-            </StyledLink>
-          </>
-        ) : (
-          <div>
-            <p>Really delete the {shoppingItem.name}?</p>
-            <button
-              onClick={() => {
-                toggleIsToBeDeleted(shoppingItem.id);
-              }}
-              data-js="cancelDeleteButton"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => {
-                onDeleteItem(shoppingItem.id);
-              }}
-              data-js="confirmDeleteButton"
-            >
-              Delete
-            </button>
-          </div>
-        )}
-      </ListItem>
-    </>
+      {!isToBeDeleted ? (
+        <>
+          {shoppingItem.quantity} {shoppingItem.name}
+          <ToggleDeleteButton
+            onClick={() => {
+              toggleIsToBeDeleted(shoppingItem);
+            }}
+            data-js="toggleIsToBeDeletedButton"
+          >
+            delete
+          </ToggleDeleteButton>
+          <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
+            Details
+          </StyledLink>
+        </>
+      ) : (
+        <div>
+          <p>delete {shoppingItem.name}?</p>
+          <button
+            onClick={() => {
+              toggleIsToBeDeleted(shoppingItem);
+            }}
+            data-js="cancelDeleteButton"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => {
+              onDeleteItem(shoppingItem.id);
+            }}
+            data-js="confirmDeleteButton"
+          >
+            Delete
+          </button>
+        </div>
+      )}
+    </ListItem>
   );
 }
+
+const ToggleDeleteButton = styled.button`
+  display: flex;
+  position: absolute;
+  bottom: 10%;
+  right: 5rem;
+  /* padding: 2px 5px;
+  background-color: #eee;
+  color: #333;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: normal; */
+`;
 
 const DeletionConfirmation = styled.article`
   display: flex;
@@ -71,6 +82,7 @@ const DeletionConfirmation = styled.article`
 
 const ListItem = styled.li`
   display: flex;
+  height: 5rem;
   justify-content: space-between;
   align-items: center;
   background-color: ${(props) => props.$backgroundColor};
