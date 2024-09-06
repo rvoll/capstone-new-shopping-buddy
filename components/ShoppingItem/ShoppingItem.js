@@ -19,7 +19,6 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
       {!isToBeDeleted ? (
         <>
           {shoppingItem.quantity} {shoppingItem.name}
-          {/* {shoppingItem.quantity > 1 ? shoppingItem.pluralForm : shoppingItem.entity + shoppingItem.name} */}
           <ToggleDeleteButton
             onClick={() => {
               toggleIsToBeDeleted(shoppingItem);

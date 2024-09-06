@@ -7,6 +7,16 @@ import { nanoid } from "nanoid";
 export default function App({ Component, pageProps }) {
   const [shoppingItems, setShoppingItems] = useState(initialShoppingItems);
 
+  // function handleEditItem(id, propertyToBeChanged) {
+  //   setShoppingItems([
+
+  //     shoppingItems.map((shoppingItem) => {
+  //       if (shoppingItem.id === id) return {newItem, shoppingItems};
+  //       return shoppingItem;
+  //     })
+  //   ]);
+  // }
+
   function handleAddItem(newItem) {
     setShoppingItems([
       {
