@@ -1,6 +1,22 @@
 import styled from "styled-components";
 
-export default function FormToCreateShoppingItem({ onAddItem, categories }) {
+/*
+1. 
+- This form is designed to handle both "creating" and "updating" a shopping item.
+- therefore it makes sense to rename this component to "Form"
+- Use a more generic prop name like "onSubmitItem" so the function can be used for both creating and updating an item.
+- The actuall function is therefore passed as a prop by the parent component.
+- You can also pass the submitLabel, depending on whether you want to create or update an item, the default could be "submit"
+- To make the form prefilled, you also need the information about which item is to be updated, so we need this information as prop "item"
+*/
+export default function Form({
+  onSubmitItem,
+  submitLabel,
+  categories,
+  item = {},
+  onChangeMode,
+  mode,
+}) {
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -8,20 +24,21 @@ export default function FormToCreateShoppingItem({ onAddItem, categories }) {
     newItem.quantity = Number(newItem.quantity);
     newItem.imageUrl = "placeholder_1.png";
 
-    onAddItem(newItem);
-    event.target.reset();
+    if (item.id) {
+      onSubmitItem(item.id, newItem);
+    } else {
+      onSubmitItem(newItem);
+    }
+
+    onChangeMode("");
   }
 
   return (
     <article>
-      <form
-        // add id for form here as reference
-        id={FormToCreateShoppingItem}
-        onSubmit={handleSubmit}
-        data-js="form"
-      >
+      <form onSubmit={handleSubmit}>
         <StyledFieldset>
-          <h2>Add an item to the list:</h2>
+          {/* 💡 add a condition for updtaing or creating an Item */}
+          {/* <h2>{item.id ? "Update" : "Add"} an item to the list:</h2> */}
           <StyledLabel>
             new shopping item*:
             <StyledInput
@@ -29,22 +46,33 @@ export default function FormToCreateShoppingItem({ onAddItem, categories }) {
               type="text"
               required
               placeholder="e.g., salt"
+              // 💡 Pre-fill when "updating"
+              defaultValue={item.name || ""}
             />
           </StyledLabel>
           <StyledLabel>
             number*:
-            <StyledInput name="quantity" type="number" required />
+            <StyledInput
+              name="quantity"
+              type="number"
+              required
+              // 💡 Pre-fill when "updating"
+              defaultValue={item.quantity || 1}
+            />
           </StyledLabel>
           <StyledLabel>
             category*:
-            <select key="category" name="category" data-js="category" required>
+            <select
+              name="category"
+              required
+              defaultValue={mode === "edit" ? item.category : ""}
+            >
               <option value="">please select a category</option>
               {categories.map((category) => (
                 <option key={category.name} value={category.name}>
                   {category.name}
                 </option>
               ))}
-              ;
             </select>
           </StyledLabel>
           <StyledLabel>
@@ -53,13 +81,16 @@ export default function FormToCreateShoppingItem({ onAddItem, categories }) {
               name="comment"
               type="text"
               placeholder="Enter comments here..."
+              // 💡 Pre-fill when "updating"
+              defaultValue={item.comment || ""}
             />
           </StyledLabel>
           <StyledNote>
             Required fields are followed by <span aria-label="required">*</span>
             .
           </StyledNote>
-          <StyledButton>Submit</StyledButton>
+          {/* Here you use what is in the submitLabel prop. So either "submit" or "update" */}
+          <StyledButton>{submitLabel}</StyledButton>
         </StyledFieldset>
       </form>
     </article>

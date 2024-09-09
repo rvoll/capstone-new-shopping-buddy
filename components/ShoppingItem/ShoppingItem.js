@@ -2,25 +2,16 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 
-// pass onEditItem down
-// pass id down
 export default function ShoppingItem({
-  id,
   onDeleteItem,
   shoppingItem,
   onEditItem,
+  onChangeMode,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
 
-  // set UseState for isToBeEdited
-  const [isToBeEdited, setIsToBeEdited] = useState(false);
-
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
-  }
-
-  function toggleIsToBeEdited() {
-    setIsToBeEdited(!isToBeEdited);
   }
 
   return (
@@ -30,23 +21,19 @@ export default function ShoppingItem({
     >
       <CategoryBox>{shoppingItem.category}</CategoryBox>
 
-      {/* {isToBeEdited && } */}
-
       {!isToBeDeleted ? (
         <>
           {shoppingItem.quantity} {shoppingItem.name}
           {/* add isToBeEditedButton: */}
-          {/* NewItem not needed as argument here, only in the form itself */}
           <EditButton
             onClick={() => {
-              toggleIsToBeEdited(id);
-              ("location.href='FormToCreateShoppingItem'");
+              onChangeMode();
+              onEditItem();
             }}
-            data-js="isToBeEditedButton"
           >
             edit
           </EditButton>
-          {/* upon clicking on "edit", the form gets focused, prefilled and titled with sth. like "Edit the {id.name}"" */}
+          {/* NewItem not needed as argument here, only in the form itself */}
           <DeleteButton
             onClick={() => {
               toggleIsToBeDeleted(shoppingItem);
@@ -66,7 +53,6 @@ export default function ShoppingItem({
             onClick={() => {
               toggleIsToBeDeleted(shoppingItem);
             }}
-            data-js="cancelDeleteButton"
           >
             Cancel
           </button>
@@ -74,7 +60,6 @@ export default function ShoppingItem({
             onClick={() => {
               onDeleteItem(shoppingItem.id);
             }}
-            data-js="confirmDeleteButton"
           >
             Delete
           </button>

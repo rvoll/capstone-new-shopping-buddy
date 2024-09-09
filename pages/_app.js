@@ -10,6 +10,8 @@ export default function App({ Component, pageProps }) {
   const [showForm, setShowForm] = useState(false);
 
   function handleAddItem(newItem) {
+    console.log("blah");
+
     setShoppingItems([
       {
         id: nanoid(),

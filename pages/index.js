@@ -1,20 +1,22 @@
 import styled from "styled-components";
-import FormToCreateShoppingItem from "@/components/FormToCreateShoppingItem/FormToCreateShoppingItem.js";
+import Form from "@/components/Form/Form.js";
 import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
-
+import { useState } from "react";
 import { categories } from "@/lib/categoriesData";
 
-// for editing, in index.js the onEditForm is only passed on to the ShoppingItem component
-
-// pass down onEditItem
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
   onAddItem,
-  onDeleteItem,
   onEditItem,
-  showForm,
-  setShowForm,
+  onDeleteItem,
 }) {
+  const [mode, setMode] = useState("");
+  const [editingItem, setEditingItem] = useState({});
+
+  function handleChangeMode(mode) {
+    setMode(mode);
+  }
+
   return (
     <main>
       <StyledH1>
@@ -26,14 +28,31 @@ export default function ShoppingItemsList({
           below.
         </StyledNoItemsMessage>
       )}
+      {mode == "edit" && (
+        <Form
+          onSubmitItem={onEditItem}
+          categories={categories}
+          item={editingItem}
+          submitLabel={"UPDATE"}
+          onChangeMode={handleChangeMode}
+          mode={mode}
+        />
+      )}
 
-      <FormToCreateShoppingItem
-        // add an id in order to be able to jump to the form
-        // - apparently not to be added here but somewhere else
-        // id={createShoppingItemForm}
-        onAddItem={onAddItem}
-        categories={categories}
-      />
+      {mode === "add" && (
+        <Form
+          onSubmitItem={onAddItem}
+          categories={categories}
+          submitLabel={"ADD"}
+          onChangeMode={handleChangeMode}
+          mode={mode}
+        />
+      )}
+      {mode !== "edit" && (
+        <button onClick={() => handleChangeMode(mode === "add" ? "" : "add")}>
+          {mode === "add" ? "cancel" : "+"}
+        </button>
+      )}
       <StyledList>
         {shoppingItemsWithCategoryColor.map((shoppingItem) => {
           return (
@@ -41,8 +60,8 @@ export default function ShoppingItemsList({
               key={shoppingItem.id}
               shoppingItem={shoppingItem}
               onDeleteItem={onDeleteItem}
-              // pass onEditItem to ShoppingItem component
-              onEditItem={onEditItem}
+              onEditItem={() => setEditingItem(shoppingItem)}
+              onChangeMode={() => handleChangeMode("edit")}
             />
           );
         })}
