@@ -14,7 +14,12 @@ export default function FormToCreateShoppingItem({ onAddItem, categories }) {
 
   return (
     <article>
-      <form onSubmit={handleSubmit} data-js="form">
+      <form
+        // add id for form here as reference
+        id={FormToCreateShoppingItem}
+        onSubmit={handleSubmit}
+        data-js="form"
+      >
         <StyledFieldset>
           <h2>Add an item to the list:</h2>
           <StyledLabel>

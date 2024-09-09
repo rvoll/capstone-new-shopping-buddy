@@ -2,11 +2,25 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
+// pass onEditItem down
+// pass id down
+export default function ShoppingItem({
+  id,
+  onDeleteItem,
+  shoppingItem,
+  onEditItem,
+}) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
+
+  // set UseState for isToBeEdited
+  const [isToBeEdited, setIsToBeEdited] = useState(false);
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
+  }
+
+  function toggleIsToBeEdited() {
+    setIsToBeEdited(!isToBeEdited);
   }
 
   return (
@@ -16,17 +30,31 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
     >
       <CategoryBox>{shoppingItem.category}</CategoryBox>
 
+      {/* {isToBeEdited && } */}
+
       {!isToBeDeleted ? (
         <>
           {shoppingItem.quantity} {shoppingItem.name}
-          <ToggleDeleteButton
+          {/* add isToBeEditedButton: */}
+          {/* NewItem not needed as argument here, only in the form itself */}
+          <EditButton
+            onClick={() => {
+              toggleIsToBeEdited(id);
+              ("location.href='FormToCreateShoppingItem'");
+            }}
+            data-js="isToBeEditedButton"
+          >
+            edit
+          </EditButton>
+          {/* upon clicking on "edit", the form gets focused, prefilled and titled with sth. like "Edit the {id.name}"" */}
+          <DeleteButton
             onClick={() => {
               toggleIsToBeDeleted(shoppingItem);
             }}
             data-js="toggleIsToBeDeletedButton"
           >
             delete
-          </ToggleDeleteButton>
+          </DeleteButton>
           <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
             Details
           </StyledLink>
@@ -56,11 +84,35 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
   );
 }
 
-const ToggleDeleteButton = styled.button`
+// {/* add toggle isToDeEditedButton to cancel Editing */}
+// <button
+//   onClick={() => {
+//     toggleIsToBeEdited(shoppingItem);
+//   }}
+//   data-js="cancelEditButton"
+// >
+//   Cancel
+// </button>
+// {/*  */}
+
+const DeleteButton = styled.button`
   display: flex;
   position: absolute;
   bottom: 10%;
   right: 5rem;
+  /* padding: 2px 5px;
+  background-color: #eee;
+  color: #333;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: normal; */
+`;
+
+const EditButton = styled.button`
+  display: flex;
+  position: absolute;
+  bottom: 10%;
+  right: 10rem;
   /* padding: 2px 5px;
   background-color: #eee;
   color: #333;

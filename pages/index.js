@@ -4,10 +4,16 @@ import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
 
 import { categories } from "@/lib/categoriesData";
 
+// for editing, in index.js the onEditForm is only passed on to the ShoppingItem component
+
+// pass down onEditItem
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
   onAddItem,
   onDeleteItem,
+  onEditItem,
+  showForm,
+  setShowForm,
 }) {
   return (
     <main>
@@ -21,7 +27,13 @@ export default function ShoppingItemsList({
         </StyledNoItemsMessage>
       )}
 
-      <FormToCreateShoppingItem onAddItem={onAddItem} categories={categories} />
+      <FormToCreateShoppingItem
+        // add an id in order to be able to jump to the form
+        // - apparently not to be added here but somewhere else
+        // id={createShoppingItemForm}
+        onAddItem={onAddItem}
+        categories={categories}
+      />
       <StyledList>
         {shoppingItemsWithCategoryColor.map((shoppingItem) => {
           return (
@@ -29,6 +41,8 @@ export default function ShoppingItemsList({
               key={shoppingItem.id}
               shoppingItem={shoppingItem}
               onDeleteItem={onDeleteItem}
+              // pass onEditItem to ShoppingItem component
+              onEditItem={onEditItem}
             />
           );
         })}

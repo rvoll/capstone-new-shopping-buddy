@@ -6,16 +6,8 @@ import { nanoid } from "nanoid";
 
 export default function App({ Component, pageProps }) {
   const [shoppingItems, setShoppingItems] = useState(initialShoppingItems);
-
-  // function handleEditItem(id, propertyToBeChanged) {
-  //   setShoppingItems([
-
-  //     shoppingItems.map((shoppingItem) => {
-  //       if (shoppingItem.id === id) return {newItem, shoppingItems};
-  //       return shoppingItem;
-  //     })
-  //   ]);
-  // }
+  // for editing:
+  const [showForm, setShowForm] = useState(false);
 
   function handleAddItem(newItem) {
     setShoppingItems([
@@ -25,6 +17,16 @@ export default function App({ Component, pageProps }) {
       },
       ...shoppingItems,
     ]);
+  }
+
+  // edit-function:
+  function handleEditItem(id, newItem) {
+    setShoppingItems(
+      shoppingItems.map((shoppingItem) => {
+        if (shoppingItem.id === id) return { ...shoppingItem, ...newItem };
+        return shoppingItem;
+      })
+    );
   }
 
   function handleDeleteItem(id) {
@@ -51,8 +53,12 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}
+        onEditItem={handleEditItem}
         onDeleteItem={handleDeleteItem}
         categories={categories}
+        // for editing:
+        showForm={showForm}
+        setShowForm={setShowForm}
       />
     </>
   );
