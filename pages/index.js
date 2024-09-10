@@ -7,12 +7,15 @@ import { categories } from "@/lib/categoriesData";
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
   onAddItem,
-  onEditItem,
+  onEditItem, // Function to handle editing an existing item.
   onDeleteItem,
 }) {
+  // State for determining the current mode ("add" or "edit").
   const [mode, setMode] = useState("");
+  // State to hold the item being edited.
   const [editingItem, setEditingItem] = useState({});
 
+  // Function to change the mode (e.g., 'edit' or 'add' or reset).
   function handleChangeMode(mode) {
     setMode(mode);
   }
@@ -28,6 +31,7 @@ export default function ShoppingItemsList({
           below.
         </StyledNoItemsMessage>
       )}
+      {/* If the mode is 'edit', show the Form component for editing the item */}
       {mode == "edit" && (
         <Form
           onSubmitItem={onEditItem}
@@ -38,7 +42,7 @@ export default function ShoppingItemsList({
           mode={mode}
         />
       )}
-
+      {/* If the mode is 'add', show the Form component for adding a new item */}
       {mode === "add" && (
         <Form
           onSubmitItem={onAddItem}
@@ -48,6 +52,7 @@ export default function ShoppingItemsList({
           mode={mode}
         />
       )}
+      {/* Button to toggle between 'add' mode and cancelling the form */}
       {mode !== "edit" && (
         <button onClick={() => handleChangeMode(mode === "add" ? "" : "add")}>
           {mode === "add" ? "cancel" : "+"}
