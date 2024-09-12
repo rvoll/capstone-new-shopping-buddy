@@ -27,16 +27,13 @@ export default function ShoppingItemsList({
 
   return (
     <>
-      <header>
+      <StyledHeader>
         <h1>Shopping Car-d</h1>
         {/* <img src="my-logo.png" alt="My Logo" /> */}
         {/* <SearchBar /> */}
-      </header>
+      </StyledHeader>
       <body>
         <main>
-          <StyledH1>
-            {shoppingItemsWithCategoryColor.length} Shopping Items
-          </StyledH1>
           {shoppingItemsWithCategoryColor.length === 0 && (
             <StyledNoItemsMessage>
               There are no items on your shopping list. Add items using the form
@@ -65,15 +62,21 @@ export default function ShoppingItemsList({
 
           {/* Change this button so that it disappears when the form is shown */}
           {mode !== "add" && (
-            <button onClick={() => handleChangeMode("add")}>
-              {/* {mode === "add" ? "cancel" : "+"} */}+
-            </button>
+            <AddItemContainer>
+              <p>need anything else?</p>
+              <AddButton onClick={() => handleChangeMode("add")}>
+                {/* {mode === "add" ? "cancel" : "+"} */}+
+              </AddButton>
+            </AddItemContainer>
           )}
           {/* Button on shopping item done, too.
            */}
           {/* NEXT - THURSDAY MORNING: */}
           {/* Now create the variants for the form; 
  herefore we need to set the item to be edited in order to prefill the form */}
+          <StyledH1>
+            There's still {shoppingItemsWithCategoryColor.length} items to get:
+          </StyledH1>
           <StyledList>
             {shoppingItemsWithCategoryColor.map((shoppingItem) => {
               return (
@@ -93,9 +96,33 @@ export default function ShoppingItemsList({
   );
 }
 
-const StyledH1 = styled.h1`
-  padding: 20px;
+const AddItemContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const StyledHeader = styled.header`
+  padding: 10px;
   text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: -4rem;
+`;
+
+const StyledH1 = styled.h1`
+  /* padding: 20px; */
+  text-align: center;
+`;
+
+// How can I move it to the center?
+const AddButton = styled.button`
+  /* display: flex; */
+  /* margin-left: 0.6rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 0.5rem; */
+  /* padding-top: 0.5rem; */
+  border-radius: 20px;
+  font-size: 1.5rem;
 `;
 
 const StyledList = styled.ul`
