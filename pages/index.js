@@ -56,9 +56,12 @@ export default function ShoppingItemsList({
         />
       )}
 
-      <button onClick={() => handleChangeMode(mode === "add" ? "" : "add")}>
-        {mode === "add" ? "cancel" : "+"}
-      </button>
+      {/* Change this button so that it disappears when the form is shown */}
+      {mode !== "add" && (
+        <button onClick={() => handleChangeMode("add")}>
+          {/* {mode === "add" ? "cancel" : "+"} */}+
+        </button>
+      )}
       {/* Button on shopping item done, too.
        */}
       {/* NEXT - THURSDAY MORNING: */}
