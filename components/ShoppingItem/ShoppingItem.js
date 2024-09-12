@@ -40,7 +40,8 @@ export default function ShoppingItem({
           {/* use onChangeMode to change into edit mode, i.e. open up the edit-version of the form*/}
           <EditButton
             onClick={() => {
-              onChangeMode(mode === "edit" ? "edit" : "edit");
+              onChangeMode();
+              onEditItem();
             }}
             data-js="isToBeEditedButton"
           >

@@ -4,25 +4,26 @@ import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
 import { useState } from "react";
 import { categories } from "@/lib/categoriesData";
 
-// for editing, in index.js the onEditForm is only passed on to the ShoppingItem component
-
-// pass down onEditItem
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
   onAddItem,
   onEditItem,
   onDeleteItem,
 }) {
-  // State for determining the current mode ("add" or "edit").
   const [mode, setMode] = useState("");
 
-  // ADD: State to hold the item being edited.
+  // ADD: State to hold the item being edited. - Should be an object - thus {}
+  const [editedItem, setEditedItem] = useState({});
+  // pass on to form!
 
-  // Function to change the mode (e.g., 'edit' or 'add' or reset).
+  // then - implement a variable function in the form component with
+  // two variant Form components: onSubmit(part of the syntax)=onEdit/onAdd
+  // see below.
 
   function handleChangeMode(mode) {
     setMode(mode);
   }
+  // pass on to shopping item - and to form?
 
   return (
     <main>
@@ -35,36 +36,32 @@ export default function ShoppingItemsList({
           below.
         </StyledNoItemsMessage>
       )}
-      {/* REPLACED: */}
-      {/* <Form
-        onAddItem={onAddItem}
-        categories={categories}
-      /> */}
-      {/*  */}
-      {/* use conditional rendering here - around the form: 
-      if status = create
-      => Version 1: empty, otherwise Version 2: prefilled */}
       {mode === "edit" && (
-        <Form onAddItem={onAddItem} categories={categories} />
+        <Form
+          onSubmitItem={onEditItem}
+          categories={categories}
+          item={editedItem}
+          submitLabel={"update"}
+          onChangeMode={handleChangeMode}
+          mode={mode}
+        />
       )}
-      {mode === "add" && <Form onAddItem={onAddItem} categories={categories} />}
-      {/* for now, the 2 versions are identical - this should be changed later;
-       */}
+      {mode === "add" && (
+        <Form
+          onSubmitItem={onAddItem}
+          categories={categories}
+          submitLabel={"submit"}
+          onChangeMode={handleChangeMode}
+          mode={mode}
+        />
+      )}
 
-      {/* but  */}
-      {/* in the unmarked case - when the mode is not defined, 
-i.e. neither edit nor create have been chosen 
-- there should be a button on the homepage/list to open the form in create mode
-and a button in the shopping item to open the form in edit mode */}
-
-      {/* for the buttons we need a changemode function which we have to define above. */}
-      {/* Already done. */}
       <button onClick={() => handleChangeMode(mode === "add" ? "" : "add")}>
         {mode === "add" ? "cancel" : "+"}
       </button>
       {/* Button on shopping item done, too.
        */}
-      {/* NEXT */}
+      {/* NEXT - THURSDAY MORNING: */}
       {/* Now create the variants for the form; 
  herefore we need to set the item to be edited in order to prefill the form */}
       <StyledList>
@@ -74,10 +71,8 @@ and a button in the shopping item to open the form in edit mode */}
               key={shoppingItem.id}
               shoppingItem={shoppingItem}
               onDeleteItem={onDeleteItem}
-              // pass onEditItem to ShoppingItem component
-              onEditItem={onEditItem}
-              onChangeMode={handleChangeMode}
-              mode={mode}
+              onEditItem={() => setEditedItem(shoppingItem)}
+              onChangeMode={() => handleChangeMode("edit")}
             />
           );
         })}
