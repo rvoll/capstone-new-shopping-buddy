@@ -6,8 +6,6 @@ import { nanoid } from "nanoid";
 
 export default function App({ Component, pageProps }) {
   const [shoppingItems, setShoppingItems] = useState(initialShoppingItems);
-  // for editing:
-  const [showForm, setShowForm] = useState(false);
 
   function handleAddItem(newItem) {
     setShoppingItems([
@@ -19,7 +17,7 @@ export default function App({ Component, pageProps }) {
     ]);
   }
 
-  // edit-function:
+  // actual edit-function:
   function handleEditItem(id, newItem) {
     setShoppingItems(
       shoppingItems.map((shoppingItem) => {
@@ -56,9 +54,6 @@ export default function App({ Component, pageProps }) {
         onEditItem={handleEditItem}
         onDeleteItem={handleDeleteItem}
         categories={categories}
-        // for editing:
-        showForm={showForm}
-        setShowForm={setShowForm}
       />
     </>
   );

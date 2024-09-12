@@ -16,7 +16,7 @@ export default function FormToCreateShoppingItem({ onAddItem, categories }) {
     <article>
       <form
         // add id for form here as reference
-        id={FormToCreateShoppingItem}
+        // id={Form}
         onSubmit={handleSubmit}
         data-js="form"
       >

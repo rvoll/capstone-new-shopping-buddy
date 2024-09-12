@@ -9,6 +9,8 @@ export default function ShoppingItem({
   onDeleteItem,
   shoppingItem,
   onEditItem,
+  onChangeMode,
+  mode,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
 
@@ -30,23 +32,22 @@ export default function ShoppingItem({
     >
       <CategoryBox>{shoppingItem.category}</CategoryBox>
 
-      {/* {isToBeEdited && } */}
-
       {!isToBeDeleted ? (
         <>
           {shoppingItem.quantity} {shoppingItem.name}
           {/* add isToBeEditedButton: */}
           {/* NewItem not needed as argument here, only in the form itself */}
+          {/* use onChangeMode to change into edit mode, i.e. open up the edit-version of the form*/}
           <EditButton
             onClick={() => {
-              toggleIsToBeEdited(id);
-              ("location.href='FormToCreateShoppingItem'");
+              onChangeMode(mode === "edit" ? "edit" : "edit");
             }}
             data-js="isToBeEditedButton"
           >
             edit
           </EditButton>
           {/* upon clicking on "edit", the form gets focused, prefilled and titled with sth. like "Edit the {id.name}"" */}
+          {/* back to the index.js */}
           <DeleteButton
             onClick={() => {
               toggleIsToBeDeleted(shoppingItem);
