@@ -60,7 +60,8 @@ export default function ShoppingItemsList({
           </AddItemContainer>
         )}
         <StyledH1>
-          There's {shoppingItemsWithCategoryColor.length} things left to get:
+          There&#39;s {shoppingItemsWithCategoryColor.length} things left to
+          get:
         </StyledH1>
         <StyledList>
           {shoppingItemsWithCategoryColor.map((shoppingItem) => {
