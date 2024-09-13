@@ -63,19 +63,22 @@ export default function ShoppingItemsList({
           {/* Change this button so that it disappears when the form is shown */}
           {mode !== "add" && (
             <AddItemContainer>
-              <p>...need anything else?</p>
-              <AddButton onClick={() => handleChangeMode("add")}>
-                {/* {mode === "add" ? "cancel" : "+"} */}+
-              </AddButton>
+              <>
+                <p>...need anything else?</p>
+                <AddButton onClick={() => handleChangeMode("add")}>
+                  {/* {mode === "add" ? "cancel" : "+"} */}+
+                </AddButton>
+              </>
             </AddItemContainer>
           )}
+
           {/* Button on shopping item done, too.
            */}
           {/* NEXT - THURSDAY MORNING: */}
           {/* Now create the variants for the form; 
  herefore we need to set the item to be edited in order to prefill the form */}
           <StyledH1>
-            There's still {shoppingItemsWithCategoryColor.length} things to get:
+            There's {shoppingItemsWithCategoryColor.length} things left to get:
           </StyledH1>
           <StyledList>
             {shoppingItemsWithCategoryColor.map((shoppingItem) => {
@@ -117,7 +120,10 @@ const StyledH1 = styled.h1`
 // How can I move it to the center?
 const AddButton = styled.button`
   display: flex;
+  /* flex-direction: column;
+  text-align: center; */
   margin-left: 0.6rem;
+  margin-top: 1rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   border-radius: 16px;
