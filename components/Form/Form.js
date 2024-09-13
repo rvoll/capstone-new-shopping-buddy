@@ -15,21 +15,13 @@ export default function FormToCreateShoppingItem({
     newItem.quantity = Number(newItem.quantity);
     newItem.imageUrl = "placeholder_1.png";
 
-    // - If the item has an ID (means it's being updated -> item prop is not an emtpy array), call "onSubmitItem "with the item ID.
-    //   - Otherwise, call "onSubmitItem" for creating a new item.
     if (item.id) {
       onSubmitItem(item.id, newItem);
     } else {
       onSubmitItem(newItem);
     }
-    // Resets the form mode after submission. So the from is "hidden"
-    // by assigning mode ""
     onChangeMode("");
   }
-
-  // Now create two versions - in the index.js???
-  // and make the edit and the submit button (in the form component?) work for them
-  // after this prefill the edit one with the info for (in index.js)
 
   return (
     <article>
@@ -90,15 +82,12 @@ export default function FormToCreateShoppingItem({
             .
           </StyledNote>
           <StyledButton>Submit</StyledButton>
-          {/* type="button" (instead of submit) prevents checking obligatory fields*/}
           <button
             type="button"
             onClick={() => onChangeMode(mode === ("add" || "edit") && "")}
           >
             cancel
           </button>
-          {/* a button here - in the form would be preferrable, but - it would 
-          need to be able to ignore the obligatory fields */}
         </StyledFieldset>
       </form>
     </article>
@@ -141,15 +130,3 @@ const StyledFieldset = styled.fieldset`
   align-content: start;
   list-style-type: none;
 `;
-
-// const StyledForm = styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   padding: 16px;
-//   border-radius: 5px;
-//   background-color: lightgrey;
-//   border: none;
-//   gap: 6px;
-//   align-content: start;
-//   list-style-type: none;
-// `;

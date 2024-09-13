@@ -28,14 +28,14 @@ export default function ShoppingItemDetails({
             <CategoryBoxDetails>
               {currentShoppingItem.category}
             </CategoryBoxDetails>
-            <h3>number: {currentShoppingItem.quantity}</h3>
+            <h3>quantity: {currentShoppingItem.quantity}</h3>
 
             <Image
               src={`/images/${currentShoppingItem.imageUrl}`}
               alt={currentShoppingItem.name}
               style={{ objectFit: "contain" }}
-              width={200}
-              height={200}
+              width={140}
+              height={140}
             />
             <h3>comments: </h3>
             <p>{currentShoppingItem.comment}</p>

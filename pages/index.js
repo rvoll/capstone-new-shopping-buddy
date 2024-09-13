@@ -12,96 +12,75 @@ export default function ShoppingItemsList({
 }) {
   const [mode, setMode] = useState("");
 
-  // ADD: State to hold the item being edited. - Should be an object - thus {}
   const [editedItem, setEditedItem] = useState({});
-  // pass on to form!
-
-  // then - implement a variable function in the form component with
-  // two variant Form components: onSubmit(part of the syntax)=onEdit/onAdd
-  // see below.
 
   function handleChangeMode(mode) {
     setMode(mode);
   }
-  // pass on to shopping item - and to form?
 
   return (
     <>
       <StyledHeader>
         <h1>Shopping Car-d</h1>
-        {/* <img src="my-logo.png" alt="My Logo" /> */}
-        {/* <SearchBar /> */}
       </StyledHeader>
-      <body>
-        <main>
-          {shoppingItemsWithCategoryColor.length === 0 && (
-            <StyledNoItemsMessage>
-              There are no items on your shopping list. Add items using the form
-              below.
-            </StyledNoItemsMessage>
-          )}
-          {mode === "edit" && (
-            <Form
-              onSubmitItem={onEditItem}
-              categories={categories}
-              item={editedItem}
-              submitLabel={"update"}
-              onChangeMode={handleChangeMode}
-              mode={mode}
-            />
-          )}
-          {mode === "add" && (
-            <Form
-              onSubmitItem={onAddItem}
-              categories={categories}
-              submitLabel={"submit"}
-              onChangeMode={handleChangeMode}
-              mode={mode}
-            />
-          )}
 
-          {/* Change this button so that it disappears when the form is shown */}
-          {mode !== "add" && (
-            <AddItemContainer>
-              <>
-                <p>...need anything else?</p>
-                <AddButton onClick={() => handleChangeMode("add")}>
-                  {/* {mode === "add" ? "cancel" : "+"} */}+
-                </AddButton>
-              </>
-            </AddItemContainer>
-          )}
+      <main>
+        {shoppingItemsWithCategoryColor.length === 0 && (
+          <StyledNoItemsMessage>
+            There are no items on your shopping list. Add items using the form
+            below.
+          </StyledNoItemsMessage>
+        )}
+        {mode === "edit" && (
+          <Form
+            onSubmitItem={onEditItem}
+            categories={categories}
+            item={editedItem}
+            submitLabel={"update"}
+            onChangeMode={handleChangeMode}
+            mode={mode}
+          />
+        )}
+        {mode === "add" && (
+          <Form
+            onSubmitItem={onAddItem}
+            categories={categories}
+            submitLabel={"submit"}
+            onChangeMode={handleChangeMode}
+            mode={mode}
+          />
+        )}
 
-          {/* Button on shopping item done, too.
-           */}
-          {/* NEXT - THURSDAY MORNING: */}
-          {/* Now create the variants for the form; 
- herefore we need to set the item to be edited in order to prefill the form */}
-          <StyledH1>
-            There's {shoppingItemsWithCategoryColor.length} things left to get:
-          </StyledH1>
-          <StyledList>
-            {shoppingItemsWithCategoryColor.map((shoppingItem) => {
-              return (
-                <ShoppingItem
-                  key={shoppingItem.id}
-                  shoppingItem={shoppingItem}
-                  onDeleteItem={onDeleteItem}
-                  onEditItem={() => setEditedItem(shoppingItem)}
-                  onChangeMode={() => handleChangeMode("edit")}
-                />
-              );
-            })}
-          </StyledList>
-        </main>
-      </body>
+        {mode !== "add" && (
+          <AddItemContainer>
+            <>
+              <p>...need anything else?</p>
+              <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
+            </>
+          </AddItemContainer>
+        )}
+        <StyledH1>
+          There's {shoppingItemsWithCategoryColor.length} things left to get:
+        </StyledH1>
+        <StyledList>
+          {shoppingItemsWithCategoryColor.map((shoppingItem) => {
+            return (
+              <ShoppingItem
+                key={shoppingItem.id}
+                shoppingItem={shoppingItem}
+                onDeleteItem={onDeleteItem}
+                onEditItem={() => setEditedItem(shoppingItem)}
+                onChangeMode={() => handleChangeMode("edit")}
+              />
+            );
+          })}
+        </StyledList>
+      </main>
     </>
   );
 }
 
 const AddItemContainer = styled.div`
-  /* display: flex;
-  flex-direction: row; */
   gap: 10px;
 `;
 
@@ -113,15 +92,11 @@ const StyledHeader = styled.header`
 `;
 
 const StyledH1 = styled.h1`
-  /* padding: 20px; */
   text-align: center;
 `;
 
-// How can I move it to the center?
 const AddButton = styled.button`
   display: flex;
-  /* flex-direction: column;
-  text-align: center; */
   margin-left: 0.6rem;
   margin-top: 1rem;
   padding-left: 0.5rem;

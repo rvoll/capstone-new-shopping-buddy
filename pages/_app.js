@@ -17,7 +17,6 @@ export default function App({ Component, pageProps }) {
     ]);
   }
 
-  // actual edit-function:
   function handleEditItem(id, newItem) {
     setShoppingItems(
       shoppingItems.map((shoppingItem) => {

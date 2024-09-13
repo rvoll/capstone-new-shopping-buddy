@@ -2,8 +2,6 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 
-// pass onEditItem down
-// pass id down
 export default function ShoppingItem({
   id,
   onDeleteItem,
@@ -14,7 +12,6 @@ export default function ShoppingItem({
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
 
-  // set UseState for isToBeEdited
   const [isToBeEdited, setIsToBeEdited] = useState(false);
 
   function toggleIsToBeDeleted() {
@@ -35,9 +32,6 @@ export default function ShoppingItem({
       {!isToBeDeleted ? (
         <>
           {shoppingItem.quantity} {shoppingItem.name}
-          {/* add isToBeEditedButton: */}
-          {/* NewItem not needed as argument here, only in the form itself */}
-          {/* use onChangeMode to change into edit mode, i.e. open up the edit-version of the form*/}
           <EditButton
             onClick={() => {
               onChangeMode();
@@ -47,8 +41,6 @@ export default function ShoppingItem({
           >
             edit
           </EditButton>
-          {/* upon clicking on "edit", the form gets focused, prefilled and titled with sth. like "Edit the {id.name}"" */}
-          {/* back to the index.js */}
           <DeleteButton
             onClick={() => {
               toggleIsToBeDeleted(shoppingItem);
@@ -86,28 +78,11 @@ export default function ShoppingItem({
   );
 }
 
-// {/* add toggle isToDeEditedButton to cancel Editing */}
-// <button
-//   onClick={() => {
-//     toggleIsToBeEdited(shoppingItem);
-//   }}
-//   data-js="cancelEditButton"
-// >
-//   Cancel
-// </button>
-// {/*  */}
-
 const DeleteButton = styled.button`
   display: flex;
   position: absolute;
   bottom: 10%;
   right: 5rem;
-  /* padding: 2px 5px;
-  background-color: #eee;
-  color: #333;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: normal; */
 `;
 
 const EditButton = styled.button`
@@ -115,12 +90,6 @@ const EditButton = styled.button`
   position: absolute;
   bottom: 10%;
   right: 10rem;
-  /* padding: 2px 5px;
-  background-color: #eee;
-  color: #333;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: normal; */
 `;
 
 const DeletionConfirmation = styled.article`
