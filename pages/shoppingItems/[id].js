@@ -39,12 +39,12 @@ export default function ShoppingItemDetails({
             />
             <h3>comments: </h3>
             <p>{currentShoppingItem.comment}</p>
-            <StyledLink href={`\..`}>Back to shopping list</StyledLink>
           </article>
         </ShoppingItemDetailsContainer>
       ) : (
         <p>Shopping item not found</p>
       )}
+      <StyledLink href={`\..`}>Back to shopping list</StyledLink>
     </main>
   );
 }
