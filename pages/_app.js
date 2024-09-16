@@ -17,6 +17,15 @@ export default function App({ Component, pageProps }) {
     ]);
   }
 
+  function handleEditItem(id, newItem) {
+    setShoppingItems(
+      shoppingItems.map((shoppingItem) => {
+        if (shoppingItem.id === id) return { ...shoppingItem, ...newItem };
+        return shoppingItem;
+      })
+    );
+  }
+
   function handleDeleteItem(id) {
     setShoppingItems(
       shoppingItems.filter((shoppingItem) => shoppingItem.id !== id)
@@ -41,6 +50,7 @@ export default function App({ Component, pageProps }) {
         {...pageProps}
         shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}
+        onEditItem={handleEditItem}
         onDeleteItem={handleDeleteItem}
         categories={categories}
       />

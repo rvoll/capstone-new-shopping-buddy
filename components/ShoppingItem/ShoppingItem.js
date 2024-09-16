@@ -2,12 +2,25 @@ import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
+export default function ShoppingItem({
+  id,
+  onDeleteItem,
+  shoppingItem,
+  onEditItem,
+  onChangeMode,
+  mode,
+}) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
+
+  // const [isToBeEdited, setIsToBeEdited] = useState(false);
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
   }
+
+  // function toggleIsToBeEdited() {
+  //   setIsToBeEdited(!isToBeEdited);
+  // }
 
   return (
     <ListItem
@@ -18,15 +31,24 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
 
       {!isToBeDeleted ? (
         <>
-          {shoppingItem.quantity} {shoppingItem.name}
-          <ToggleDeleteButton
+          {shoppingItem.name}: {shoppingItem.quantity}
+          <EditButton
+            onClick={() => {
+              onChangeMode();
+              onEditItem();
+            }}
+            data-js="EditModeButton"
+          >
+            edit
+          </EditButton>
+          <DeleteButton
             onClick={() => {
               toggleIsToBeDeleted(shoppingItem);
             }}
             data-js="toggleIsToBeDeletedButton"
           >
             delete
-          </ToggleDeleteButton>
+          </DeleteButton>
           <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
             Details
           </StyledLink>
@@ -56,17 +78,18 @@ export default function ShoppingItem({ onDeleteItem, shoppingItem }) {
   );
 }
 
-const ToggleDeleteButton = styled.button`
+const DeleteButton = styled.button`
   display: flex;
   position: absolute;
   bottom: 10%;
   right: 5rem;
-  /* padding: 2px 5px;
-  background-color: #eee;
-  color: #333;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: normal; */
+`;
+
+const EditButton = styled.button`
+  display: flex;
+  position: absolute;
+  bottom: 10%;
+  right: 10rem;
 `;
 
 const DeletionConfirmation = styled.article`
