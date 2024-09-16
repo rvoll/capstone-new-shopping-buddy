@@ -9,18 +9,19 @@ export default function ShoppingItem({
   onEditItem,
   onChangeMode,
   mode,
+  isPurchased,
+  // setIsPurchased,
+  toggleIsPurchased,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
 
-  // const [isToBeEdited, setIsToBeEdited] = useState(false);
+  console.log("isPurchased 0: ", isPurchased);
+
+  console.log("isPurchased 1: ", isPurchased);
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
   }
-
-  // function toggleIsToBeEdited() {
-  //   setIsToBeEdited(!isToBeEdited);
-  // }
 
   return (
     <ListItem
@@ -33,8 +34,16 @@ export default function ShoppingItem({
         <>
           {shoppingItem.name}: {shoppingItem.quantity}
           <form>
-            <input type="checkbox" id="checkbox" />
-            <label htmlFor="checkbox">purchased </label>
+            <input
+              type="checkbox"
+              id={`checkbox-${shoppingItem.id}`}
+              checked={isPurchased}
+              onChange={() => {
+                toggleIsPurchased(shoppingItem);
+              }}
+            />
+            {/* TO DO: implement conditional text here!*/}
+            <label htmlFor={`checkbox-${shoppingItem.id}`}>purchased </label>
           </form>
           <EditButton
             onClick={() => {

@@ -12,10 +12,34 @@ export default function ShoppingItemsList({
   const [mode, setMode] = useState("");
 
   const [editedItem, setEditedItem] = useState({});
+  // keep this and change, s. below
+  // const [isPurchased, setIsPurchased] = useState(false);
+
+  // CONTINUE HERE TO IMPLEMENT THE CHANGES SUGGESTED BY CHAT getPageFiles;
+  // Define toggleIsPurchased with an Item Argument: You need to modify toggleIsPurchased
+  // to accept an item as an argument. This way, it can toggle the state
+  // for each specific item instead of a generic toggle.
+  const [isPurchased, setIsPurchased] = useState(false);
 
   function handleChangeMode(mode) {
     setMode(mode);
   }
+
+  function toggleIsPurchased(id) {
+    // if (shoppingItem.id === id)
+    setIsPurchased(!isPurchased);
+  }
+
+  // // NEU:
+  // const [purchasedItems, setPurchasedItems] = useState(false);
+
+  // function togglePurchasedItems(item) {
+  //   // if (shoppingItem.id === id)
+  //   setPurchasedItems((prev) => ({
+  //     ...prev,
+  //     [item.id]: !prev[item.id],
+  //   }));
+  // }
 
   return (
     <>
@@ -71,6 +95,9 @@ export default function ShoppingItemsList({
                 onDeleteItem={onDeleteItem}
                 onEditItem={() => setEditedItem(shoppingItem)}
                 onChangeMode={() => handleChangeMode("edit")}
+                toggleIsPurchased={toggleIsPurchased}
+                isPurchased={isPurchased}
+                setIsPurchased={setIsPurchased}
               />
             );
           })}
