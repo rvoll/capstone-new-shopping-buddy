@@ -12,15 +12,15 @@ export default function ShoppingItem({
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
 
-  const [isToBeEdited, setIsToBeEdited] = useState(false);
+  // const [isToBeEdited, setIsToBeEdited] = useState(false);
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
   }
 
-  function toggleIsToBeEdited() {
-    setIsToBeEdited(!isToBeEdited);
-  }
+  // function toggleIsToBeEdited() {
+  //   setIsToBeEdited(!isToBeEdited);
+  // }
 
   return (
     <ListItem
@@ -31,13 +31,13 @@ export default function ShoppingItem({
 
       {!isToBeDeleted ? (
         <>
-          {shoppingItem.quantity} {shoppingItem.name}
+          {shoppingItem.name}: {shoppingItem.quantity}
           <EditButton
             onClick={() => {
               onChangeMode();
               onEditItem();
             }}
-            data-js="isToBeEditedButton"
+            data-js="EditModeButton"
           >
             edit
           </EditButton>

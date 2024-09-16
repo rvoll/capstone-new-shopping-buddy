@@ -3,7 +3,6 @@ import Form from "@/components/Form/Form.js";
 import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
 import { useState } from "react";
 import { categories } from "@/lib/categoriesData";
-
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
   onAddItem,
