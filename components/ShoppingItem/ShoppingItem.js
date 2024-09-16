@@ -32,6 +32,10 @@ export default function ShoppingItem({
       {!isToBeDeleted ? (
         <>
           {shoppingItem.name}: {shoppingItem.quantity}
+          <form>
+            <input type="checkbox" id="checkbox" />
+            <label htmlFor="checkbox">purchased </label>
+          </form>
           <EditButton
             onClick={() => {
               onChangeMode();
