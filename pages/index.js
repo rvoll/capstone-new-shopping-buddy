@@ -19,27 +19,22 @@ export default function ShoppingItemsList({
   // Define toggleIsPurchased with an Item Argument: You need to modify toggleIsPurchased
   // to accept an item as an argument. This way, it can toggle the state
   // for each specific item instead of a generic toggle.
-  const [isPurchased, setIsPurchased] = useState(false);
 
   function handleChangeMode(mode) {
     setMode(mode);
   }
 
-  function toggleIsPurchased(id) {
+  // NEU:
+  const [purchasedItems, setPurchasedItems] = useState(false);
+
+  // VERSTEHEN! ???
+  function toggleIsPurchased(item) {
     // if (shoppingItem.id === id)
-    setIsPurchased(!isPurchased);
+    setPurchasedItems((prev) => ({
+      ...prev,
+      [item.id]: !prev[item.id],
+    }));
   }
-
-  // // NEU:
-  // const [purchasedItems, setPurchasedItems] = useState(false);
-
-  // function togglePurchasedItems(item) {
-  //   // if (shoppingItem.id === id)
-  //   setPurchasedItems((prev) => ({
-  //     ...prev,
-  //     [item.id]: !prev[item.id],
-  //   }));
-  // }
 
   return (
     <>
@@ -95,9 +90,10 @@ export default function ShoppingItemsList({
                 onDeleteItem={onDeleteItem}
                 onEditItem={() => setEditedItem(shoppingItem)}
                 onChangeMode={() => handleChangeMode("edit")}
-                toggleIsPurchased={toggleIsPurchased}
-                isPurchased={isPurchased}
-                setIsPurchased={setIsPurchased}
+                toggleIsPurchased={() => toggleIsPurchased(shoppingItem)}
+                // isPurchased={isPurchased}
+                // setIsPurchased={setIsPurchased}
+                purchasedItems={purchasedItems}
               />
             );
           })}

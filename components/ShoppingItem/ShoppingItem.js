@@ -9,15 +9,16 @@ export default function ShoppingItem({
   onEditItem,
   onChangeMode,
   mode,
-  isPurchased,
-  // setIsPurchased,
   toggleIsPurchased,
+  purchasedItems,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
 
-  console.log("isPurchased 0: ", isPurchased);
+  const [isPurchased, setIsPurchased] = useState(false);
 
-  console.log("isPurchased 1: ", isPurchased);
+  // console.log("isPurchased 0: ", isPurchased);
+
+  // console.log("isPurchased 1: ", isPurchased);
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
@@ -37,7 +38,7 @@ export default function ShoppingItem({
             <input
               type="checkbox"
               id={`checkbox-${shoppingItem.id}`}
-              checked={isPurchased}
+              checked={isPurchased.shoppingItem}
               onChange={() => {
                 toggleIsPurchased(shoppingItem);
               }}
