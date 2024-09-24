@@ -1,4 +1,4 @@
-import styled, { ThemeConsumer } from "styled-components";
+import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -8,22 +8,27 @@ export default function ShoppingItem({
   shoppingItem,
   onEditItem,
   onChangeMode,
+  // mode,
   onToggleIsPurchased,
-  isPurchased,
-  setIsPurchased,
-  purchasedItems,
+  purchasedItem,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
 
-  //
-  console.log("purchasedItems 1: ", purchasedItems);
+  const [isPurchased, setIsPurchased] = useState(false);
+
+  // console.log("isPurchased 0: ", isPurchased);
+
+  // console.log("isPurchased 1: ", isPurchased);
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
   }
 
   return (
-    <ListItem $backgroundColor={shoppingItem.backgroundColor}>
+    <ListItem
+      key={purchasedItem.id}
+      $backgroundColor={purchasedItem.backgroundColor}
+    >
       <CategoryBox>{shoppingItem.category}</CategoryBox>
 
       {!isToBeDeleted ? (
@@ -33,15 +38,14 @@ export default function ShoppingItem({
             <input
               type="checkbox"
               id={`checkbox-${shoppingItem.id}`}
-              checked={shoppingItem.isPurchased}
+              checked={isPurchased.shoppingItem}
               onChange={() => {
+                // togglePurchasedItems(shoppingItem);
                 onToggleIsPurchased(shoppingItem);
               }}
             />
             {/* TO DO: implement conditional text here!*/}
-            <label htmlFor={`checkbox-${shoppingItem.id}`}>
-              {purchasedItems.includes(shoppingItem.id) ? "purchased" : ""}
-            </label>
+            <label htmlFor={`checkbox-${shoppingItem.id}`}>purchased </label>
           </form>
           <EditButton
             onClick={() => {
@@ -54,7 +58,7 @@ export default function ShoppingItem({
           </EditButton>
           <DeleteButton
             onClick={() => {
-              toggleIsToBeDeleted();
+              toggleIsToBeDeleted(shoppingItem);
             }}
             data-js="toggleIsToBeDeletedButton"
           >

@@ -3,52 +3,74 @@ import Form from "@/components/Form/Form.js";
 import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
 import { useState } from "react";
 import { categories } from "@/lib/categoriesData";
+import Image from "next/image";
+
+// import { tote-bag_01.png } from "@/public/images/tote-bag_01.png";
+
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
+  shoppingItems,
+  setShoppingItems,
   onAddItem,
   onEditItem,
   onDeleteItem,
+  purchasedItems,
+  unpurchasedItems,
 }) {
   const [mode, setMode] = useState("");
 
   const [editedItem, setEditedItem] = useState({});
-  // keep this and change, s. below
-  // const [isPurchased, setIsPurchased] = useState(false);
 
-  // CONTINUE HERE TO IMPLEMENT THE CHANGES SUGGESTED BY CHAT getPageFiles;
-  // Define toggleIsPurchased with an Item Argument: You need to modify toggleIsPurchased
-  // to accept an item as an argument. This way, it can toggle the state
-  // for each specific item instead of a generic toggle.
+  const [isPurchased, setIsPurchased] = useState("");
+  // Don't I have to reset the shopping items in the ShoppingItem component?
+
+  // ANGUCKEN UND VERSTEHEN:
+  function handleToggleIsPurchased(item) {
+    setShoppingItems((prevItems) =>
+      prevItems.map((shoppingItem) =>
+        shoppingItem.id === item.id
+          ? { ...shoppingItem, isPurchased: !shoppingItem.isPurchased }
+          : shoppingItem
+      )
+    );
+  }
+  // setIsPurchased((prev) => !prev);
 
   function handleChangeMode(mode) {
     setMode(mode);
   }
 
-  // NEU:
-  const [purchasedItems, setPurchasedItems] = useState(false);
-
-  // VERSTEHEN! ???
-  function toggleIsPurchased(item) {
-    // if (shoppingItem.id === id)
-    setPurchasedItems((prev) => ({
-      ...prev,
-      [item.id]: !prev[item.id],
-    }));
-  }
-
   return (
     <>
       <StyledHeader>
-        <h1>Shopping Car-d</h1>
+        <h1>
+          Tot
+          <span style={{ fontSize: 30, color: "green", letterSpacing: "-8px" }}>
+            e
+          </span>
+          {/* <span style={{ letterSpacing: "-12px" }}> */}
+          &#39;
+          {/* </span> */}
+          <span style={{ fontSize: 42 }}>A</span>lly
+        </h1>
       </StyledHeader>
 
       <main>
+        <Image
+          alt="a raw sketch of a tote bag"
+          src={"/images/tote-bag_01.png"}
+          style={{ objectFit: "contain" }}
+          width={60}
+          height={60}
+        />
+
         {shoppingItemsWithCategoryColor.length === 0 && (
           <StyledNoItemsMessage>
             There are no items on your shopping list. Add items using the form
             below.
           </StyledNoItemsMessage>
         )}
+
         {mode === "edit" && (
           <Form
             onSubmitItem={onEditItem}
@@ -59,6 +81,7 @@ export default function ShoppingItemsList({
             mode={mode}
           />
         )}
+
         {mode === "add" && (
           <Form
             onSubmitItem={onAddItem}
@@ -77,27 +100,57 @@ export default function ShoppingItemsList({
             </>
           </AddItemContainer>
         )}
-        <StyledH1>
-          There&#39;s {shoppingItemsWithCategoryColor.length} things left to
-          get:
-        </StyledH1>
-        <StyledList>
-          {shoppingItemsWithCategoryColor.map((shoppingItem) => {
-            return (
-              <ShoppingItem
-                key={shoppingItem.id}
-                shoppingItem={shoppingItem}
-                onDeleteItem={onDeleteItem}
-                onEditItem={() => setEditedItem(shoppingItem)}
-                onChangeMode={() => handleChangeMode("edit")}
-                toggleIsPurchased={() => toggleIsPurchased(shoppingItem)}
-                // isPurchased={isPurchased}
-                // setIsPurchased={setIsPurchased}
-                purchasedItems={purchasedItems}
-              />
-            );
-          })}
-        </StyledList>
+
+        <div>
+          <StyledH1>
+            There&#39;s {unpurchasedItems.length} things left to get:
+          </StyledH1>
+          <StyledList>
+            {/* Gotta get the colors into an extended version of the shopping items array - which I then work with for the other extended versions...  */}
+            {shoppingItemsWithCategoryColor.map((shoppingItem) => {
+              return (
+                <ShoppingItem
+                  key={shoppingItem.id}
+                  shoppingItem={shoppingItem}
+                  onDeleteItem={onDeleteItem}
+                  onEditItem={() => setEditedItem(shoppingItem)}
+                  onChangeMode={() => handleChangeMode("edit")}
+                  onToggleIsPurchased={handleToggleIsPurchased}
+                  isPurchased={isPurchased}
+                  setIsPurchased={setIsPurchased}
+                  purchasedItems={purchasedItems}
+                />
+              );
+            })}
+          </StyledList>
+        </div>
+        {/*  */}
+        {/* ADDED THIS - MAKE SURE IT WORKS! */}
+        {/* display title or component conditionally - if purchasedItems > 0 */}
+        {purchasedItems.length > 0 && (
+          <div>
+            <StyledH1>You already got {purchasedItems.length} things:</StyledH1>
+            <StyledList>
+              {/* Gotta get the colors into an extended version of the shopping items array - which I then work with for the other extended versions...  */}
+              {purchasedItems.map((shoppingItem) => {
+                return (
+                  <shoppingItem
+                    key={shoppingItem.id}
+                    shoppingItem={shoppingItem}
+                    onDeleteItem={onDeleteItem}
+                    onEditItem={() => setEditedItem(shoppingItem)}
+                    onChangeMode={() => handleChangeMode("edit")}
+                    onToggleIsPurchased={handleToggleIsPurchased}
+                    isPurchased={isPurchased}
+                    // setIsPurchased={setIsPurchased}
+                    purchasedItems={purchasedItems}
+                    // shoppingItems={shoppingItems}
+                  />
+                );
+              })}
+            </StyledList>
+          </div>
+        )}
       </main>
     </>
   );

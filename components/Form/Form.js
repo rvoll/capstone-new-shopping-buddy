@@ -31,7 +31,7 @@ export default function FormToCreateShoppingItem({
             {item.id ? "Edit the " + item.name : "Add an item to the list"}:
           </h2>
           <StyledLabel>
-            {item.id ? "item to be edited*: " : "new shopping item*:"}
+            {item.id ? "item to be edited*: " : "new item*:"}
             <StyledInput
               name="name"
               type="text"
@@ -41,7 +41,7 @@ export default function FormToCreateShoppingItem({
             />
           </StyledLabel>
           <StyledLabel>
-            number*:
+            quantity*:
             <StyledInput
               name="quantity"
               type="number"
@@ -49,6 +49,9 @@ export default function FormToCreateShoppingItem({
               defaultValue={item.quantity || ""}
             />
           </StyledLabel>
+          {/* muss ich den number string noch ion eine number umwandeln?
+          ausprobieren:
+          shopping item ausloggen lassen - string oder Zahl? sollte Zahl sein*/}
 
           <StyledLabel>
             category*:
