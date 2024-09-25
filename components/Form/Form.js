@@ -28,7 +28,7 @@ export default function FormToCreateShoppingItem({
       <form onSubmit={handleSubmit} data-js="form">
         <StyledFieldset>
           <h2>
-            {item.id ? "Edit the " + item.name : "Add an item to the list"}:
+            {item.id ? "Edit the " + item.name : "What else do you need?"}
           </h2>
           <StyledLabel>
             {item.id ? "item to be edited*: " : "new item*:"}
@@ -40,6 +40,7 @@ export default function FormToCreateShoppingItem({
               defaultValue={item.name || ""}
             />
           </StyledLabel>
+          {/* quantity would ideally include measrement units such as kg, g, ??bottle of, ??package of */}
           <StyledLabel>
             quantity*:
             <StyledInput
@@ -53,6 +54,7 @@ export default function FormToCreateShoppingItem({
           ausprobieren:
           shopping item ausloggen lassen - string oder Zahl? sollte Zahl sein*/}
 
+          {/* possibly later replaced or complemented by "where to get" */}
           <StyledLabel>
             category*:
             <select
@@ -77,7 +79,7 @@ export default function FormToCreateShoppingItem({
               name="comment"
               type="text"
               defaultValue={item.comment || ""}
-              placeholder="Enter comments here..."
+              placeholder="preferably sea salt"
             />
           </StyledLabel>
           <StyledNote>

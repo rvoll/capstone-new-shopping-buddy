@@ -25,10 +25,11 @@ export default function ShoppingItem({
   return (
     <ListItem $backgroundColor={shoppingItem.backgroundColor}>
       <CategoryBox>{shoppingItem.category}</CategoryBox>
-
       {!isToBeDeleted ? (
         <>
-          {shoppingItem.name}: {shoppingItem.quantity}
+          <span style={isPurchased ? { textDecoration: "line-through" } : {}}>
+            {shoppingItem.name}: {shoppingItem.quantity}
+          </span>
           <form>
             <input
               type="checkbox"

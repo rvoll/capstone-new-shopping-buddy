@@ -5,7 +5,7 @@ import { useState } from "react";
 import { categories } from "@/lib/categoriesData";
 import Image from "next/image";
 
-// import { tote-bag_01.png } from "@/public/images/tote-bag_01.png";
+// NEXT THNIG TO DO: fix colors and line-through!
 
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
@@ -22,6 +22,8 @@ export default function ShoppingItemsList({
   const [editedItem, setEditedItem] = useState({});
 
   const [isPurchased, setIsPurchased] = useState("");
+
+  // const [isPurchased, setIsPurchased] = useState("");
   // Don't I have to reset the shopping items in the ShoppingItem component?
 
   // ANGUCKEN UND VERSTEHEN:
@@ -65,10 +67,12 @@ export default function ShoppingItemsList({
         />
 
         {shoppingItemsWithCategoryColor.length === 0 && (
-          <StyledNoItemsMessage>
-            There are no items on your shopping list. Add items using the form
-            below.
-          </StyledNoItemsMessage>
+          <AddItemContainer>
+            <StyledNoItemsMessage>
+              Your shopping list is empty. Wanna add anything?
+            </StyledNoItemsMessage>
+            <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
+          </AddItemContainer>
         )}
 
         {mode === "edit" && (
@@ -92,49 +96,75 @@ export default function ShoppingItemsList({
           />
         )}
 
-        {mode !== "add" && (
-          <AddItemContainer>
-            <>
-              <p>...need anything else?</p>
+        {mode !== "add" ||
+          (!mode && (
+            <AddItemContainer>
+              <>
+                <p>...need anything else?</p>
+              </>
               <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
-            </>
-          </AddItemContainer>
-        )}
+            </AddItemContainer>
+          ))}
 
-        <div>
-          <StyledH1>
-            There&#39;s {unpurchasedItems.length} things left to get:
-          </StyledH1>
-          <StyledList>
-            {/* Gotta get the colors into an extended version of the shopping items array - which I then work with for the other extended versions...  */}
-            {shoppingItemsWithCategoryColor.map((shoppingItem) => {
-              return (
-                <ShoppingItem
-                  key={shoppingItem.id}
-                  shoppingItem={shoppingItem}
-                  onDeleteItem={onDeleteItem}
-                  onEditItem={() => setEditedItem(shoppingItem)}
-                  onChangeMode={() => handleChangeMode("edit")}
-                  onToggleIsPurchased={handleToggleIsPurchased}
-                  isPurchased={isPurchased}
-                  setIsPurchased={setIsPurchased}
-                  purchasedItems={purchasedItems}
-                />
-              );
-            })}
-          </StyledList>
-        </div>
+        {/* &#39;s */}
+        {/* <br /> */}
+
+        {/* Better have the two lists in two different containers so that 
+        each is scrollable independent of the other? 
+        Was this the idea of thee US?*/}
+        {unpurchasedItems.length !== 0 && (
+          <div>
+            <StyledH2>
+              {/* possibly add a little box with the number so that the text doesn't skip when */}
+              {/* same for the quantity on the individual items - or if possible - have a span in a fixed position */}
+              There {unpurchasedItems.length !== 1 ? "are" : "is"}{" "}
+              {unpurchasedItems.length} thing
+              {unpurchasedItems.length !== 1 ? "s" : ""}{" "}
+              {purchasedItems.length !== 0 && "left"} to get:
+            </StyledH2>
+            <StyledList>
+              {/* Gotta get the colors into an extended version of the shopping items array - which I then work with for the other extended versions...  */}
+              {/* {shoppingItemsWithCategoryColor.map((shoppingItem) => { */}
+              {unpurchasedItems.map((shoppingItem) => {
+                //  GOTTA CHANGE THIS TO "unpurchasedItems" BUT THEN HOW TO GET THE COLORS BACK?
+                return (
+                  <ShoppingItem
+                    key={shoppingItem.id}
+                    shoppingItem={shoppingItem}
+                    onDeleteItem={onDeleteItem}
+                    onEditItem={() => setEditedItem(shoppingItem)}
+                    onChangeMode={() => handleChangeMode("edit")}
+                    onToggleIsPurchased={handleToggleIsPurchased}
+                    isPurchased={shoppingItem.isPurchased}
+                    setIsPurchased={setIsPurchased}
+                    purchasedItems={purchasedItems}
+                    unpurchasedItems={unpurchasedItems}
+                    shoppingItems={shoppingItems}
+                  />
+                );
+              })}
+            </StyledList>
+          </div>
+        )}
+        {/* CHECK THIS: */}
+        {unpurchasedItems.length === 0 && purchasedItems.length !== 0 && (
+          <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
+        )}
         {/*  */}
         {/* ADDED THIS - MAKE SURE IT WORKS! */}
         {/* display title or component conditionally - if purchasedItems > 0 */}
+
         {purchasedItems.length > 0 && (
           <div>
-            <StyledH1>You already got {purchasedItems.length} things:</StyledH1>
+            <StyledH2>
+              You already got {purchasedItems.length} thing
+              {purchasedItems.length !== 1 && "s"}:
+            </StyledH2>
             <StyledList>
               {/* Gotta get the colors into an extended version of the shopping items array - which I then work with for the other extended versions...  */}
               {purchasedItems.map((shoppingItem) => {
                 return (
-                  <shoppingItem
+                  <ShoppingItem
                     key={shoppingItem.id}
                     shoppingItem={shoppingItem}
                     onDeleteItem={onDeleteItem}
@@ -142,9 +172,10 @@ export default function ShoppingItemsList({
                     onChangeMode={() => handleChangeMode("edit")}
                     onToggleIsPurchased={handleToggleIsPurchased}
                     isPurchased={isPurchased}
-                    // setIsPurchased={setIsPurchased}
+                    setIsPurchased={setIsPurchased}
                     purchasedItems={purchasedItems}
-                    // shoppingItems={shoppingItems}
+                    unpurchasedItems={unpurchasedItems}
+                    shoppingItems={shoppingItems}
                   />
                 );
               })}
@@ -156,6 +187,7 @@ export default function ShoppingItemsList({
   );
 }
 
+// for the Layout US - create a global styles file!
 const AddItemContainer = styled.div`
   gap: 10px;
 `;
@@ -170,6 +202,11 @@ const StyledHeader = styled.header`
 const StyledH1 = styled.h1`
   text-align: center;
 `;
+
+const StyledH2 = styled.h2`
+  text-align: start;
+`;
+StyledH1;
 
 const AddButton = styled.button`
   display: flex;
