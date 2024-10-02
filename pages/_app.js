@@ -11,23 +11,38 @@ export default function App({ Component, pageProps }) {
     const category = categories.find(
       (category) => category.name === shoppingItem.category
     );
+
     const backgroundColor = category ? category.color : "white";
+
     return {
       ...shoppingItem,
       backgroundColor,
     };
   });
 
-  // 2 Listen!!!
+  console.log(
+    "shoppingItemsWithCategoryColor:",
+    shoppingItemsWithCategoryColor
+  );
 
+  // die 3 hierunter sind NEU:
+  // shoppingItem = {...shoppingItems, shoppingItem.id = id}
+
+  // const category = categories.find(
+  //   (category) => category.name === shoppingItem.category
+  // );
+
+  // const backgroundColor = category ? category.color : "white";
+
+  // 2 Listen!!!
   // AUFRÄUMEN und ggf. runterholen (in die index/shoppingItem.js)
   // DAS HIER AUSARBEITEN:
-  const purchasedItems = shoppingItems.filter(
+  const purchasedItems = shoppingItemsWithCategoryColor.filter(
     (shoppingItem) => shoppingItem.isPurchased
   );
 
   // DAS HIER AUSARBEITEN:
-  const unpurchasedItems = shoppingItems.filter(
+  const unpurchasedItems = shoppingItemsWithCategoryColor.filter(
     (shoppingItem) => shoppingItem.isPurchased === false
   );
 
@@ -66,6 +81,20 @@ export default function App({ Component, pageProps }) {
       shoppingItems.filter((shoppingItem) => shoppingItem.id !== id)
     );
   }
+  //
+  //
+  // ==========================================
+  // HIER MUSS ICH IRGENDWIE VERANLASSEN; DASS DAS NEUE SHOPPING ITEM AN DEN ANFANG DES ARRAYS purchasedItems gestellt wird...
+  // ANGUCKEN UND VERSTEHEN:
+  function handleToggleIsPurchased(item) {
+    setShoppingItems((prevItems) =>
+      prevItems.map((shoppingItem) =>
+        shoppingItem.id === item.id
+          ? { ...shoppingItem, isPurchased: !shoppingItem.isPurchased }
+          : shoppingItem
+      )
+    );
+  }
 
   return (
     <>
@@ -73,7 +102,7 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         shoppingItems={shoppingItems}
-        setShoppingItems={setShoppingItems}
+        // setShoppingItems={setShoppingItems}
         categories={categories}
         shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}
@@ -81,6 +110,7 @@ export default function App({ Component, pageProps }) {
         onDeleteItem={handleDeleteItem}
         purchasedItems={purchasedItems}
         unpurchasedItems={unpurchasedItems}
+        onToggleIsPurchased={handleToggleIsPurchased}
       />
     </>
   );

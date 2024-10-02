@@ -10,40 +10,52 @@ export default function ShoppingItem({
   onChangeMode,
   onToggleIsPurchased,
   isPurchased,
-  setIsPurchased,
   purchasedItems,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
 
   //
-  console.log("purchasedItems 1: ", purchasedItems);
+  console.log("isPurchased: ", isPurchased);
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
   }
 
   return (
-    <ListItem $backgroundColor={shoppingItem.backgroundColor}>
+    <ListItem
+      $backgroundColor={shoppingItem.backgroundColor}
+      // $color={shoppingItem.isPurchased ? "#404040" : undefined}
+      $isPurchased={shoppingItem.isPurchased}
+    >
       <CategoryBox>{shoppingItem.category}</CategoryBox>
       {!isToBeDeleted ? (
         <>
-          <span style={isPurchased ? { textDecoration: "line-through" } : {}}>
-            {shoppingItem.name}: {shoppingItem.quantity}
-          </span>
-          <form>
-            <input
-              type="checkbox"
-              id={`checkbox-${shoppingItem.id}`}
-              checked={shoppingItem.isPurchased}
-              onChange={() => {
-                onToggleIsPurchased(shoppingItem);
-              }}
-            />
-            {/* TO DO: implement conditional text here!*/}
-            <label htmlFor={`checkbox-${shoppingItem.id}`}>
-              {purchasedItems.includes(shoppingItem.id) ? "purchased" : ""}
-            </label>
-          </form>
+          <StyledTickboxNameNumberContainer>
+            <form>
+              <input
+                type="checkbox"
+                id={`checkbox-${shoppingItem.id}`}
+                checked={shoppingItem.isPurchased}
+                onChange={() => {
+                  onToggleIsPurchased(shoppingItem);
+                }}
+              />
+              {/* TO DO: implement conditional text here!*/}
+              <label htmlFor={`checkbox-${shoppingItem.id}`}>
+                {purchasedItems.includes(shoppingItem.id) ? "purchased" : ""}
+              </label>
+            </form>
+            <span
+              style={
+                shoppingItem.isPurchased
+                  ? // ? { textDecoration: "line-through" }
+                    { textDecoration: "line-through", color: "#404040" }
+                  : undefined
+              }
+            >
+              {shoppingItem.name}: {shoppingItem.quantity}
+            </span>
+          </StyledTickboxNameNumberContainer>
           <EditButton
             onClick={() => {
               onChangeMode();
@@ -102,6 +114,15 @@ const EditButton = styled.button`
   position: absolute;
   bottom: 10%;
   right: 10rem;
+`;
+
+const StyledTickboxNameNumberContainer = styled.div`
+  display: flex;
+  position: start;
+  bottom: 40%;
+  padding-left: 10%;
+  gap: 1rem;
+  justify-content: space-between;
 `;
 
 const DeletionConfirmation = styled.article`

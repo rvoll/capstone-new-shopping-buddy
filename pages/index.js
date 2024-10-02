@@ -6,14 +6,20 @@ import { categories } from "@/lib/categoriesData";
 import Image from "next/image";
 
 // NEXT THNIG TO DO: fix colors and line-through!
+//  DONE :)
+
+// minor fixes:
+// - order in which purchased items appear in the purchasedItems list
+// - jump to (e.g. purchased item that was just marked as purchased? - which jumps would make sense?)
 
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
+  backgroundColor,
   shoppingItems,
-  setShoppingItems,
   onAddItem,
   onEditItem,
   onDeleteItem,
+  onToggleIsPurchased,
   purchasedItems,
   unpurchasedItems,
 }) {
@@ -26,16 +32,6 @@ export default function ShoppingItemsList({
   // const [isPurchased, setIsPurchased] = useState("");
   // Don't I have to reset the shopping items in the ShoppingItem component?
 
-  // ANGUCKEN UND VERSTEHEN:
-  function handleToggleIsPurchased(item) {
-    setShoppingItems((prevItems) =>
-      prevItems.map((shoppingItem) =>
-        shoppingItem.id === item.id
-          ? { ...shoppingItem, isPurchased: !shoppingItem.isPurchased }
-          : shoppingItem
-      )
-    );
-  }
   // setIsPurchased((prev) => !prev);
 
   function handleChangeMode(mode) {
@@ -54,10 +50,18 @@ export default function ShoppingItemsList({
           &#39;
           {/* </span> */}
           <span style={{ fontSize: 42 }}>A</span>lly
+          <br></br>
+          <span
+            style={{
+              fontSize: 20,
+              color: "green",
+              // , letterSpacing: "-8px"
+            }}
+          >
+            ...baggin' it.
+          </span>
         </h1>
-      </StyledHeader>
 
-      <main>
         <Image
           alt="a raw sketch of a tote bag"
           src={"/images/tote-bag_01.png"}
@@ -65,12 +69,23 @@ export default function ShoppingItemsList({
           width={60}
           height={60}
         />
-
-        {shoppingItemsWithCategoryColor.length === 0 && (
+      </StyledHeader>
+      {/* How can I access the value of "isToBeDeleted", which is defined in
+      the ShoppingItem.js per shoppingItem, in the index.js in order to conditionally render the add-button based, among others, on the value of isToBeDeleted?  ? */}
+      <main>
+        {mode !== "edit" && mode !== "add" && (
+          // && !isToBeDeleted
+          //
+          // {shoppingItems.some(
+          //   (item) => item.mode !== "edit" && item.mode !== "add"
+          //   // && !isToBeDeleted
+          // ) && (
           <AddItemContainer>
-            <StyledNoItemsMessage>
-              Your shopping list is empty. Wanna add anything?
-            </StyledNoItemsMessage>
+            {shoppingItemsWithCategoryColor.length === 0 && (
+              <StyledNoItemsMessage>
+                Your shopping list is empty. Do you need anything?
+              </StyledNoItemsMessage>
+            )}
             <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
           </AddItemContainer>
         )}
@@ -85,7 +100,6 @@ export default function ShoppingItemsList({
             mode={mode}
           />
         )}
-
         {mode === "add" && (
           <Form
             onSubmitItem={onAddItem}
@@ -95,7 +109,6 @@ export default function ShoppingItemsList({
             mode={mode}
           />
         )}
-
         {mode !== "add" ||
           (!mode && (
             <AddItemContainer>
@@ -105,10 +118,8 @@ export default function ShoppingItemsList({
               <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
             </AddItemContainer>
           ))}
-
         {/* &#39;s */}
         {/* <br /> */}
-
         {/* Better have the two lists in two different containers so that 
         each is scrollable independent of the other? 
         Was this the idea of thee US?*/}
@@ -117,10 +128,13 @@ export default function ShoppingItemsList({
             <StyledH2>
               {/* possibly add a little box with the number so that the text doesn't skip when */}
               {/* same for the quantity on the individual items - or if possible - have a span in a fixed position */}
-              There {unpurchasedItems.length !== 1 ? "are" : "is"}{" "}
+              {/* You have to get */}
+              {purchasedItems.length === 0 ? "We need" : "There's"}
+              {/* There&#39;s */}
+              {/* {unpurchasedItems.length !== 1 ? "are" : "is"} */}{" "}
               {unpurchasedItems.length} thing
               {unpurchasedItems.length !== 1 ? "s" : ""}{" "}
-              {purchasedItems.length !== 0 && "left"} to get:
+              {purchasedItems.length !== 0 && "left to get"}:
             </StyledH2>
             <StyledList>
               {/* Gotta get the colors into an extended version of the shopping items array - which I then work with for the other extended versions...  */}
@@ -131,12 +145,15 @@ export default function ShoppingItemsList({
                   <ShoppingItem
                     key={shoppingItem.id}
                     shoppingItem={shoppingItem}
+                    shoppingItemsWithCategoryColor={
+                      shoppingItemsWithCategoryColor
+                    }
+                    backgroundColor={backgroundColor}
                     onDeleteItem={onDeleteItem}
                     onEditItem={() => setEditedItem(shoppingItem)}
                     onChangeMode={() => handleChangeMode("edit")}
-                    onToggleIsPurchased={handleToggleIsPurchased}
+                    onToggleIsPurchased={onToggleIsPurchased}
                     isPurchased={shoppingItem.isPurchased}
-                    setIsPurchased={setIsPurchased}
                     purchasedItems={purchasedItems}
                     unpurchasedItems={unpurchasedItems}
                     shoppingItems={shoppingItems}
@@ -153,7 +170,6 @@ export default function ShoppingItemsList({
         {/*  */}
         {/* ADDED THIS - MAKE SURE IT WORKS! */}
         {/* display title or component conditionally - if purchasedItems > 0 */}
-
         {purchasedItems.length > 0 && (
           <div>
             <StyledH2>
@@ -170,9 +186,8 @@ export default function ShoppingItemsList({
                     onDeleteItem={onDeleteItem}
                     onEditItem={() => setEditedItem(shoppingItem)}
                     onChangeMode={() => handleChangeMode("edit")}
-                    onToggleIsPurchased={handleToggleIsPurchased}
+                    onToggleIsPurchased={onToggleIsPurchased}
                     isPurchased={isPurchased}
-                    setIsPurchased={setIsPurchased}
                     purchasedItems={purchasedItems}
                     unpurchasedItems={unpurchasedItems}
                     shoppingItems={shoppingItems}
@@ -187,16 +202,24 @@ export default function ShoppingItemsList({
   );
 }
 
+// const StyledImage = styled.image`
+// padding-right: 2rem;
+// `
 // for the Layout US - create a global styles file!
 const AddItemContainer = styled.div`
   gap: 10px;
 `;
+
+// const TotebagIcon = styled.image`
+//   /* margin-top: 1rem; */
+// `;
 
 const StyledHeader = styled.header`
   padding: 10px;
   text-align: center;
   font-size: 1.5rem;
   margin-bottom: -4rem;
+  row-gap: 6px;
 `;
 
 const StyledH1 = styled.h1`
