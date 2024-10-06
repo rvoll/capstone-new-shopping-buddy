@@ -40,7 +40,6 @@ export default function FormToCreateShoppingItem({
               defaultValue={item.name || ""}
             />
           </StyledLabel>
-          {/* quantity would ideally include measrement units such as kg, g, ??bottle of, ??package of */}
           <StyledLabel>
             quantity*:
             <StyledInput
@@ -50,11 +49,6 @@ export default function FormToCreateShoppingItem({
               defaultValue={item.quantity || ""}
             />
           </StyledLabel>
-          {/* muss ich den number string noch ion eine number umwandeln?
-          ausprobieren:
-          shopping item ausloggen lassen - string oder Zahl? sollte Zahl sein*/}
-
-          {/* possibly later replaced or complemented by "where to get" */}
           <StyledLabel>
             category*:
             <select

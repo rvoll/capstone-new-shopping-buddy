@@ -5,13 +5,6 @@ import { useState } from "react";
 import { categories } from "@/lib/categoriesData";
 import Image from "next/image";
 
-// NEXT THNIG TO DO: fix colors and line-through!
-//  DONE :)
-
-// minor fixes:
-// - order in which purchased items appear in the purchasedItems list
-// - jump to (e.g. purchased item that was just marked as purchased? - which jumps would make sense?)
-
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
   backgroundColor,
@@ -29,11 +22,6 @@ export default function ShoppingItemsList({
 
   const [isPurchased, setIsPurchased] = useState("");
 
-  // const [isPurchased, setIsPurchased] = useState("");
-  // Don't I have to reset the shopping items in the ShoppingItem component?
-
-  // setIsPurchased((prev) => !prev);
-
   function handleChangeMode(mode) {
     setMode(mode);
   }
@@ -46,19 +34,16 @@ export default function ShoppingItemsList({
           <span style={{ fontSize: 30, color: "green", letterSpacing: "-8px" }}>
             e
           </span>
-          {/* <span style={{ letterSpacing: "-12px" }}> */}
           &#39;
-          {/* </span> */}
           <span style={{ fontSize: 42 }}>A</span>lly
           <br></br>
           <span
             style={{
               fontSize: 20,
               color: "green",
-              // , letterSpacing: "-8px"
             }}
           >
-            ...baggin' it.
+            ...baggin&#39; it.
           </span>
         </h1>
 
@@ -70,16 +55,8 @@ export default function ShoppingItemsList({
           height={60}
         />
       </StyledHeader>
-      {/* How can I access the value of "isToBeDeleted", which is defined in
-      the ShoppingItem.js per shoppingItem, in the index.js in order to conditionally render the add-button based, among others, on the value of isToBeDeleted?  ? */}
       <main>
         {mode !== "edit" && mode !== "add" && (
-          // && !isToBeDeleted
-          //
-          // {shoppingItems.some(
-          //   (item) => item.mode !== "edit" && item.mode !== "add"
-          //   // && !isToBeDeleted
-          // ) && (
           <AddItemContainer>
             {shoppingItemsWithCategoryColor.length === 0 && (
               <StyledNoItemsMessage>
@@ -118,29 +95,16 @@ export default function ShoppingItemsList({
               <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
             </AddItemContainer>
           ))}
-        {/* &#39;s */}
-        {/* <br /> */}
-        {/* Better have the two lists in two different containers so that 
-        each is scrollable independent of the other? 
-        Was this the idea of thee US?*/}
         {unpurchasedItems.length !== 0 && (
           <div>
             <StyledH2>
-              {/* possibly add a little box with the number so that the text doesn't skip when */}
-              {/* same for the quantity on the individual items - or if possible - have a span in a fixed position */}
-              {/* You have to get */}
-              {purchasedItems.length === 0 ? "We need" : "There's"}
-              {/* There&#39;s */}
-              {/* {unpurchasedItems.length !== 1 ? "are" : "is"} */}{" "}
+              {purchasedItems.length === 0 ? "We need " : "There's "}
               {unpurchasedItems.length} thing
               {unpurchasedItems.length !== 1 ? "s" : ""}{" "}
               {purchasedItems.length !== 0 && "left to get"}:
             </StyledH2>
             <StyledList>
-              {/* Gotta get the colors into an extended version of the shopping items array - which I then work with for the other extended versions...  */}
-              {/* {shoppingItemsWithCategoryColor.map((shoppingItem) => { */}
               {unpurchasedItems.map((shoppingItem) => {
-                //  GOTTA CHANGE THIS TO "unpurchasedItems" BUT THEN HOW TO GET THE COLORS BACK?
                 return (
                   <ShoppingItem
                     key={shoppingItem.id}
@@ -153,7 +117,6 @@ export default function ShoppingItemsList({
                     onEditItem={() => setEditedItem(shoppingItem)}
                     onChangeMode={() => handleChangeMode("edit")}
                     onToggleIsPurchased={onToggleIsPurchased}
-                    isPurchased={shoppingItem.isPurchased}
                     purchasedItems={purchasedItems}
                     unpurchasedItems={unpurchasedItems}
                     shoppingItems={shoppingItems}
@@ -163,13 +126,7 @@ export default function ShoppingItemsList({
             </StyledList>
           </div>
         )}
-        {/* CHECK THIS: */}
-        {unpurchasedItems.length === 0 && purchasedItems.length !== 0 && (
-          <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
-        )}
-        {/*  */}
-        {/* ADDED THIS - MAKE SURE IT WORKS! */}
-        {/* display title or component conditionally - if purchasedItems > 0 */}
+
         {purchasedItems.length > 0 && (
           <div>
             <StyledH2>
@@ -177,7 +134,6 @@ export default function ShoppingItemsList({
               {purchasedItems.length !== 1 && "s"}:
             </StyledH2>
             <StyledList>
-              {/* Gotta get the colors into an extended version of the shopping items array - which I then work with for the other extended versions...  */}
               {purchasedItems.map((shoppingItem) => {
                 return (
                   <ShoppingItem
@@ -187,7 +143,6 @@ export default function ShoppingItemsList({
                     onEditItem={() => setEditedItem(shoppingItem)}
                     onChangeMode={() => handleChangeMode("edit")}
                     onToggleIsPurchased={onToggleIsPurchased}
-                    isPurchased={isPurchased}
                     purchasedItems={purchasedItems}
                     unpurchasedItems={unpurchasedItems}
                     shoppingItems={shoppingItems}
@@ -202,17 +157,9 @@ export default function ShoppingItemsList({
   );
 }
 
-// const StyledImage = styled.image`
-// padding-right: 2rem;
-// `
-// for the Layout US - create a global styles file!
 const AddItemContainer = styled.div`
   gap: 10px;
 `;
-
-// const TotebagIcon = styled.image`
-//   /* margin-top: 1rem; */
-// `;
 
 const StyledHeader = styled.header`
   padding: 10px;

@@ -3,19 +3,18 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function ShoppingItem({
-  id,
+  // id,
   onDeleteItem,
   shoppingItem,
   onEditItem,
   onChangeMode,
   onToggleIsPurchased,
-  isPurchased,
+  // isPurchased,
   purchasedItems,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
 
   //
-  console.log("isPurchased: ", isPurchased);
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
@@ -24,7 +23,6 @@ export default function ShoppingItem({
   return (
     <ListItem
       $backgroundColor={shoppingItem.backgroundColor}
-      // $color={shoppingItem.isPurchased ? "#404040" : undefined}
       $isPurchased={shoppingItem.isPurchased}
     >
       <CategoryBox>{shoppingItem.category}</CategoryBox>
@@ -40,7 +38,6 @@ export default function ShoppingItem({
                   onToggleIsPurchased(shoppingItem);
                 }}
               />
-              {/* TO DO: implement conditional text here!*/}
               <label htmlFor={`checkbox-${shoppingItem.id}`}>
                 {purchasedItems.includes(shoppingItem.id) ? "purchased" : ""}
               </label>
@@ -48,8 +45,7 @@ export default function ShoppingItem({
             <span
               style={
                 shoppingItem.isPurchased
-                  ? // ? { textDecoration: "line-through" }
-                    { textDecoration: "line-through", color: "#404040" }
+                  ? { textDecoration: "line-through", color: "#404040" }
                   : undefined
               }
             >

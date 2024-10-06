@@ -25,23 +25,10 @@ export default function App({ Component, pageProps }) {
     shoppingItemsWithCategoryColor
   );
 
-  // die 3 hierunter sind NEU:
-  // shoppingItem = {...shoppingItems, shoppingItem.id = id}
-
-  // const category = categories.find(
-  //   (category) => category.name === shoppingItem.category
-  // );
-
-  // const backgroundColor = category ? category.color : "white";
-
-  // 2 Listen!!!
-  // AUFRÄUMEN und ggf. runterholen (in die index/shoppingItem.js)
-  // DAS HIER AUSARBEITEN:
   const purchasedItems = shoppingItemsWithCategoryColor.filter(
     (shoppingItem) => shoppingItem.isPurchased
   );
 
-  // DAS HIER AUSARBEITEN:
   const unpurchasedItems = shoppingItemsWithCategoryColor.filter(
     (shoppingItem) => shoppingItem.isPurchased === false
   );
@@ -49,8 +36,6 @@ export default function App({ Component, pageProps }) {
   console.log("purchasedItems before handleAdd: ", purchasedItems);
 
   console.log("unpurchasedItems  before handleAdd: ", unpurchasedItems);
-
-  //  bei create item: default isPurchased = false eintragen
 
   function handleAddItem(newItem) {
     setShoppingItems([
@@ -81,11 +66,7 @@ export default function App({ Component, pageProps }) {
       shoppingItems.filter((shoppingItem) => shoppingItem.id !== id)
     );
   }
-  //
-  //
-  // ==========================================
-  // HIER MUSS ICH IRGENDWIE VERANLASSEN; DASS DAS NEUE SHOPPING ITEM AN DEN ANFANG DES ARRAYS purchasedItems gestellt wird...
-  // ANGUCKEN UND VERSTEHEN:
+
   function handleToggleIsPurchased(item) {
     setShoppingItems((prevItems) =>
       prevItems.map((shoppingItem) =>
@@ -102,7 +83,6 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         shoppingItems={shoppingItems}
-        // setShoppingItems={setShoppingItems}
         categories={categories}
         shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}
