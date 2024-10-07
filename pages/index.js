@@ -98,10 +98,11 @@ export default function ShoppingItemsList({
         {unpurchasedItems.length !== 0 && (
           <div>
             <StyledH2>
-              {purchasedItems.length === 0 ? "We need " : "There's "}
+              {/* {purchasedItems.length === 0 ? "We need " :  */}
+              There&#39;s {/* } */}
               {unpurchasedItems.length} thing
               {unpurchasedItems.length !== 1 ? "s" : ""}{" "}
-              {purchasedItems.length !== 0 && "left to get"}:
+              {purchasedItems.length !== 0 ? "left to get" : "on the list"}:
             </StyledH2>
             <StyledList>
               {unpurchasedItems.map((shoppingItem) => {
