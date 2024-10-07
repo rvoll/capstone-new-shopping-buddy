@@ -54,15 +54,24 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-  function handleToggleIsPurchased(item) {
+  function handleToggleIsPurchased(id) {
     setShoppingItems((prevItems) =>
       prevItems.map((shoppingItem) =>
-        shoppingItem.id === item.id
+        shoppingItem.id === id
           ? { ...shoppingItem, isPurchased: !shoppingItem.isPurchased }
           : shoppingItem
       )
     );
   }
+  // function handleToggleIsPurchased(item) {
+  //   setShoppingItems((prevItems) =>
+  //     prevItems.map((shoppingItem) =>
+  //       shoppingItem.id === item.id
+  //         ? { ...shoppingItem, isPurchased: !shoppingItem.isPurchased }
+  //         : shoppingItem
+  //     )
+  //   );
+  // }
 
   return (
     <>

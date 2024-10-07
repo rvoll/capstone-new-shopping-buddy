@@ -31,7 +31,7 @@ export default function ShoppingItem({
                 id={`checkbox-${shoppingItem.id}`}
                 checked={shoppingItem.isPurchased}
                 onChange={() => {
-                  onToggleIsPurchased(shoppingItem);
+                  onToggleIsPurchased(shoppingItem.id);
                 }}
               />
               <label htmlFor={`checkbox-${shoppingItem.id}`}>
