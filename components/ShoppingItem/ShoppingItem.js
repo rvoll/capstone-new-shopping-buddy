@@ -3,18 +3,14 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function ShoppingItem({
-  // id,
   onDeleteItem,
   shoppingItem,
   onEditItem,
   onChangeMode,
   onToggleIsPurchased,
-  // isPurchased,
   purchasedItems,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
-
-  //
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);

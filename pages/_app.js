@@ -20,11 +20,6 @@ export default function App({ Component, pageProps }) {
     };
   });
 
-  console.log(
-    "shoppingItemsWithCategoryColor:",
-    shoppingItemsWithCategoryColor
-  );
-
   const purchasedItems = shoppingItemsWithCategoryColor.filter(
     (shoppingItem) => shoppingItem.isPurchased
   );
@@ -32,10 +27,6 @@ export default function App({ Component, pageProps }) {
   const unpurchasedItems = shoppingItemsWithCategoryColor.filter(
     (shoppingItem) => shoppingItem.isPurchased === false
   );
-
-  console.log("purchasedItems before handleAdd: ", purchasedItems);
-
-  console.log("unpurchasedItems  before handleAdd: ", unpurchasedItems);
 
   function handleAddItem(newItem) {
     setShoppingItems([
@@ -47,10 +38,6 @@ export default function App({ Component, pageProps }) {
       ...shoppingItems,
     ]);
   }
-
-  console.log("purchasedItems after handleAdd: ", purchasedItems);
-
-  console.log("unpurchasedItems  after handleAdd: ", unpurchasedItems);
 
   function handleEditItem(id, newItem) {
     setShoppingItems(
