@@ -7,10 +7,32 @@ import { nanoid } from "nanoid";
 export default function App({ Component, pageProps }) {
   const [shoppingItems, setShoppingItems] = useState(initialShoppingItems);
 
+  const shoppingItemsWithCategoryColor = shoppingItems.map((shoppingItem) => {
+    const category = categories.find(
+      (category) => category.name === shoppingItem.category
+    );
+
+    const backgroundColor = category ? category.color : "white";
+
+    return {
+      ...shoppingItem,
+      backgroundColor,
+    };
+  });
+
+  const purchasedItems = shoppingItemsWithCategoryColor.filter(
+    (shoppingItem) => shoppingItem.isPurchased
+  );
+
+  const unpurchasedItems = shoppingItemsWithCategoryColor.filter(
+    (shoppingItem) => shoppingItem.isPurchased === false
+  );
+
   function handleAddItem(newItem) {
     setShoppingItems([
       {
         id: nanoid(),
+        isPurchased: false,
         ...newItem,
       },
       ...shoppingItems,
@@ -32,27 +54,30 @@ export default function App({ Component, pageProps }) {
     );
   }
 
-  const shoppingItemsWithCategoryColor = shoppingItems.map((shoppingItem) => {
-    const category = categories.find(
-      (category) => category.name === shoppingItem.category
+  function handleToggleIsPurchased(id) {
+    setShoppingItems((prevItems) =>
+      prevItems.map((shoppingItem) =>
+        shoppingItem.id === id
+          ? { ...shoppingItem, isPurchased: !shoppingItem.isPurchased }
+          : shoppingItem
+      )
     );
-    const backgroundColor = category ? category.color : "white";
-    return {
-      ...shoppingItem,
-      backgroundColor,
-    };
-  });
+  }
 
   return (
     <>
       <GlobalStyle />
       <Component
         {...pageProps}
+        shoppingItems={shoppingItems}
+        categories={categories}
         shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}
         onEditItem={handleEditItem}
         onDeleteItem={handleDeleteItem}
-        categories={categories}
+        purchasedItems={purchasedItems}
+        unpurchasedItems={unpurchasedItems}
+        onToggleIsPurchased={handleToggleIsPurchased}
       />
     </>
   );

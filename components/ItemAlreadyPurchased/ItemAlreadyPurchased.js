@@ -1,16 +1,24 @@
-import styled, { ThemeConsumer } from "styled-components";
+import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function ShoppingItem({
+  id,
   onDeleteItem,
   shoppingItem,
   onEditItem,
   onChangeMode,
+  // mode,
   onToggleIsPurchased,
-  purchasedItems,
+  purchasedItem,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
+
+  const [isPurchased, setIsPurchased] = useState(false);
+
+  // console.log("isPurchased 0: ", isPurchased);
+
+  // console.log("isPurchased 1: ", isPurchased);
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
@@ -18,36 +26,27 @@ export default function ShoppingItem({
 
   return (
     <ListItem
-      $backgroundColor={shoppingItem.backgroundColor}
-      $isPurchased={shoppingItem.isPurchased}
+      key={purchasedItem.id}
+      $backgroundColor={purchasedItem.backgroundColor}
     >
       <CategoryBox>{shoppingItem.category}</CategoryBox>
+
       {!isToBeDeleted ? (
         <>
-          <StyledTickboxNameNumberContainer>
-            <form>
-              <input
-                type="checkbox"
-                id={`checkbox-${shoppingItem.id}`}
-                checked={shoppingItem.isPurchased}
-                onChange={() => {
-                  onToggleIsPurchased(shoppingItem.id);
-                }}
-              />
-              <label htmlFor={`checkbox-${shoppingItem.id}`}>
-                {purchasedItems.includes(shoppingItem.id) ? "purchased" : ""}
-              </label>
-            </form>
-            <span
-              style={
-                shoppingItem.isPurchased
-                  ? { textDecoration: "line-through", color: "#404040" }
-                  : undefined
-              }
-            >
-              {shoppingItem.name}: {shoppingItem.quantity}
-            </span>
-          </StyledTickboxNameNumberContainer>
+          {shoppingItem.name}: {shoppingItem.quantity}
+          <form>
+            <input
+              type="checkbox"
+              id={`checkbox-${shoppingItem.id}`}
+              checked={isPurchased.shoppingItem}
+              onChange={() => {
+                // togglePurchasedItems(shoppingItem);
+                onToggleIsPurchased(shoppingItem);
+              }}
+            />
+            {/* TO DO: implement conditional text here!*/}
+            <label htmlFor={`checkbox-${shoppingItem.id}`}>purchased </label>
+          </form>
           <EditButton
             onClick={() => {
               onChangeMode();
@@ -59,7 +58,7 @@ export default function ShoppingItem({
           </EditButton>
           <DeleteButton
             onClick={() => {
-              toggleIsToBeDeleted();
+              toggleIsToBeDeleted(shoppingItem);
             }}
             data-js="toggleIsToBeDeletedButton"
           >
@@ -106,15 +105,6 @@ const EditButton = styled.button`
   position: absolute;
   bottom: 10%;
   right: 10rem;
-`;
-
-const StyledTickboxNameNumberContainer = styled.div`
-  display: flex;
-  position: start;
-  bottom: 40%;
-  padding-left: 10%;
-  gap: 1rem;
-  justify-content: space-between;
 `;
 
 const DeletionConfirmation = styled.article`

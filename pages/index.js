@@ -3,15 +3,24 @@ import Form from "@/components/Form/Form.js";
 import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
 import { useState } from "react";
 import { categories } from "@/lib/categoriesData";
+import Image from "next/image";
+
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
+  backgroundColor,
+  shoppingItems,
   onAddItem,
   onEditItem,
   onDeleteItem,
+  onToggleIsPurchased,
+  purchasedItems,
+  unpurchasedItems,
 }) {
   const [mode, setMode] = useState("");
 
   const [editedItem, setEditedItem] = useState({});
+
+  const [isPurchased, setIsPurchased] = useState("");
 
   function handleChangeMode(mode) {
     setMode(mode);
@@ -20,16 +29,44 @@ export default function ShoppingItemsList({
   return (
     <>
       <StyledHeader>
-        <h1>Shopping Car-d</h1>
-      </StyledHeader>
+        <h1>
+          Tot
+          <span style={{ fontSize: 30, color: "green", letterSpacing: "-8px" }}>
+            e
+          </span>
+          &#39;
+          <span style={{ fontSize: 42 }}>A</span>lly
+          <br></br>
+          <span
+            style={{
+              fontSize: 20,
+              color: "green",
+            }}
+          >
+            ...baggin&#39; it.
+          </span>
+        </h1>
 
+        <Image
+          alt="a raw sketch of a tote bag"
+          src={"/images/tote-bag_01.png"}
+          style={{ objectFit: "contain" }}
+          width={60}
+          height={60}
+        />
+      </StyledHeader>
       <main>
-        {shoppingItemsWithCategoryColor.length === 0 && (
-          <StyledNoItemsMessage>
-            There are no items on your shopping list. Add items using the form
-            below.
-          </StyledNoItemsMessage>
+        {mode !== "edit" && mode !== "add" && (
+          <AddItemContainer>
+            {shoppingItemsWithCategoryColor.length === 0 && (
+              <StyledNoItemsMessage>
+                Your shopping list is empty. Do you need anything?
+              </StyledNoItemsMessage>
+            )}
+            <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
+          </AddItemContainer>
         )}
+
         {mode === "edit" && (
           <Form
             onSubmitItem={onEditItem}
@@ -49,32 +86,73 @@ export default function ShoppingItemsList({
             mode={mode}
           />
         )}
-
-        {mode !== "add" && (
-          <AddItemContainer>
-            <>
-              <p>...need anything else?</p>
+        {mode !== "add" ||
+          (!mode && (
+            <AddItemContainer>
+              <>
+                <p>...need anything else?</p>
+              </>
               <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
-            </>
-          </AddItemContainer>
+            </AddItemContainer>
+          ))}
+        {unpurchasedItems.length !== 0 && (
+          <div>
+            <StyledH2>
+              {/* {purchasedItems.length === 0 ? "We need " :  */}
+              There&#39;s {/* } */}
+              {unpurchasedItems.length} thing
+              {unpurchasedItems.length !== 1 ? "s" : ""}{" "}
+              {purchasedItems.length !== 0 ? "left to get" : "on the list"}:
+            </StyledH2>
+            <StyledList>
+              {unpurchasedItems.map((shoppingItem) => {
+                return (
+                  <ShoppingItem
+                    key={shoppingItem.id}
+                    shoppingItem={shoppingItem}
+                    shoppingItemsWithCategoryColor={
+                      shoppingItemsWithCategoryColor
+                    }
+                    backgroundColor={backgroundColor}
+                    onDeleteItem={onDeleteItem}
+                    onEditItem={() => setEditedItem(shoppingItem)}
+                    onChangeMode={() => handleChangeMode("edit")}
+                    onToggleIsPurchased={onToggleIsPurchased}
+                    purchasedItems={purchasedItems}
+                    unpurchasedItems={unpurchasedItems}
+                    shoppingItems={shoppingItems}
+                  />
+                );
+              })}
+            </StyledList>
+          </div>
         )}
-        <StyledH1>
-          There&#39;s {shoppingItemsWithCategoryColor.length} things left to
-          get:
-        </StyledH1>
-        <StyledList>
-          {shoppingItemsWithCategoryColor.map((shoppingItem) => {
-            return (
-              <ShoppingItem
-                key={shoppingItem.id}
-                shoppingItem={shoppingItem}
-                onDeleteItem={onDeleteItem}
-                onEditItem={() => setEditedItem(shoppingItem)}
-                onChangeMode={() => handleChangeMode("edit")}
-              />
-            );
-          })}
-        </StyledList>
+
+        {purchasedItems.length > 0 && (
+          <div>
+            <StyledH2>
+              You already got {purchasedItems.length} thing
+              {purchasedItems.length !== 1 && "s"}:
+            </StyledH2>
+            <StyledList>
+              {purchasedItems.map((shoppingItem) => {
+                return (
+                  <ShoppingItem
+                    key={shoppingItem.id}
+                    shoppingItem={shoppingItem}
+                    onDeleteItem={onDeleteItem}
+                    onEditItem={() => setEditedItem(shoppingItem)}
+                    onChangeMode={() => handleChangeMode("edit")}
+                    onToggleIsPurchased={onToggleIsPurchased}
+                    purchasedItems={purchasedItems}
+                    unpurchasedItems={unpurchasedItems}
+                    shoppingItems={shoppingItems}
+                  />
+                );
+              })}
+            </StyledList>
+          </div>
+        )}
       </main>
     </>
   );
@@ -89,11 +167,17 @@ const StyledHeader = styled.header`
   text-align: center;
   font-size: 1.5rem;
   margin-bottom: -4rem;
+  row-gap: 6px;
 `;
 
 const StyledH1 = styled.h1`
   text-align: center;
 `;
+
+const StyledH2 = styled.h2`
+  text-align: start;
+`;
+StyledH1;
 
 const AddButton = styled.button`
   display: flex;
