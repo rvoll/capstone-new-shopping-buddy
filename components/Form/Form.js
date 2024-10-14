@@ -32,6 +32,13 @@ export default function FormToCreateShoppingItem({
             {item.id ? "Edit the " + item.name : "What else do you need?"}
           </h2>
           <StyledLabel htmlFor="name">
+            {/* <Image
+              src={`/icons/asterisk-svgrepo-com.svg`}
+              alt={asterisk}
+              // style={{ objectFit: "contain" }}
+              // width={140}
+              // height={140}
+              /> */}
             {item.id ? "item to be edited*: " : "new item*:"}
           </StyledLabel>
           <StyledInput
@@ -87,12 +94,13 @@ export default function FormToCreateShoppingItem({
             Required fields are followed by <span aria-label="required">*</span>
             .
           </StyledNote>
-          <StyledButton>Submit</StyledButton>
+          <StyledButton>
+            submit
+            {/* {submitLabel} */}
+          </StyledButton>
           <button
             type="button"
-            onClick={() =>
-              onChangeMode(mode === ("add" || "edit") && "default")
-            }
+            onClick={() => onChangeMode(mode === "default")}
           >
             cancel
           </button>
@@ -120,10 +128,6 @@ const StyledNote = styled.p`
 const StyledLabel = styled.label`
   display: flex;
   flex-direction: column;
-  font-size: 0.8rem;
-`;
-
-const RequiredStar = styled.span`
   font-size: 0.8rem;
 `;
 

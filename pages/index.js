@@ -72,7 +72,9 @@ export default function ShoppingItemsList({
             onSubmitItem={onEditItem}
             // categories={categories}
             item={editedItem}
-            submitLabel={"update"}
+            // line bvelow not used in form; could be used to adapt the button text
+            // to the button's function in the respective instance of the form
+            // submitLabel={"update"}
             onChangeMode={handleChangeMode}
             // mode={mode}
           />
