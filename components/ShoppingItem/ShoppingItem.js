@@ -1,4 +1,4 @@
-import styled, { ThemeConsumer } from "styled-components";
+import styled from "styled-components";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -71,7 +71,7 @@ export default function ShoppingItem({
         </>
       ) : (
         <div>
-          <p>delete {shoppingItem.name}?</p>
+          <p>Delete the {shoppingItem.name}?</p>
           <button
             onClick={() => {
               toggleIsToBeDeleted(shoppingItem);

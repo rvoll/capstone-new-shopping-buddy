@@ -2,13 +2,13 @@ import styled from "styled-components";
 import Form from "@/components/Form/Form.js";
 import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
 import { useState } from "react";
-import { categories } from "@/lib/categoriesData";
+// import { categories } from "@/lib/categoriesData";
 import Image from "next/image";
 
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
-  backgroundColor,
-  shoppingItems,
+  // backgroundColor,
+  // shoppingItems,
   onAddItem,
   onEditItem,
   onDeleteItem,
@@ -16,11 +16,11 @@ export default function ShoppingItemsList({
   purchasedItems,
   unpurchasedItems,
 }) {
-  const [mode, setMode] = useState("");
+  const [mode, setMode] = useState("default");
 
   const [editedItem, setEditedItem] = useState({});
 
-  const [isPurchased, setIsPurchased] = useState("");
+  // const [isPurchased, setIsPurchased] = useState("");
 
   function handleChangeMode(mode) {
     setMode(mode);
@@ -48,11 +48,12 @@ export default function ShoppingItemsList({
         </h1>
 
         <Image
-          alt="a raw sketch of a tote bag"
+          alt="drawing of a smiling tote bag"
+          // replace src:
           src={"/images/tote-bag_01.png"}
           style={{ objectFit: "contain" }}
-          width={60}
-          height={60}
+          width={50}
+          height={50}
         />
       </StyledHeader>
       <main>
@@ -66,24 +67,23 @@ export default function ShoppingItemsList({
             <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
           </AddItemContainer>
         )}
-
         {mode === "edit" && (
           <Form
             onSubmitItem={onEditItem}
-            categories={categories}
+            // categories={categories}
             item={editedItem}
             submitLabel={"update"}
             onChangeMode={handleChangeMode}
-            mode={mode}
+            // mode={mode}
           />
         )}
         {mode === "add" && (
           <Form
             onSubmitItem={onAddItem}
-            categories={categories}
-            submitLabel={"submit"}
+            // categories={categories}
+            // submitLabel={"submit"}
             onChangeMode={handleChangeMode}
-            mode={mode}
+            // mode={mode}
           />
         )}
         {mode !== "add" ||
@@ -95,14 +95,22 @@ export default function ShoppingItemsList({
               <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
             </AddItemContainer>
           ))}
-        {unpurchasedItems.length !== 0 && (
+        {unpurchasedItems.length > 0 && (
           <div>
+            {/* FIX OR DELETE THIS:
+            //  */}
+            {/* <StyledH2>
+              {/* {purchasedItems.length === 0 ? "We need " :  */}
+            {/* Your list contains
+              {unpurchasedItems.length + purchasedItems.length} things.
+            </StyledH2> */}
+
             <StyledH2>
               {/* {purchasedItems.length === 0 ? "We need " :  */}
               There&#39;s {/* } */}
               {unpurchasedItems.length} thing
               {unpurchasedItems.length !== 1 ? "s" : ""}{" "}
-              {purchasedItems.length !== 0 ? "left to get" : "on the list"}:
+              {purchasedItems.length !== 0 ? "left to get" : "on your list"}:
             </StyledH2>
             <StyledList>
               {unpurchasedItems.map((shoppingItem) => {
@@ -110,17 +118,17 @@ export default function ShoppingItemsList({
                   <ShoppingItem
                     key={shoppingItem.id}
                     shoppingItem={shoppingItem}
-                    shoppingItemsWithCategoryColor={
-                      shoppingItemsWithCategoryColor
-                    }
-                    backgroundColor={backgroundColor}
+                    // shoppingItemsWithCategoryColor={
+                    //   shoppingItemsWithCategoryColor
+                    // }
+                    // backgroundColor={backgroundColor}
                     onDeleteItem={onDeleteItem}
                     onEditItem={() => setEditedItem(shoppingItem)}
                     onChangeMode={() => handleChangeMode("edit")}
                     onToggleIsPurchased={onToggleIsPurchased}
                     purchasedItems={purchasedItems}
                     unpurchasedItems={unpurchasedItems}
-                    shoppingItems={shoppingItems}
+                    // shoppingItems={shoppingItems}
                   />
                 );
               })}
@@ -141,12 +149,15 @@ export default function ShoppingItemsList({
                     key={shoppingItem.id}
                     shoppingItem={shoppingItem}
                     onDeleteItem={onDeleteItem}
+                    // Andrea suggested to modify the lines below
+                    // but I don't think this makes sense - unless maybe if I would include
+                    // changeMode in the other functions (onEdit, etc.)
                     onEditItem={() => setEditedItem(shoppingItem)}
                     onChangeMode={() => handleChangeMode("edit")}
                     onToggleIsPurchased={onToggleIsPurchased}
                     purchasedItems={purchasedItems}
                     unpurchasedItems={unpurchasedItems}
-                    shoppingItems={shoppingItems}
+                    // shoppingItems={shoppingItems}
                   />
                 );
               })}
