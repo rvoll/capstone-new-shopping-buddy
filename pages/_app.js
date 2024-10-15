@@ -29,34 +29,36 @@ export default function App({ Component, pageProps }) {
   );
 
   function handleAddItem(newItem) {
-    setShoppingItems([
+    setShoppingItems((prevItems) => [
       {
         id: nanoid(),
         isPurchased: false,
         ...newItem,
       },
-      ...shoppingItems,
+      ...prevItems,
     ]);
   }
 
   function handleEditItem(id, newItem) {
-    setShoppingItems(
-      shoppingItems.map((shoppingItem) => {
-        if (shoppingItem.id === id) return { ...shoppingItem, ...newItem };
+    setShoppingItems((prevItems) =>
+      prevItems.map((shoppingItem) => {
+        if (shoppingItem.id === id) {
+          return { ...shoppingItem, ...newItem };
+        }
         return shoppingItem;
       })
     );
   }
 
   function handleDeleteItem(id) {
-    setShoppingItems(
-      shoppingItems.filter((shoppingItem) => shoppingItem.id !== id)
+    setShoppingItems((prevItems) =>
+      prevItems.filter((shoppingItem) => shoppingItem.id !== id)
     );
   }
 
   function handleToggleIsPurchased(id) {
-    setShoppingItems((prevItems) =>
-      prevItems.map((shoppingItem) =>
+    setShoppingItems((shoppingItems) =>
+      shoppingItems.map((shoppingItem) =>
         shoppingItem.id === id
           ? { ...shoppingItem, isPurchased: !shoppingItem.isPurchased }
           : shoppingItem

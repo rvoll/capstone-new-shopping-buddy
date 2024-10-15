@@ -53,15 +53,13 @@ export default function ShoppingItem({
               onChangeMode();
               onEditItem();
             }}
-            data-js="EditModeButton"
+            // data-js="EditModeButton"
           >
             edit
           </EditButton>
           <DeleteButton
-            onClick={() => {
-              toggleIsToBeDeleted();
-            }}
-            data-js="toggleIsToBeDeletedButton"
+            onClick={toggleIsToBeDeleted}
+            // data-js="toggleIsToBeDeletedButton"
           >
             delete
           </DeleteButton>
@@ -73,10 +71,8 @@ export default function ShoppingItem({
         <div>
           <p>Delete the {shoppingItem.name}?</p>
           <button
-            onClick={() => {
-              toggleIsToBeDeleted(shoppingItem);
-            }}
-            data-js="cancelDeleteButton"
+            onClick={toggleIsToBeDeleted}
+            // data-js="cancelDeleteButton"
           >
             Cancel
           </button>
@@ -84,7 +80,6 @@ export default function ShoppingItem({
             onClick={() => {
               onDeleteItem(shoppingItem.id);
             }}
-            data-js="confirmDeleteButton"
           >
             Delete
           </button>

@@ -50,13 +50,16 @@ export default function ShoppingItemsList({
         <Image
           alt="drawing of a smiling tote bag"
           // replace src:
-          src={"/images/tote-bag_01.png"}
+          src={"/images/tote-bag_02.png"}
+          // src={"/images/tote-bag_01.png"}
           style={{ objectFit: "contain" }}
-          width={50}
-          height={50}
+          width={80}
+          height={80}
         />
       </StyledHeader>
       <main>
+        {/* >>> try to use this: */}
+        {/* {mode === "default" && ( */}
         {mode !== "edit" && mode !== "add" && (
           <AddItemContainer>
             {shoppingItemsWithCategoryColor.length === 0 && (
@@ -64,6 +67,13 @@ export default function ShoppingItemsList({
                 Your shopping list is empty. Do you need anything?
               </StyledNoItemsMessage>
             )}
+            {shoppingItemsWithCategoryColor.length !== 0 &&
+              unpurchasedItems.length === 0 && (
+                <StyledAllItemsPurchasedMessage>
+                  You have got everything on your list. Do you need anything
+                  else?
+                </StyledAllItemsPurchasedMessage>
+              )}
             <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
           </AddItemContainer>
         )}
@@ -218,4 +228,14 @@ const StyledNoItemsMessage = styled.p`
   padding: 10px;
   border-radius: 5px;
   position: relative;
+`;
+
+const StyledAllItemsPurchasedMessage = styled.p`
+  display: flex;
+  align-items: start;
+  /* background-color: yellow; */
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+  font-size: 0.8rem;
 `;

@@ -26,7 +26,10 @@ export default function FormToCreateShoppingItem({
 
   return (
     <article>
-      <form onSubmit={handleSubmit} data-js="form">
+      <form
+        onSubmit={handleSubmit}
+        // data-js="form"
+      >
         <StyledFieldset>
           <h2>
             {item.id ? "Edit the " + item.name : "What else do you need?"}
@@ -59,19 +62,20 @@ export default function FormToCreateShoppingItem({
           />
           <StyledLabel htmlFor="category">category*:</StyledLabel>
           <select
-            key="category"
             id="category"
             name="category"
-            data-js="category"
+            // data-js="category"
             required
             defaultValue={
               // I have replaced the line below with "item.id" because it didn't work anymore after the suggested refactoring;
               // probably because I had undone handing down the categories(?)
               // mode === "edit"
-              item.id
-                ? item.category
-                : // replace "" by "default" or undo "" > "default" elsewhere
-                  ""
+              // item.id
+              //   ?
+              item.category || ""
+              // :
+              // replace "" by "default" or undo "" > "default" elsewhere
+              // ""
             }
           >
             <option value="">please select a category</option>
