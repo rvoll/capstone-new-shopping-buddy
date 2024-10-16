@@ -3,8 +3,7 @@ import { categories } from "@/lib/categoriesData";
 
 export default function FormToCreateShoppingItem({
   onSubmitItem,
-  // submitLabel,
-  // categories,
+
   item = {},
   onChangeMode,
   mode,
@@ -26,22 +25,12 @@ export default function FormToCreateShoppingItem({
 
   return (
     <article>
-      <form
-        onSubmit={handleSubmit}
-        // data-js="form"
-      >
+      <form onSubmit={handleSubmit}>
         <StyledFieldset>
           <h2>
             {item.id ? "Edit the " + item.name : "What else do you need?"}
           </h2>
           <StyledLabel htmlFor="name">
-            {/* <Image
-              src={`/icons/asterisk-svgrepo-com.svg`}
-              alt={asterisk}
-              // style={{ objectFit: "contain" }}
-              // width={140}
-              // height={140}
-              /> */}
             {item.id ? "item to be edited*: " : "new item*:"}
           </StyledLabel>
           <StyledInput
@@ -64,19 +53,8 @@ export default function FormToCreateShoppingItem({
           <select
             id="category"
             name="category"
-            // data-js="category"
             required
-            defaultValue={
-              // I have replaced the line below with "item.id" because it didn't work anymore after the suggested refactoring;
-              // probably because I had undone handing down the categories(?)
-              // mode === "edit"
-              // item.id
-              //   ?
-              item.category || ""
-              // :
-              // replace "" by "default" or undo "" > "default" elsewhere
-              // ""
-            }
+            defaultValue={item.category || ""}
           >
             <option value="">please select a category</option>
             {categories.map((category) => (
@@ -98,10 +76,7 @@ export default function FormToCreateShoppingItem({
             Required fields are followed by <span aria-label="required">*</span>
             .
           </StyledNote>
-          <StyledButton>
-            submit
-            {/* {submitLabel} */}
-          </StyledButton>
+          <StyledButton>submit</StyledButton>
           <button
             type="button"
             onClick={() => onChangeMode(mode === "default")}

@@ -71,7 +71,6 @@ export default function App({ Component, pageProps }) {
       <GlobalStyle />
       <Component
         {...pageProps}
-        // shoppingItems={shoppingItems}
         categories={categories}
         shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}

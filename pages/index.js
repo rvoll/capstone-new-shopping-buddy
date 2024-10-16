@@ -2,13 +2,10 @@ import styled from "styled-components";
 import Form from "@/components/Form/Form.js";
 import ShoppingItem from "@/components/ShoppingItem/ShoppingItem.js";
 import { useState } from "react";
-// import { categories } from "@/lib/categoriesData";
 import Image from "next/image";
 
 export default function ShoppingItemsList({
   shoppingItemsWithCategoryColor,
-  // backgroundColor,
-  // shoppingItems,
   onAddItem,
   onEditItem,
   onDeleteItem,
@@ -19,8 +16,6 @@ export default function ShoppingItemsList({
   const [mode, setMode] = useState("default");
 
   const [editedItem, setEditedItem] = useState({});
-
-  // const [isPurchased, setIsPurchased] = useState("");
 
   function handleChangeMode(mode) {
     setMode(mode);
@@ -49,17 +44,13 @@ export default function ShoppingItemsList({
 
         <Image
           alt="drawing of a smiling tote bag"
-          // replace src:
           src={"/images/tote-bag_02.png"}
-          // src={"/images/tote-bag_01.png"}
           style={{ objectFit: "contain" }}
           width={80}
           height={80}
         />
       </StyledHeader>
       <main>
-        {/* >>> try to use this: */}
-        {/* {mode === "default" && ( */}
         {mode !== "edit" && mode !== "add" && (
           <AddItemContainer>
             {shoppingItemsWithCategoryColor.length === 0 && (
@@ -80,23 +71,12 @@ export default function ShoppingItemsList({
         {mode === "edit" && (
           <Form
             onSubmitItem={onEditItem}
-            // categories={categories}
             item={editedItem}
-            // line bvelow not used in form; could be used to adapt the button text
-            // to the button's function in the respective instance of the form
-            // submitLabel={"update"}
             onChangeMode={handleChangeMode}
-            // mode={mode}
           />
         )}
         {mode === "add" && (
-          <Form
-            onSubmitItem={onAddItem}
-            // categories={categories}
-            // submitLabel={"submit"}
-            onChangeMode={handleChangeMode}
-            // mode={mode}
-          />
+          <Form onSubmitItem={onAddItem} onChangeMode={handleChangeMode} />
         )}
         {mode !== "add" ||
           (!mode && (
@@ -109,16 +89,7 @@ export default function ShoppingItemsList({
           ))}
         {unpurchasedItems.length > 0 && (
           <div>
-            {/* FIX OR DELETE THIS:
-            //  */}
-            {/* <StyledH2>
-              {/* {purchasedItems.length === 0 ? "We need " :  */}
-            {/* Your list contains
-              {unpurchasedItems.length + purchasedItems.length} things.
-            </StyledH2> */}
-
             <StyledH2>
-              {/* {purchasedItems.length === 0 ? "We need " :  */}
               There&#39;s {/* } */}
               {unpurchasedItems.length} thing
               {unpurchasedItems.length !== 1 ? "s" : ""}{" "}
@@ -130,17 +101,12 @@ export default function ShoppingItemsList({
                   <ShoppingItem
                     key={shoppingItem.id}
                     shoppingItem={shoppingItem}
-                    // shoppingItemsWithCategoryColor={
-                    //   shoppingItemsWithCategoryColor
-                    // }
-                    // backgroundColor={backgroundColor}
                     onDeleteItem={onDeleteItem}
                     onEditItem={() => setEditedItem(shoppingItem)}
                     onChangeMode={() => handleChangeMode("edit")}
                     onToggleIsPurchased={onToggleIsPurchased}
                     purchasedItems={purchasedItems}
                     unpurchasedItems={unpurchasedItems}
-                    // shoppingItems={shoppingItems}
                   />
                 );
               })}
@@ -161,15 +127,11 @@ export default function ShoppingItemsList({
                     key={shoppingItem.id}
                     shoppingItem={shoppingItem}
                     onDeleteItem={onDeleteItem}
-                    // Andrea suggested to modify the lines below
-                    // but I don't think this makes sense - unless maybe if I would include
-                    // changeMode in the other functions (onEdit, etc.)
                     onEditItem={() => setEditedItem(shoppingItem)}
                     onChangeMode={() => handleChangeMode("edit")}
                     onToggleIsPurchased={onToggleIsPurchased}
                     purchasedItems={purchasedItems}
                     unpurchasedItems={unpurchasedItems}
-                    // shoppingItems={shoppingItems}
                   />
                 );
               })}
@@ -233,7 +195,6 @@ const StyledNoItemsMessage = styled.p`
 const StyledAllItemsPurchasedMessage = styled.p`
   display: flex;
   align-items: start;
-  /* background-color: yellow; */
   padding: 10px;
   border-radius: 5px;
   position: relative;

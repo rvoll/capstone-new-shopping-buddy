@@ -53,16 +53,10 @@ export default function ShoppingItem({
               onChangeMode();
               onEditItem();
             }}
-            // data-js="EditModeButton"
           >
             edit
           </EditButton>
-          <DeleteButton
-            onClick={toggleIsToBeDeleted}
-            // data-js="toggleIsToBeDeletedButton"
-          >
-            delete
-          </DeleteButton>
+          <DeleteButton onClick={toggleIsToBeDeleted}>delete</DeleteButton>
           <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
             Details
           </StyledLink>
@@ -70,12 +64,7 @@ export default function ShoppingItem({
       ) : (
         <div>
           <p>Delete the {shoppingItem.name}?</p>
-          <button
-            onClick={toggleIsToBeDeleted}
-            // data-js="cancelDeleteButton"
-          >
-            Cancel
-          </button>
+          <button onClick={toggleIsToBeDeleted}>Cancel</button>
           <button
             onClick={() => {
               onDeleteItem(shoppingItem.id);
