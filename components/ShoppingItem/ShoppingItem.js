@@ -5,6 +5,7 @@ import { useState } from "react";
 export default function ShoppingItem({
   onDeleteItem,
   shoppingItem,
+  onEditItem,
   onChangeMode,
   onToggleIsPurchased,
 }) {
@@ -47,6 +48,7 @@ export default function ShoppingItem({
           <EditButton
             onClick={() => {
               onChangeMode();
+              onEditItem();
             }}
           >
             edit

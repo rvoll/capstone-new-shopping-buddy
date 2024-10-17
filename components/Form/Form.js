@@ -22,6 +22,10 @@ export default function FormToCreateShoppingItem({
     onChangeMode("default");
   }
 
+  // HIER LIEGT DER FEHLER: die ist undefined; aber warum?
+  console.log("item.id: ", item.id);
+  //
+
   return (
     <article>
       <form onSubmit={handleSubmit}>
