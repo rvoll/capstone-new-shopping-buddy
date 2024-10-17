@@ -6,7 +6,6 @@ export default function FormToCreateShoppingItem({
 
   item = {},
   onChangeMode,
-  mode,
 }) {
   function handleSubmit(event) {
     event.preventDefault();
@@ -67,6 +66,7 @@ export default function FormToCreateShoppingItem({
 
           <StyledLabel htmlFor="comment">comment:</StyledLabel>
           <StyledInput
+            id="comment"
             name="comment"
             type="text"
             defaultValue={item.comment || ""}
@@ -77,10 +77,7 @@ export default function FormToCreateShoppingItem({
             .
           </StyledNote>
           <StyledButton>submit</StyledButton>
-          <button
-            type="button"
-            onClick={() => onChangeMode(mode === "default")}
-          >
+          <button type="button" onClick={() => onChangeMode("default")}>
             cancel
           </button>
         </StyledFieldset>

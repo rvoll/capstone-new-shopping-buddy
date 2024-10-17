@@ -5,7 +5,6 @@ import { useState } from "react";
 import Image from "next/image";
 
 export default function ShoppingItemsList({
-  shoppingItemsWithCategoryColor,
   onAddItem,
   onEditItem,
   onDeleteItem,
@@ -20,6 +19,8 @@ export default function ShoppingItemsList({
   function handleChangeMode(mode) {
     setMode(mode);
   }
+
+  console.log("mode: ", mode);
 
   return (
     <>
@@ -51,20 +52,24 @@ export default function ShoppingItemsList({
         />
       </StyledHeader>
       <main>
-        {mode !== "edit" && mode !== "add" && (
+        {mode === "default" && (
           <AddItemContainer>
-            {shoppingItemsWithCategoryColor.length === 0 && (
-              <StyledNoItemsMessage>
-                Your shopping list is empty. Do you need anything?
-              </StyledNoItemsMessage>
-            )}
-            {shoppingItemsWithCategoryColor.length !== 0 &&
-              unpurchasedItems.length === 0 && (
+            {unpurchasedItems.length === 0 ? (
+              purchasedItems.length === 0 ? (
+                <StyledNoItemsMessage>
+                  Your shopping list is empty. Do you need anything?
+                </StyledNoItemsMessage>
+              ) : (
                 <StyledAllItemsPurchasedMessage>
                   You have got everything on your list. Do you need anything
                   else?
                 </StyledAllItemsPurchasedMessage>
-              )}
+              )
+            ) : (
+              <StyledNoItemsMessage>
+                ...need anything else?
+              </StyledNoItemsMessage>
+            )}
             <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
           </AddItemContainer>
         )}
@@ -78,15 +83,6 @@ export default function ShoppingItemsList({
         {mode === "add" && (
           <Form onSubmitItem={onAddItem} onChangeMode={handleChangeMode} />
         )}
-        {mode !== "add" ||
-          (!mode && (
-            <AddItemContainer>
-              <>
-                <p>...need anything else?</p>
-              </>
-              <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
-            </AddItemContainer>
-          ))}
         {unpurchasedItems.length > 0 && (
           <div>
             <StyledH2>
@@ -113,7 +109,6 @@ export default function ShoppingItemsList({
             </StyledList>
           </div>
         )}
-
         {purchasedItems.length > 0 && (
           <div>
             <StyledH2>
@@ -130,8 +125,6 @@ export default function ShoppingItemsList({
                     onEditItem={() => setEditedItem(shoppingItem)}
                     onChangeMode={() => handleChangeMode("edit")}
                     onToggleIsPurchased={onToggleIsPurchased}
-                    purchasedItems={purchasedItems}
-                    unpurchasedItems={unpurchasedItems}
                   />
                 );
               })}

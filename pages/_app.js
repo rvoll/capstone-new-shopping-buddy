@@ -57,11 +57,11 @@ export default function App({ Component, pageProps }) {
   }
 
   function handleToggleIsPurchased(id) {
-    setShoppingItems((shoppingItems) =>
-      shoppingItems.map((shoppingItem) =>
-        shoppingItem.id === id
-          ? { ...shoppingItem, isPurchased: !shoppingItem.isPurchased }
-          : shoppingItem
+    setShoppingItems((prevShoppingItems) =>
+      prevShoppingItems.map((prevShoppingItem) =>
+        prevShoppingItem.id === id
+          ? { ...prevShoppingItem, isPurchased: !prevShoppingItem.isPurchased }
+          : prevShoppingItem
       )
     );
   }
@@ -72,7 +72,6 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         categories={categories}
-        shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}
         onEditItem={handleEditItem}
         onDeleteItem={handleDeleteItem}

@@ -5,10 +5,8 @@ import { useState } from "react";
 export default function ShoppingItem({
   onDeleteItem,
   shoppingItem,
-  onEditItem,
   onChangeMode,
   onToggleIsPurchased,
-  purchasedItems,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
 
@@ -34,9 +32,7 @@ export default function ShoppingItem({
                   onToggleIsPurchased(shoppingItem.id);
                 }}
               />
-              <label htmlFor={`checkbox-${shoppingItem.id}`}>
-                {purchasedItems.includes(shoppingItem.id) ? "purchased" : ""}
-              </label>
+              <label htmlFor={`checkbox-${shoppingItem.id}`}></label>
             </form>
             <span
               style={
@@ -51,7 +47,6 @@ export default function ShoppingItem({
           <EditButton
             onClick={() => {
               onChangeMode();
-              onEditItem();
             }}
           >
             edit
