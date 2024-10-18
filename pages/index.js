@@ -11,7 +11,6 @@ export default function ShoppingItemsList({
   onToggleIsPurchased,
   purchasedItems,
   unpurchasedItems,
-  shoppingItemsWithCategoryColor,
 }) {
   const [mode, setMode] = useState("default");
 
@@ -120,9 +119,6 @@ export default function ShoppingItemsList({
               {purchasedItems.map((shoppingItem) => {
                 return (
                   <ShoppingItem
-                    shoppingItemsWithCategoryColor={
-                      shoppingItemsWithCategoryColor
-                    }
                     key={shoppingItem.id}
                     shoppingItem={shoppingItem}
                     onDeleteItem={onDeleteItem}
