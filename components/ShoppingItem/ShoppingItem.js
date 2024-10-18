@@ -3,9 +3,9 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function ShoppingItem({
-  onDeleteItem,
   shoppingItem,
   onEditItem,
+  onDeleteItem,
   onChangeMode,
   onToggleIsPurchased,
 }) {

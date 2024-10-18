@@ -72,11 +72,12 @@ export default function App({ Component, pageProps }) {
       <Component
         {...pageProps}
         categories={categories}
+        purchasedItems={purchasedItems}
+        unpurchasedItems={unpurchasedItems}
+        shoppingItemsWithCategoryColor={shoppingItemsWithCategoryColor}
         onAddItem={handleAddItem}
         onEditItem={handleEditItem}
         onDeleteItem={handleDeleteItem}
-        purchasedItems={purchasedItems}
-        unpurchasedItems={unpurchasedItems}
         onToggleIsPurchased={handleToggleIsPurchased}
       />
     </>
