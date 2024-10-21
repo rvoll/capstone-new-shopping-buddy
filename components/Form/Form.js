@@ -1,11 +1,12 @@
 import styled from "styled-components";
-import { categories } from "@/lib/categoriesData";
 
 export default function FormToCreateShoppingItem({
   onSubmitItem,
-
+  submitLabel,
+  categories,
   item = {},
   onChangeMode,
+  mode,
 }) {
   function handleSubmit(event) {
     event.preventDefault();
@@ -19,65 +20,72 @@ export default function FormToCreateShoppingItem({
     } else {
       onSubmitItem(newItem);
     }
-    onChangeMode("default");
+    onChangeMode("");
   }
 
   return (
     <article>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-js="form">
         <StyledFieldset>
           <h2>
-            {item.id ? "Edit the " + item.name : "What else do you need?"}
+            {item.id ? "Edit the " + item.name : "Add an item to the list"}:
           </h2>
-          <StyledLabel htmlFor="name">
-            {item.id ? "item to be edited*: " : "new item*:"}
+          <StyledLabel>
+            {item.id ? "item to be edited*: " : "new shopping item*:"}
+            <StyledInput
+              name="name"
+              type="text"
+              required
+              placeholder="e.g., salt"
+              defaultValue={item.name || ""}
+            />
           </StyledLabel>
-          <StyledInput
-            id="name"
-            name="name"
-            type="text"
-            required
-            placeholder="e.g., salt"
-            defaultValue={item.name || ""}
-          />
-          <StyledLabel htmlFor="quantity">quantity*:</StyledLabel>
-          <StyledInput
-            id="quantity"
-            name="quantity"
-            type="number"
-            required
-            defaultValue={item.quantity || ""}
-          />
-          <StyledLabel htmlFor="category">category*:</StyledLabel>
-          <select
-            id="category"
-            name="category"
-            required
-            defaultValue={item.category || ""}
-          >
-            <option value="">please select a category</option>
-            {categories.map((category) => (
-              <option key={category.name} value={category.name}>
-                {category.name}
-              </option>
-            ))}
-            ;
-          </select>
+          <StyledLabel>
+            number*:
+            <StyledInput
+              name="quantity"
+              type="number"
+              required
+              defaultValue={item.quantity || ""}
+            />
+          </StyledLabel>
 
-          <StyledLabel htmlFor="comment">comment:</StyledLabel>
-          <StyledInput
-            id="comment"
-            name="comment"
-            type="text"
-            defaultValue={item.comment || ""}
-            placeholder="preferably sea salt"
-          />
+          <StyledLabel>
+            category*:
+            <select
+              key="category"
+              name="category"
+              data-js="category"
+              required
+              defaultValue={mode === "edit" ? item.category : ""}
+            >
+              <option value="">please select a category</option>
+              {categories.map((category) => (
+                <option key={category.name} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+              ;
+            </select>
+          </StyledLabel>
+          <StyledLabel>
+            comment:
+            <StyledInput
+              name="comment"
+              type="text"
+              defaultValue={item.comment || ""}
+              placeholder="Enter comments here..."
+            />
+          </StyledLabel>
           <StyledNote>
             Required fields are followed by <span aria-label="required">*</span>
             .
           </StyledNote>
-          <StyledButton>submit</StyledButton>
-          <button type="button" onClick={() => onChangeMode("default")}>
+          <StyledButton>Submit</StyledButton>
+          <button
+            type="button"
+            onClick={() => onChangeMode(mode === ("add" || "edit") && "")}
+          >
             cancel
           </button>
         </StyledFieldset>
@@ -104,6 +112,10 @@ const StyledNote = styled.p`
 const StyledLabel = styled.label`
   display: flex;
   flex-direction: column;
+  font-size: 0.8rem;
+`;
+
+const RequiredStar = styled.span`
   font-size: 0.8rem;
 `;
 

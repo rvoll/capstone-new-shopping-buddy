@@ -3,69 +3,72 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function ShoppingItem({
+  id,
+  onDeleteItem,
   shoppingItem,
   onEditItem,
-  onDeleteItem,
   onChangeMode,
-  onToggleIsPurchased,
+  mode,
 }) {
   const [isToBeDeleted, setIsToBeDeleted] = useState(false);
+
+  // const [isToBeEdited, setIsToBeEdited] = useState(false);
 
   function toggleIsToBeDeleted() {
     setIsToBeDeleted(!isToBeDeleted);
   }
 
+  // function toggleIsToBeEdited() {
+  //   setIsToBeEdited(!isToBeEdited);
+  // }
+
   return (
     <ListItem
+      key={shoppingItem.id}
       $backgroundColor={shoppingItem.backgroundColor}
-      $isPurchased={shoppingItem.isPurchased}
     >
       <CategoryBox>{shoppingItem.category}</CategoryBox>
+
       {!isToBeDeleted ? (
         <>
-          <StyledTickboxNameNumberContainer>
-            <form>
-              <input
-                type="checkbox"
-                id={`checkbox-${shoppingItem.id}`}
-                checked={shoppingItem.isPurchased}
-                onChange={() => {
-                  onToggleIsPurchased(shoppingItem.id);
-                }}
-              />
-              <label htmlFor={`checkbox-${shoppingItem.id}`}></label>
-            </form>
-            <span
-              style={
-                shoppingItem.isPurchased
-                  ? { textDecoration: "line-through", color: "#404040" }
-                  : undefined
-              }
-            >
-              {shoppingItem.name}: {shoppingItem.quantity}
-            </span>
-          </StyledTickboxNameNumberContainer>
+          {shoppingItem.name}: {shoppingItem.quantity}
           <EditButton
             onClick={() => {
               onChangeMode();
               onEditItem();
             }}
+            data-js="EditModeButton"
           >
             edit
           </EditButton>
-          <DeleteButton onClick={toggleIsToBeDeleted}>delete</DeleteButton>
+          <DeleteButton
+            onClick={() => {
+              toggleIsToBeDeleted(shoppingItem);
+            }}
+            data-js="toggleIsToBeDeletedButton"
+          >
+            delete
+          </DeleteButton>
           <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
             Details
           </StyledLink>
         </>
       ) : (
         <div>
-          <p>Delete the {shoppingItem.name}?</p>
-          <button onClick={toggleIsToBeDeleted}>Cancel</button>
+          <p>delete {shoppingItem.name}?</p>
+          <button
+            onClick={() => {
+              toggleIsToBeDeleted(shoppingItem);
+            }}
+            data-js="cancelDeleteButton"
+          >
+            Cancel
+          </button>
           <button
             onClick={() => {
               onDeleteItem(shoppingItem.id);
             }}
+            data-js="confirmDeleteButton"
           >
             Delete
           </button>
@@ -87,15 +90,6 @@ const EditButton = styled.button`
   position: absolute;
   bottom: 10%;
   right: 10rem;
-`;
-
-const StyledTickboxNameNumberContainer = styled.div`
-  display: flex;
-  position: start;
-  bottom: 40%;
-  padding-left: 10%;
-  gap: 1rem;
-  justify-content: space-between;
 `;
 
 const DeletionConfirmation = styled.article`

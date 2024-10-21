@@ -9,10 +9,6 @@ export default function ShoppingItemDetails({
   const router = useRouter();
   const { id } = router.query;
 
-  if (!shoppingItemsWithCategoryColor || !id) {
-    return <p>Loading...</p>;
-  }
-
   const currentShoppingItem = shoppingItemsWithCategoryColor.find(
     (item) => item.id === id
   );
