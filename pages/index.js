@@ -20,8 +20,6 @@ export default function ShoppingItemsList({
     setMode(mode);
   }
 
-  console.log("mode: ", mode);
-
   return (
     <>
       <StyledHeader>
