@@ -1,11 +1,14 @@
 import GlobalStyle from "../styles";
 import { shoppingItems as initialShoppingItems } from "../lib/shoppingItemsData.js";
 import { categories } from "../lib/categoriesData.js";
-import { useState } from "react";
+import useLocalStorageState from "use-local-storage-state";
 import { nanoid } from "nanoid";
 
 export default function App({ Component, pageProps }) {
-  const [shoppingItems, setShoppingItems] = useState(initialShoppingItems);
+  const [shoppingItems, setShoppingItems] = useLocalStorageState(
+    "shoppingItems",
+    { defaultValue: initialShoppingItems }
+  );
 
   const shoppingItemsWithCategoryColor = shoppingItems.map((shoppingItem) => {
     const category = categories.find(
