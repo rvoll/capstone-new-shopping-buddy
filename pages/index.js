@@ -45,10 +45,11 @@ export default function ShoppingItemsList({
           alt="drawing of a smiling tote bag"
           src={"/images/tote-bag_02.png"}
           style={{ objectFit: "contain" }}
-          width={80}
-          height={80}
+          width={60}
+          height={60}
         />
       </StyledHeader>
+
       <main>
         {mode === "default" && (
           <AddItemContainer>
@@ -139,11 +140,15 @@ const AddItemContainer = styled.div`
 `;
 
 const StyledHeader = styled.header`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   padding: 10px;
-  text-align: center;
   font-size: 1.5rem;
   margin-bottom: -4rem;
-  row-gap: 6px;
+  /* row-gap: 6px; */
+  gap: 10px;
 `;
 
 const StyledH1 = styled.h1`

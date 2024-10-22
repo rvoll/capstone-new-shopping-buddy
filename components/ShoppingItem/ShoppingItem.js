@@ -45,18 +45,20 @@ export default function ShoppingItem({
               {shoppingItem.name}: {shoppingItem.quantity}
             </span>
           </StyledTickboxNameNumberContainer>
-          <EditButton
-            onClick={() => {
-              onChangeMode();
-              onEditItem();
-            }}
-          >
-            edit
-          </EditButton>
-          <DeleteButton onClick={toggleIsToBeDeleted}>delete</DeleteButton>
-          <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
-            Details
-          </StyledLink>
+          <StyledButtonContainer>
+            <EditButton
+              onClick={() => {
+                onChangeMode();
+                onEditItem();
+              }}
+            >
+              edit
+            </EditButton>
+            <DeleteButton onClick={toggleIsToBeDeleted}>delete</DeleteButton>
+            <StyledLink href={`/shoppingItems/${shoppingItem.id}`}>
+              Details →
+            </StyledLink>
+          </StyledButtonContainer>
         </>
       ) : (
         <div>
@@ -75,27 +77,76 @@ export default function ShoppingItem({
   );
 }
 
-const DeleteButton = styled.button`
+const ListItem = styled.li`
   display: flex;
-  position: absolute;
-  bottom: 10%;
-  right: 5rem;
+  flex-direction: column;
+  height: 5rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${(props) => props.$backgroundColor};
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+  gap: 0.2rem;
 `;
 
-const EditButton = styled.button`
-  display: flex;
-  position: absolute;
-  bottom: 10%;
-  right: 10rem;
+const CategoryBox = styled.span`
+  margin-left: auto;
+  align-self: flex-start;
+  /* display: flex; */
+  /* justify-content: flex-end; */
+  /* position: absolute; */
+  /* top: 5px;
+  right: 5px; */
+  padding: 2px 5px;
+  background-color: #eee;
+  color: #333;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: normal;
 `;
 
 const StyledTickboxNameNumberContainer = styled.div`
   display: flex;
-  position: start;
-  bottom: 40%;
-  padding-left: 10%;
-  gap: 1rem;
+  /* position: start;  */
+  margin-right: auto;
+  align-self: flex-start;
+  /* align-items: start; */
+  /* bottom: 40%; */
+  /* padding-left: 10%; */
+  gap: 0.5rem;
   justify-content: space-between;
+`;
+
+const StyledButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1rem;
+`;
+
+const DeleteButton = styled.button`
+  /* display: flex;
+  position: absolute; */
+  /* bottom: 10%;
+  right: 5rem; */
+`;
+
+const EditButton = styled.button`
+  /* display: flex;
+  position: absolute; */
+  /* bottom: 10%;
+  right: 10rem; */
+`;
+
+const StyledLink = styled(Link)`
+  /* display: block; */
+  /* margin-top: 30px;
+  text-decoration: none; */
+  font-size: 12px;
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const DeletionConfirmation = styled.article`
@@ -107,37 +158,4 @@ const DeletionConfirmation = styled.article`
   margin-left: 6rem;
   border-radius: 5px;
   position: absolute;
-`;
-
-const ListItem = styled.li`
-  display: flex;
-  height: 5rem;
-  justify-content: space-between;
-  align-items: center;
-  background-color: ${(props) => props.$backgroundColor};
-  padding: 10px;
-  border-radius: 5px;
-  position: relative;
-`;
-
-const StyledLink = styled(Link)`
-  display: block;
-  margin-top: 20px;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const CategoryBox = styled.span`
-  display: flex;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  padding: 2px 5px;
-  background-color: #eee;
-  color: #333;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: normal;
 `;
