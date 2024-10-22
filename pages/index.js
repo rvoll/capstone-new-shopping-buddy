@@ -40,7 +40,6 @@ export default function ShoppingItemsList({
             ...baggin&#39; it.
           </span>
         </h1>
-
         <Image
           alt="drawing of a smiling tote bag"
           src={"/images/tote-bag_02.png"}

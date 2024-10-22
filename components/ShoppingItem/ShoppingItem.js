@@ -61,17 +61,21 @@ export default function ShoppingItem({
           </StyledButtonContainer>
         </>
       ) : (
-        <div>
-          <p>Delete the {shoppingItem.name}?</p>
-          <button onClick={toggleIsToBeDeleted}>Cancel</button>
-          <button
-            onClick={() => {
-              onDeleteItem(shoppingItem.id);
-            }}
-          >
-            Delete
-          </button>
-        </div>
+        <DeletionConfirmation>
+          <StyledDeletionInquiry>
+            Delete the {shoppingItem.name}?
+          </StyledDeletionInquiry>
+          <StyledButtonContainer>
+            <button onClick={toggleIsToBeDeleted}>Cancel</button>
+            <button
+              onClick={() => {
+                onDeleteItem(shoppingItem.id);
+              }}
+            >
+              Delete
+            </button>
+          </StyledButtonContainer>
+        </DeletionConfirmation>
       )}
     </ListItem>
   );
@@ -151,11 +155,21 @@ const StyledLink = styled(Link)`
 
 const DeletionConfirmation = styled.article`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  align-items: flex-start;
   background-color: ${(props) => props.$backgroundColor};
-  padding: 10px;
-  margin-left: 6rem;
+  /* padding: 10px; */
+  /* margin-left: 6rem; */
   border-radius: 5px;
   position: absolute;
+  gap: 0.2rem;
+`;
+
+const StyledDeletionInquiry = styled.div`
+  margin-top: 20px;
+  align-self: flex-start;
+  /* align-items: start; */
+  /* bottom: 40%; */
+  /* padding-left: 10%; */
 `;
