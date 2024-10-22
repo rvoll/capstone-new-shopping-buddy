@@ -28,10 +28,10 @@ export default function ShoppingItemDetails({
           $backgroundColor={currentShoppingItem.backgroundColor}
         >
           <article>
-            <h2>{currentShoppingItem.name}</h2>
             <CategoryBoxDetails>
               {currentShoppingItem.category}
             </CategoryBoxDetails>
+            <h2>{currentShoppingItem.name}</h2>
             <h3>quantity: {currentShoppingItem.quantity}</h3>
 
             <Image
@@ -55,11 +55,11 @@ export default function ShoppingItemDetails({
 }
 
 const ShoppingItemDetailsContainer = styled.article`
-  /* display: flex;
+  display: flex;
   position: relative;
   flex-direction: column;
-  align-items: start; */
-  display: grid;
+  align-items: start;
+  /* display: grid;
   grid-template-columns: 0.2fr 1.6fr 0.4fr;
   grid-template-rows: 0.2fr 0.2fr 3fr 0.4fr 0.6fr;
   grid-template-areas:
@@ -67,31 +67,37 @@ const ShoppingItemDetailsContainer = styled.article`
     "itemname itemname quantity"
     "image image image"
     "subheading subheading subheading"
-    "comment comment comment";
-
+    "comment comment comment"; */
   background-color: ${(props) => props.$backgroundColor || "#c8c5ba"};
   padding: 20px 40px;
   border-radius: 8px;
 `;
 
-const CategoryBoxDetails = styled.span`
-  /* display: flex;
-  position: absolute; */
-  /* top: 16%;
-  right: 20px; */
-  padding: 8px 16px;
-  position: category;
+// const StyledArticle = styled.article`
 
+// `
+
+const CategoryBoxDetails = styled.span`
+  display: flex;
+  position: end;
+  top: 16%;
+  right: 20px;
+  padding: 8px 16px;
   background-color: #c8c5ba;
   color: black;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: normal;
 `;
+
+// const StyledH2 = styled.h2`
+//   position: itemname;
+// `;
 
 const StyledImage = styled.image`
   width: 200;
   height: auto;
+  position: image;
   /* grid-area: image; */
 `;
 
