@@ -12,7 +12,9 @@ export default function FormToCreateShoppingItem({
     const formData = new FormData(event.target);
     const newItem = Object.fromEntries(formData);
     newItem.quantity = Number(newItem.quantity);
-    newItem.imageUrl = "placeholder_1.png";
+    {
+      !item.id && (newItem.imageUrl = "placeholder_free.png");
+    }
 
     if (item.id) {
       onSubmitItem(item.id, newItem);
