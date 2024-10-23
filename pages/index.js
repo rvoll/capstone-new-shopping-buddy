@@ -64,9 +64,10 @@ export default function ShoppingItemsList({
                 </StyledAllItemsPurchasedMessage>
               )
             ) : (
-              <StyledNoItemsMessage>
-                ...need anything else?
-              </StyledNoItemsMessage>
+              // <StyledNoItemsMessage>
+              //   ...need anything else?
+              // </StyledNoItemsMessage>
+              ""
             )}
             <AddButton onClick={() => handleChangeMode("add")}>+</AddButton>
           </AddItemContainer>
@@ -135,6 +136,11 @@ export default function ShoppingItemsList({
 }
 
 const AddItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   gap: 10px;
 `;
 
@@ -160,7 +166,6 @@ const StyledH2 = styled.h2`
 StyledH1;
 
 const AddButton = styled.button`
-  display: flex;
   margin-left: 0.6rem;
   margin-top: 1rem;
   padding-left: 0.5rem;
